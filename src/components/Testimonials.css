@@ -1,0 +1,70 @@
+/* Testimonials Section Styling */
+.testimonials-section {
+  padding: 60px 0;
+  background: #FF6347;
+}
+
+.testimonials-section h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2f4f4f;
+  padding-top: 80px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #F5ECD3 !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #AD343E !important;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Testimonial Author Section */
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.testimonial-image {
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the area */
+  border: 2px solid #AD343E; /* Add a border */
+  margin-right: 15px; /* Spacing between image and text */
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-info strong {
+  font-size: 1rem;
+  color: #2f4f4f; /* Dark slate gray */
+}
+
+.author-info cite {
+  font-size: 0.9rem;
+  color: #777;
+}

@@ -1,0 +1,50 @@
+/* Custom Navbar Background Color */
+.custom-navbar {
+  background-color: rgba(47, 79, 79, 1) !important; 
+  padding-left: 20px; 
+  padding-right: 20px; 
+}
+
+/* Logo Styling */
+.navbar-logo {
+  height: 60px;
+  width: auto;
+}
+
+/* Navbar Links Styling */
+.navbar-nav .nav-link {
+  color: rgba(255, 228, 196, 1) !important; /* Light text color */
+  margin: 0 15px; /* Spacing between links */
+  font-size: 16px; /* Font size */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.navbar-nav .nav-link:hover {
+  color: rgba(255, 255, 255, 1) !important; /* Brighter text on hover */
+}
+
+/* Center the Middle Links */
+.navbar-nav {
+  margin-left: auto; /* Push links to the center */
+  margin-right: auto; /* Push links to the center */
+}
+
+/* Login Button Styling */
+.btn-outline-light {
+  display: flex;
+  width: 136px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 118px !important;
+  border: 1.5px solid #FFE4C4;
+  background: #FF6347 !important;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Slight background on hover */
+  border-color: rgba(255, 255, 255, 1); /* Brighter border on hover */
+  color: rgba(255, 255, 255, 1); /* Brighter text on hover */
+}
