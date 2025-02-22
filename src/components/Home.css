@@ -6,15 +6,16 @@
 
 /* Hero Section with Background Image */
 .hero-section {
-  background-image: url('../assets/home_background_image.png'); 
+  background-image: url('../assets/Home3.jpeg'); 
   background-size: cover;
   background-position: center; 
-  height: 100vh; 
+  height: 90vh; 
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: start; /* Align content to the left */
+  text-align: left; /* Align text to the left */
   position: relative;
+  padding-left: 20px; /* Add padding to the left */
 }
 
 /* Overlay for better readability */
@@ -25,13 +26,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2); /* Light overlay */
+  background-color: rgba(0, 0, 0, 0.3); /* Light overlay */
 }
 
 /* Hero Content */
 .hero-content {
-  color: #fff;
-  text-align: center;
+  color: #111;
+  text-align: left; /* Align text to the left */
   font-family: "Playfair Display";
   font-size: 70.613px;
   font-style: normal;
@@ -40,32 +41,35 @@
   position: relative;
   z-index: 1;
   margin-top: -250px;
+  padding-left: 20px; /* Add padding to the left */
 }
 
 /* About Section */
 .about-section {
-  /* background-color: rgba(255, 255, 255, 0.5);  */
   padding: 40px 20px;
   border-radius: 10px;
   margin-top: -420px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the left */
+  position: absolute;
   z-index: 2;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 20px; /* Align to the left */
 }
 
 .about-text {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: #333;
+  color: #111;
   margin-bottom: 20px;
+  text-align: left; /* Align text to the left */
 }
 
 /* Buttons Container */
 .button-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Align buttons to the left */
   gap: 20px;
 }
 

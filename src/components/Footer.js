@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import logo from "../assets/Logo.png"
+import logo from "../assets/second-plate-logo-title.png"
 import { Link } from 'react-router-dom';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';

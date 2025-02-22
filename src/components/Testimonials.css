@@ -8,7 +8,7 @@
   font-size: 2.5rem;
   font-weight: bold;
   color: #2f4f4f;
-  padding-top: 80px;
+  padding-top: -100px;
 }
 
 .card {
@@ -46,12 +46,12 @@
 }
 
 .testimonial-image {
-  width: 60px; /* Adjust size as needed */
-  height: 60px; /* Adjust size as needed */
+  width: 60px; 
+  height: 60px; 
   border-radius: 50%; /* Make the image circular */
-  object-fit: cover; /* Ensure the image covers the area */
-  border: 2px solid #AD343E; /* Add a border */
-  margin-right: 15px; /* Spacing between image and text */
+  object-fit: cover; 
+  border: 2px solid #AD343E; 
+  margin-right: 15px;
 }
 
 .author-info {

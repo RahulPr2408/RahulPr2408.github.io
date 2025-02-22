@@ -1,9 +1,12 @@
 import React from 'react';
-import './Testimonials.css'; // Import custom CSS
+import './Testimonials.css';
+import Yash from "../assets/Yash.jpg";
+import Soumya from "../assets/Soumya.jpg"
+import Vaibhav from "../assets/Vaibhav.jpg"
 
 const Testimonials = () => {
   return (
-    <section className="testimonials-section py-5">
+    <section className="testimonials-section">
       <div className="container">
         <h2 className="text-center mt-5">What Our Customers Say</h2>
         <div className="row mt-5">
@@ -17,13 +20,13 @@ const Testimonials = () => {
                 </p>
                 <div className="testimonial-author">
                   <img
-                    src="../assets/sophire-robson.jpg" // Replace with the actual image path
+                    src={Yash}
                     alt="Sophire Robson"
                     className="testimonial-image"
                   />
                   <div className="author-info">
-                    <strong>Sophire Robson</strong>
-                    <cite>Los Angeles, CA</cite>
+                    <strong>Yash Trivedi</strong>
+                    <cite>Toronto, ON</cite>
                   </div>
                 </div>
               </div>
@@ -40,13 +43,13 @@ const Testimonials = () => {
                 </p>
                 <div className="testimonial-author">
                   <img
-                    src="../assets/matt-cannon.jpg" // Replace with the actual image path
+                    src={Vaibhav}
                     alt="Matt Cannon"
                     className="testimonial-image"
                   />
                   <div className="author-info">
-                    <strong>Matt Cannon</strong>
-                    <cite>San Diego, CA</cite>
+                    <strong>Vaibhav Patil</strong>
+                    <cite>Toronto, ON</cite>
                   </div>
                 </div>
               </div>
@@ -63,13 +66,13 @@ const Testimonials = () => {
                 </p>
                 <div className="testimonial-author">
                   <img
-                    src="../assets/andy-smith.jpg" // Replace with the actual image path
+                    src={Soumya}
                     alt="Andy Smith"
                     className="testimonial-image"
                   />
                   <div className="author-info">
-                    <strong>Andy Smith</strong>
-                    <cite>San Francisco, CA</cite>
+                    <strong>Soumya Singh</strong>
+                    <cite>Toronto, ON</cite>
                   </div>
                 </div>
               </div>
