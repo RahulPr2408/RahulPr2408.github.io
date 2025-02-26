@@ -3,7 +3,7 @@ import './AboutUs.css'; // Import custom CSS
 
 const AboutUs = () => {
   return (
-    <section className="about-us-section">
+    <section id='about' className="about-us-section">
       <div className="container">
         <div className="row">
           {/* Left Side: Background Image */}

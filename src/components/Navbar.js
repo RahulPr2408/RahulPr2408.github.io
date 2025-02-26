@@ -8,24 +8,24 @@ const Navbar = () => {
     <div>
       <nav className='navbar navbar-expand-lg navbar-dark custom-navbar'>
         <div className='container-fluid'>
-          <Link className='navbar-brand' to='/'>
+          <a className='navbar-brand' href='#home'>
             <img src={logo} alt="Second Plate Logo" className="navbar-logo" />
-          </Link>
+          </a>
 
           {/* Middle part with navigation links */}
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" to="/">Home</Link>
+                <a className="nav-link" href="#home">Home</a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/about">About</Link>
+                <a className="nav-link" href="#about">About</a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/testimonial">Testimonial</Link>
+                <a className="nav-link" href="#testimonial">Testimonial</a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/contact">Contact</Link>
+                <a className="nav-link" href="#team">Team</a>
               </li>
             </ul>
           </div>

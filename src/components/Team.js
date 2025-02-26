@@ -6,7 +6,7 @@ import Aarushi from "../assets/Aarushi.jpg"
 
 const Team = () => {
   return (
-    <section className="team-section py-5">
+    <section id='team' className="team-section py-5">
       <div className="container">
           <h2 className="team-title text-center mb-5">Meet Our Team</h2>
         <div className="row justify-content-center">

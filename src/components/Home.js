@@ -3,7 +3,7 @@ import './Home.css'; // Import custom CSS
 
 const Home = () => {
   return (
-    <div className="home-container">
+    <div id='home' className="home-container">
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">

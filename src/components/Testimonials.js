@@ -6,7 +6,7 @@ import Vaibhav from "../assets/Vaibhav.jpg"
 
 const Testimonials = () => {
   return (
-    <section className="testimonials-section">
+    <section id='testimonial' className="testimonials-section">
       <div className="container">
         <h2 className="text-center mt-5">What Our Customers Say</h2>
         <div className="row mt-5">

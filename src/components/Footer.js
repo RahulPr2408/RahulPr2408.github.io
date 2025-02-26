@@ -21,10 +21,10 @@ const Footer = () => {
               {/* <h3 className="footer-title">Fifth Phantom Blade</h3>
               <p className="footer-text">Put some text here. Pick up from their slides.</p> */}
               <div className="social-links">
-                <Link href="" target="_blank" className="social-icon-layout">
+                <Link href="https://www.instagram.com/enactusnortheastern?igsh=MWIzMGhhZjdieWZ4NA==" target="_blank" className="social-icon-layout">
                   <InstagramIcon className="social-icon"/>
                 </Link>
-                <Link href="" target="_blank" className="social-icon-layout">
+                <Link href="https://www.linkedin.com/company/enactus-northeastern-toronto/" target="_blank" className="social-icon-layout">
                   <LinkedInIcon className="social-icon" />
                 </Link>
               </div>
@@ -36,18 +36,18 @@ const Footer = () => {
             <div className="footer-section">
               <h4 className="footer-heading">Pages</h4>
               <ul className="footer-links">
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/about">About</Link></li>
-                <li><Link href="/contact">Contact</Link></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#team">Team</a></li>
               </ul>
             </div>
             <div className="footer-section">
               <h4 className="footer-heading">Utility Pages</h4>
               <ul className="footer-links">
-                <li><Link href="/our-story">Our Story</Link></li>
-                <li><Link href="/people">People</Link></li>
-                <li><Link href="/partners">Partners</Link></li>
-                <li><Link href="/awards">Awards and Recognition</Link></li>
+                <li><Link href="">Our Story</Link></li>
+                <li><Link href="">People</Link></li>
+                <li><Link href="">Partners</Link></li>
+                <li><Link href="">Awards and Recognition</Link></li>
               </ul>
             </div>
           </div>
