@@ -1,50 +1,109 @@
-/* Custom Navbar Background Color */
+/* 🌟 Base Navbar Styles */
 .custom-navbar {
-  background-color: rgba(47, 79, 79, 1) !important; 
-  padding-left: 20px; 
-  padding-right: 20px; 
+  background: #2F4F4F;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-/* Logo Styling */
-.navbar-logo {
-  height: 60px;
-  width: auto;
-}
-
-/* Navbar Links Styling */
-.navbar-nav .nav-link {
-  color: rgba(255, 228, 196, 1) !important; /* Light text color */
-  margin: 0 15px; /* Spacing between links */
-  font-size: 16px; /* Font size */
-  transition: color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.navbar-nav .nav-link:hover {
-  color: rgba(255, 255, 255, 1) !important; /* Brighter text on hover */
-}
-
-/* Center the Middle Links */
-.navbar-nav {
-  margin-left: auto; /* Push links to the center */
-  margin-right: auto; /* Push links to the center */
-}
-
-/* Login Button Styling */
-.btn-outline-light {
+/* Navbar Container */
+.container-fluid {
   display: flex;
-  width: 136px;
-  padding: 12px 24px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  border-radius: 118px !important;
-  border: 1.5px solid #FFE4C4;
-  background: #FF6347 !important;
-  transition: all 0.3s ease;
+}
+
+/* Navbar Brand (Logo) */
+.navbar-logo {
+  height: 50px;
+}
+
+/* Navigation Links */
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item {
+  margin: 0 15px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #ff6600;
+}
+
+/* Login Button */
+.btn-outline-light {
+  border: 1px solid white;
+  color: white;
+  padding: 5px 15px;
+  transition: 0.3s;
 }
 
 .btn-outline-light:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Slight background on hover */
-  border-color: rgba(255, 255, 255, 1); /* Brighter border on hover */
-  color: rgba(255, 255, 255, 1); /* Brighter text on hover */
+  background: white;
+  color: black;
+}
+
+/* 🟢 HAMBURGER MENU */
+.navbar-toggler {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* 📱 MOBILE RESPONSIVENESS */
+@media (max-width: 991px) { /* Adjusted for iPads & Phones */
+  /* Show Hamburger Icon */
+  .navbar-toggler {
+    display: block;
+  }
+
+  /* Hide Menu by Default on Mobile */
+  .collapse {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #2F4F4F;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  /* Show Menu when Active */
+  .collapse.show {
+    display: flex;
+  }
+
+  /* Stack Items in Mobile View */
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-item {
+    margin: 10px 0;
+  }
+
+  .d-flex {
+    margin-top: 10px;
+    justify-content: center;
+  }
 }

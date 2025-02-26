@@ -18,22 +18,20 @@ const Footer = () => {
           <div className="col-md-4">
             <div className="footer-section">
               <img src={logo} alt="Logo" className="footer-logo" />
-              {/* <h3 className="footer-title">Fifth Phantom Blade</h3>
-              <p className="footer-text">Put some text here. Pick up from their slides.</p> */}
               <div className="social-links">
-                <Link href="https://www.instagram.com/enactusnortheastern?igsh=MWIzMGhhZjdieWZ4NA==" target="_blank" className="social-icon-layout">
+                <Link to="https://www.instagram.com/enactusnortheastern?igsh=MWIzMGhhZjdieWZ4NA==" target="_blank" className="social-icon-layout">
                   <InstagramIcon className="social-icon"/>
                 </Link>
-                <Link href="https://www.linkedin.com/company/enactus-northeastern-toronto/" target="_blank" className="social-icon-layout">
+                <Link to="https://www.linkedin.com/company/enactus-northeastern-toronto/" target="_blank" className="social-icon-layout">
                   <LinkedInIcon className="social-icon" />
                 </Link>
               </div>
             </div>
           </div>
 
-          {/* Second Section: Pages and Utility Pages (Stacked Vertically) */}
+          {/* Second Section: Pages & Utility Pages (Kept in 2 Columns on Web) */}
           <div className="col-md-4 middle-section-custom">
-            <div className="footer-section">
+            <div className="footer-pages">
               <h4 className="footer-heading">Pages</h4>
               <ul className="footer-links">
                 <li><a href="#home">Home</a></li>
@@ -41,13 +39,13 @@ const Footer = () => {
                 <li><a href="#team">Team</a></li>
               </ul>
             </div>
-            <div className="footer-section">
+            <div className="footer-utility">
               <h4 className="footer-heading">Utility Pages</h4>
               <ul className="footer-links">
-                <li><Link href="">Our Story</Link></li>
-                <li><Link href="">People</Link></li>
-                <li><Link href="">Partners</Link></li>
-                <li><Link href="">Awards and Recognition</Link></li>
+                <li><Link to="">Our Story</Link></li>
+                <li><Link to="">People</Link></li>
+                <li><Link to="">Partners</Link></li>
+                <li><Link to="">Awards and Recognition</Link></li>
               </ul>
             </div>
           </div>
