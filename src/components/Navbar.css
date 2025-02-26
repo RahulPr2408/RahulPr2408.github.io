@@ -1,6 +1,6 @@
 /* 🌟 Base Navbar Styles */
 .custom-navbar {
-  background: #2F4F4F;
+  background: #222;
   padding: 10px 20px;
   position: fixed;
   width: 100%;
@@ -82,7 +82,7 @@
     top: 60px;
     left: 0;
     width: 100%;
-    background: #2F4F4F;
+    background: #222;
     text-align: center;
     padding: 10px 0;
   }
