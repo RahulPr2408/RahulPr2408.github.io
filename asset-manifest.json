@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.9e89f81b.css",
-    "main.js": "/static/js/main.b68f69e8.js",
+    "main.js": "/static/js/main.9cb40d2b.js",
     "static/media/footer_image_3.jpg": "/static/media/footer_image_3.367305c939a80629b64f.jpg",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/footer_image_2.jpg": "/static/media/footer_image_2.97f5f242de728672806b.jpg",
@@ -17,10 +17,10 @@
     "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.20abce9c6fc31b04808f.png",
     "index.html": "/index.html",
     "main.9e89f81b.css.map": "/static/css/main.9e89f81b.css.map",
-    "main.b68f69e8.js.map": "/static/js/main.b68f69e8.js.map"
+    "main.9cb40d2b.js.map": "/static/js/main.9cb40d2b.js.map"
   },
   "entrypoints": [
     "static/css/main.9e89f81b.css",
-    "static/js/main.b68f69e8.js"
+    "static/js/main.9cb40d2b.js"
   ]
 }
