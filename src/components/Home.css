@@ -1,103 +1,121 @@
-/* Home Container */
-.home-container {
-  font-family: 'Arial', sans-serif;
-  color: #fff;
-}
-
-/* Hero Section with Background Image */
-.hero-section {
-  background-image: url('../assets/Home3.jpeg'); 
-  background-size: cover;
-  background-position: center; 
-  height: 90vh; 
-  display: flex;
-  align-items: center;
-  justify-content: start; /* Align content to the left */
-  text-align: left; /* Align text to the left */
-  position: relative;
-  padding-left: 20px; /* Add padding to the left */
-}
-
-/* Overlay for better readability */
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* Light overlay */
-}
-
-/* Hero Content */
-.hero-content {
-  color: #111;
-  text-align: left; /* Align text to the left */
-  font-family: "Playfair Display";
-  font-size: 70.613px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 96.84px;
-  position: relative;
-  z-index: 1;
-  margin-top: -250px;
-  padding-left: 20px; /* Add padding to the left */
-}
-
-/* About Section */
-.about-section {
+/* Base Styles */
+.footer {
+  background: #222;
+  color: white;
   padding: 40px 20px;
-  border-radius: 10px;
-  margin-top: -420px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Align content to the left */
-  position: absolute;
-  z-index: 2;
-  max-width: 800px;
-  margin-left: 20px; /* Align to the left */
 }
 
-.about-text {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #111;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Flexbox for Desktop */
+.row-custom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Section Layout */
+.footer-section {
   margin-bottom: 20px;
-  text-align: left; /* Align text to the left */
 }
 
-/* Buttons Container */
-.button-container {
+/* Logo Styling */
+.footer-logo {
+  width: 150px;
+  margin-bottom: 10px;
+}
+
+/* Social Links */
+.social-links {
   display: flex;
-  justify-content: flex-start; /* Align buttons to the left */
-  gap: 20px;
+  gap: 15px;
 }
 
-/* Buttons */
-.btn-custom-primary {
-  padding: 10px 20px;
-  border-radius: 119.033px;
-  background-color: #FF6347;
-  color: var(--Neutral-01, #FFF);
-  transition: background-color 0.3s ease;
-  border: none;
+.social-icon {
+  color: white;
+  font-size: 24px;
+  transition: 0.3s;
 }
 
-.btn-custom-primary:hover {
-  background-color: #1e3a3a; /* Darker shade on hover */
+.social-icon:hover {
+  color: #FFD700; /* Gold Hover */
 }
 
-.btn-custom-secondary {
-  border-radius: 119.033px;
-  border: 1.513px solid var(--Neutral-07, #2C2F24);
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  color: #111;
+/* Footer Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
 }
 
-.btn-custom-secondary:hover {
-  color: var(--Neutral-01, #FFF);
-  background-color: #1e3a3a; /* Darker shade on hover */
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #FFD700;
+}
+
+/* Footer Images */
+.footer-images {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Copyright Text */
+.copyright-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* 🌟 Responsive Design (Mobile Adjustments) */
+@media (max-width: 768px) {
+  .row-custom {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-logo {
+    width: 120px;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+
+  .footer-links {
+    text-align: center;
+  }
+
+  .footer-images {
+    justify-content: center;
+  }
+
+  .footer-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .middle-section-custom {
+    margin-bottom: 20px;
+  }
 }
