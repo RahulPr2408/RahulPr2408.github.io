@@ -26,7 +26,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.1); /* Light overlay */
+  background-color: rgba(0, 0, 0, 0); /* Light overlay */
 }
 
 /* Hero Content */
@@ -85,6 +85,7 @@
 
 .btn-custom-primary:hover {
   background-color: #1e3a3a; /* Darker shade on hover */
+  color: var(--Neutral-01, #FFE4C4);
 }
 
 .btn-custom-secondary {
@@ -94,10 +95,12 @@
   padding: 10px 20px;
   font-size: 1rem;
   transition: background-color 0.3s ease;
-  color: #111;
+  color: #2F4F4F;
+  background-color: #FFE4C4;
+  border: 1px solid #2F4F4F;
 }
 
 .btn-custom-secondary:hover {
-  color: var(--Neutral-01, #FFF);
-  background-color: #1e3a3a; /* Darker shade on hover */
+  color: var(--Neutral-01, #FFE4C4);
+  background-color: #2F4F4F; /* Darker shade on hover */
 }
