@@ -1,7 +1,7 @@
 /* 🌟 Base Footer Styles */
 .footer {
   background: #2F4F4F;
-  color: white;
+  color: #FFE4C4;
   padding: 40px 20px;
   position: relative;
   bottom: 0;
@@ -28,8 +28,9 @@
 
 /* Footer Logo */
 .footer-logo {
-  width: 150px;
+  width: 250px;
   margin-bottom: 10px;
+  padding-right: 20px;
 }
 
 /* Social Links */
@@ -39,19 +40,19 @@
 }
 
 .social-icon {
-  color: white;
+  color: FFE4C4;
   font-size: 24px;
   transition: 0.3s;
 }
 
 .social-icon:hover {
-  color: #FFD700; /* Gold Hover */
+  color: #FFE4C4 /* Gold Hover */
 }
 
 /* Footer Links */
 .footer-links {
   list-style: none;
-  padding: 0;
+  padding: 0px 25px 0px 25px ;
 }
 
 .footer-links li {
@@ -59,13 +60,16 @@
 }
 
 .footer-links a {
-  color: white;
+  color: #FFE4C4;
   text-decoration: none;
   transition: 0.3s;
 }
 
 .footer-links a:hover {
-  color: #FFD700;
+  color: #FFE4C4!important; /* Optional: Gold hover effect */
+  background-color: #FF6347 !important;
+  border-radius: 120px;
+  padding: 0 30px 0 30px;
 }
 
 /* Pages & Utility Pages - Separate Columns on Web */
@@ -101,6 +105,45 @@
   color: #aaa;
 }
 
+
+.footer-form {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between input and button */
+  width: 100%;
+}
+
+.footer-input {
+  flex: 1; /* Takes up remaining space */
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #FF6347;  /* ✅ Orange border */
+  color: #222; /* Text color for better contrast */
+  width: auto;
+  background-color: #FFE4C4;
+  transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+/* 🔹 Optional: Change border color on focus */
+.footer-input:focus {
+  border-color: #FF4500; /* Darker orange on focus */
+  outline: none;
+}
+
+.footer-input::placeholder {
+  color: #bbb;
+}
+
+.btn-custom-secondary {
+  padding: 10px 20px;
+  background-color: #FF6347;
+  color: #FFE4C4;
+  border: 1px solid #FFE4C4;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+
 /* 📱 MOBILE & TABLET RESPONSIVENESS (Only Modify Layout, Keep Same Design) */
 @media (max-width: 991px) {
   /* Stack Footer Sections */
@@ -112,7 +155,7 @@
 
   /* Adjust Logo Size */
   .footer-logo {
-    width: 130px;
+    width: 40px;
   }
 
   /* Center Social Icons */
