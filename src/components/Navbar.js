@@ -40,7 +40,7 @@ const Navbar = () => {
 
           {/* Login Button (Same Design) */}
           <div className="d-flex">
-            <button className="btn btn-outline-light">Login</button>
+            <button className="btn-outline-light">Login</button>
           </div>
         </div>
       </nav>
