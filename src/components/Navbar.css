@@ -22,39 +22,43 @@
 }
 
 /* Navigation Links */
-.navbar-nav {
-  display: flex;
-  list-style: none;
-  padding: 0;
+/* Navbar Links */
+.navbar-nav .nav-link {
+  color: #FFE4C4 !important; /* ✅ Sets text color */
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  padding: 0 30px 0 30px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #FFE4C4!important; /* Optional: Gold hover effect */
+  background-color: #FF6347 !important;
+  border-radius: 120px;
+  padding: 0 30px 0 30px;
 }
 
 .nav-item {
   margin: 0 15px;
 }
 
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: 0.3s;
-}
-
-.nav-link:hover {
-  color: #ff6600;
-}
 
 /* Login Button */
 .btn-outline-light {
-  border: 1px solid white;
-  color: white;
-  padding: 5px 15px;
-  transition: 0.3s;
+  padding: 12px 30px;
+  border-radius: 120px;
+  background-color: #FF6347;
+  color: var(--Neutral-01, #FFF);
+  transition: background-color 0.3s ease, border 0.3s ease;
+  border: 1px solid #FFE4C4;  /* ✅ White Border */
 }
 
+/* Optional: Hover Effect */
 .btn-outline-light:hover {
-  background: white;
-  color: black;
+  border: 1px solid #FF6347; /* Changes border color on hover */
+  color: var(--Neutral-01, #2F4F4F);
+  background-color: #FFE4C4;
 }
+
 
 /* 🟢 HAMBURGER MENU */
 .navbar-toggler {
@@ -66,6 +70,8 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
+
 
 /* 📱 MOBILE RESPONSIVENESS */
 @media (max-width: 991px) { /* Adjusted for iPads & Phones */
@@ -82,7 +88,7 @@
     top: 60px;
     left: 0;
     width: 100%;
-    background: #222;
+    background: #2F4F4F;
     text-align: center;
     padding: 10px 0;
   }
