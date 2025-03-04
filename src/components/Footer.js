@@ -15,31 +15,20 @@ const Footer = () => {
           <div className="col-md-3">
             <div className="footer-section">
               <img src={logo} alt="Second Plate Logo" className="footer-logo" />
-              <p className="footer-text">Stay updated with our latest activities and impact stories.</p>
-              <p className="footer-text">
-                <a href="https://www.instagram.com/enactusnortheastern"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-link">
-                  Follow us!
-                </a>
-              </p>
+              <p className="footer-text">To stay updated with our latest activities and impact stories, follow us here.</p>
 
               <div className="social-links">
-                <a href="https://www.instagram.com/enactusnortheastern?igsh=MWIzMGhhZjdieWZ4NA=="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon-layout"
-                  aria-label="Visit our Instagram">
-                  <InstagramIcon className="social-icon" />
-                </a>
-                <a href="https://www.linkedin.com/company/enactusnortheastern-toronto/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon-layout"
-                  aria-label="Visit our LinkedIn">
-                  <LinkedInIcon className="social-icon" />
-                </a>
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+                <div class="instagram-icon">
+                    <a href="https://www.instagram.com/enactusnortheastern?igsh=MWIzMGhhZjdieWZ4NA==" target="_blank">
+                        <i class="fab fa-instagram instagram-icon"></i>
+                    </a>
+                </div>
+                <div class="linkedin-icon">
+                    <a href="https://www.linkedin.com/company/enactus-northeastern-toronto/" target="_blank">
+                        <i class="fab fa-linkedin linkedin-icon"></i>
+                    </a>
+                </div>
               </div>
             </div>
           </div>
