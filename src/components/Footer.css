@@ -7,12 +7,12 @@
   bottom: 0;
   width: 100%;
 }
-
+ 
 .container {
   max-width: 1200px;
   margin: 0 auto;
 }
-
+ 
 /* Footer Row (Desktop Layout) */
 .row-custom {
   display: flex;
@@ -20,83 +20,83 @@
   align-items: flex-start;
   flex-wrap: wrap;
 }
-
+ 
 /* Footer Sections */
 .footer-section {
   margin-bottom: 20px;
 }
-
+ 
 /* Footer Logo */
 .footer-logo {
   width: 250px;
   margin-bottom: 10px;
   padding-right: 20px;
 }
-
+ 
 /* Social Links */
 .social-links {
   display: flex;
   gap: 15px;
 }
-
+ 
 .social-icon {
   color: FFE4C4;
   font-size: 24px;
   transition: 0.3s;
 }
-
+ 
 .social-icon:hover {
   color: #FFE4C4 /* Gold Hover */
 }
-
+ 
 /* Footer Links */
 .footer-links {
   list-style: none;
   padding: 0px 25px 0px 25px ;
 }
-
+ 
 .footer-links li {
   margin-bottom: 8px;
 }
-
+ 
 .footer-links a {
   color: #FFE4C4;
   text-decoration: none;
   transition: 0.3s;
 }
-
+ 
 .footer-links a:hover {
   color: #FFE4C4!important; /* Optional: Gold hover effect */
   background-color: #FF6347 !important;
   border-radius: 120px;
   padding: 0 30px 0 30px;
 }
-
+ 
 /* Pages & Utility Pages - Separate Columns on Web */
 .middle-section-custom {
   display: flex;
   justify-content: space-between;
   gap: 40px;
 }
-
+ 
 .footer-pages,
 .footer-utility {
   width: 50%;
 }
-
+ 
 /* Footer Images */
 .footer-images {
   display: flex;
   gap: 10px;
 }
-
+ 
 .footer-image {
   width: 80px;
   height: 80px;
   object-fit: cover;
   border-radius: 5px;
 }
-
+ 
 /* Copyright Text */
 .copyright-text {
   text-align: center;
@@ -104,15 +104,15 @@
   font-size: 14px;
   color: #aaa;
 }
-
-
+ 
+ 
 .footer-form {
   display: flex;
   align-items: center;
   gap: 10px; /* Space between input and button */
   width: 100%;
 }
-
+ 
 .footer-input {
   flex: 1; /* Takes up remaining space */
   padding: 10px;
@@ -123,17 +123,17 @@
   background-color: #FFE4C4;
   transition: border-color 0.3s ease; /* Smooth transition */
 }
-
+ 
 /* 🔹 Optional: Change border color on focus */
 .footer-input:focus {
   border-color: #FF4500; /* Darker orange on focus */
   outline: none;
 }
-
+ 
 .footer-input::placeholder {
   color: #bbb;
 }
-
+ 
 .btn-custom-secondary {
   padding: 10px 20px;
   background-color: #FF6347;
@@ -142,8 +142,8 @@
   cursor: pointer;
   transition: 0.3s ease;
 }
-
-
+ 
+ 
 /* 📱 MOBILE & TABLET RESPONSIVENESS (Only Modify Layout, Keep Same Design) */
 @media (max-width: 991px) {
   /* Stack Footer Sections */
@@ -152,40 +152,40 @@
     align-items: center;
     text-align: center;
   }
-
+ 
   /* Adjust Logo Size */
   .footer-logo {
     width: 40px;
   }
-
+ 
   /* Center Social Icons */
   .social-links {
     justify-content: center;
   }
-
+ 
   /* Stack Footer Links */
   .middle-section-custom {
     flex-direction: column;
     text-align: center;
     gap: 20px;
   }
-
+ 
   .footer-pages,
   .footer-utility {
     width: 100%;
   }
-
+ 
   /* Footer Images Wrap Correctly */
   .footer-images {
     justify-content: center;
     flex-wrap: wrap;
   }
-
+ 
   .footer-image {
     width: 70px;
     height: 70px;
   }
-
+ 
   /* Add Padding to Prevent Overlap */
   .footer {
     padding-bottom: 20px;

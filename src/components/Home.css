@@ -3,7 +3,7 @@
   font-family: 'Arial', sans-serif;
   color: #FFE4C4;
 }
-
+ 
 /* Hero Section with Background Image */
 .hero-section {
   background-image: url('../assets/Home3.jpeg'); 
@@ -17,7 +17,7 @@
   position: relative;
   padding-left: 20px; /* Add padding to the left */
 }
-
+ 
 /* Overlay for better readability */
 .hero-section::before {
   content: '';
@@ -28,7 +28,7 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0); /* Light overlay */
 }
-
+ 
 /* Hero Content */
 .hero-content {
   color: #111;
@@ -72,7 +72,7 @@
   max-width: 800px;
   margin-left: 20px; /* Align to the left */
 }
-
+ 
 .about-text {
   font-size: 1.2rem;
   line-height: 1.8;
@@ -81,14 +81,14 @@
   text-align: left; /* Align text to the left */
   margin-right: 200px;
 }
-
+ 
 /* Buttons Container */
 .button-container {
   display: flex;
   justify-content: flex-start; /* Align buttons to the left */
   gap: 20px;
 }
-
+ 
 /* Buttons */
 .btn-custom-primary-hero {
   padding: 10px 20px;
