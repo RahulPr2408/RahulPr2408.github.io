@@ -3,7 +3,7 @@
   font-family: 'Arial', sans-serif;
   color: #fff;
 }
-
+ 
 /* Hero Section with Background Image */
 .hero-section {
   background-image: url('../assets/Home3.jpeg'); 
@@ -17,7 +17,7 @@
   position: relative;
   padding-left: 20px; /* Add padding to the left */
 }
-
+ 
 /* Overlay for better readability */
 .hero-section::before {
   content: '';
@@ -28,7 +28,7 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0); /* Light overlay */
 }
-
+ 
 /* Hero Content */
 .hero-content {
   color: #111;
@@ -43,7 +43,7 @@
   margin-top: -250px;
   padding-left: 20px; /* Add padding to the left */
 }
-
+ 
 /* About Section */
 .about-section {
   padding: 40px 20px;
@@ -57,7 +57,7 @@
   max-width: 800px;
   margin-left: 20px; /* Align to the left */
 }
-
+ 
 .about-text {
   font-size: 1.2rem;
   line-height: 1.8;
@@ -65,14 +65,14 @@
   margin-bottom: 20px;
   text-align: left; /* Align text to the left */
 }
-
+ 
 /* Buttons Container */
 .button-container {
   display: flex;
   justify-content: flex-start; /* Align buttons to the left */
   gap: 20px;
 }
-
+ 
 /* Buttons */
 .btn-custom-primary {
   padding: 10px 20px;
@@ -82,12 +82,12 @@
   transition: background-color 0.3s ease;
   border: none;
 }
-
+ 
 .btn-custom-primary:hover {
   background-color: #1e3a3a; /* Darker shade on hover */
   color: var(--Neutral-01, #FFE4C4);
 }
-
+ 
 .btn-custom-secondary {
   border-radius: 119.033px;
   border: 1.513px solid var(--Neutral-07, #2C2F24);
@@ -99,7 +99,7 @@
   background-color: #FFE4C4;
   border: 1px solid #2F4F4F;
 }
-
+ 
 .btn-custom-secondary:hover {
   color: var(--Neutral-01, #FFE4C4);
   background-color: #2F4F4F; /* Darker shade on hover */

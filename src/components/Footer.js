@@ -10,35 +10,33 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="row row-custom">
-          
           {/* Column 1: Logo & Social Media */}
           <div className="col-md-3">
             <div className="footer-section">
               <img src={logo} alt="Second Plate Logo" className="footer-logo" />
               <p className="footer-text">Stay updated with our latest activities and impact stories.</p>
-              
               <p className="footer-text">
-                <a href="https://www.instagram.com/enactusnortheastern" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   className="footer-link"> 
-                   Follow us!
+                <a href="https://www.instagram.com/enactusnortheastern"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-link">
+                  Follow us!
                 </a>
               </p>
 
               <div className="social-links">
-                <a href="https://www.instagram.com/enactusnortheastern?igsh=MWIzMGhhZjdieWZ4NA==" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   className="social-icon-layout"
-                   aria-label="Visit our Instagram">
-                  <InstagramIcon className="social-icon"/>
+                <a href="https://www.instagram.com/enactusnortheastern?igsh=MWIzMGhhZjdieWZ4NA=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon-layout"
+                  aria-label="Visit our Instagram">
+                  <InstagramIcon className="social-icon" />
                 </a>
-                <a href="https://www.linkedin.com/company/enactusnortheastern-toronto/" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   className="social-icon-layout"
-                   aria-label="Visit our LinkedIn">
+                <a href="https://www.linkedin.com/company/enactusnortheastern-toronto/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon-layout"
+                  aria-label="Visit our LinkedIn">
                   <LinkedInIcon className="social-icon" />
                 </a>
               </div>
@@ -89,8 +87,8 @@ const Footer = () => {
         <div className="row">
           <div className="col-12 text-center">
             <p className="copyright-text">
-              Copyright © 2024 Enactus Northeastern. All Rights Reserved | 
-              <Link to="/terms" className="footer-link"> Terms of Use</Link> | 
+              Copyright © 2024 Enactus Northeastern. All Rights Reserved |
+              <Link to="/terms" className="footer-link"> Terms of Use</Link> |
               <Link to="/privacy-policy" className="footer-link"> Privacy Policy</Link>
             </p>
           </div>
