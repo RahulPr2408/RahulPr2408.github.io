@@ -24,7 +24,7 @@ const Navbar = () => {
           <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`} id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="#home">Test</a>
+                <a className="nav-link" href="#home">Home</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#about">About</a>
