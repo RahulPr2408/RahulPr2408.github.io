@@ -10,7 +10,8 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="row row-custom">
-          {/* Column 1: Logo & Social Media */}
+          
+        
           <div className="col-md-3">
             <div className="footer-section">
               <img src={logo} alt="Second Plate Logo" className="footer-logo" />
