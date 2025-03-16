@@ -6,8 +6,7 @@ import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
 import Team from './components/Team';
 import AboutUs from './components/AboutUs';
-
-
+import PopularRestaurants from './components/PopularRestaurants';
 
 function App() {
   return (
@@ -15,6 +14,7 @@ function App() {
       <Router>
         <Navbar />
         <Home />
+        <PopularRestaurants />
         <AboutUs />
         <Team />
         <Testimonials />

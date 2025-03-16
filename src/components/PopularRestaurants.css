@@ -1,0 +1,36 @@
+.popular-restaurants-section {
+  padding: 60px 0;
+  background: #2F4F4F;
+}
+
+.popular-restaurants-section h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #FFE4C4;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2F4F4F;
+  margin-top: 10px;
+}
+
+.card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 200px;
+  object-fit: cover;
+}
