@@ -172,3 +172,76 @@
 .btn-coupon:hover {
   background-color: #e5533d; /* Darker shade on hover */
 }
+
+.coupon-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.download-coupon-button, .back-button {
+  background-color: #FF5722;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.download-coupon-button:hover, .back-button:hover {
+  background-color: #E64A19;
+}
+
+.coupon-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coupon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.coupon-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.coupon-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.download-coupon-button,
+.back-button {
+  background-color: #FF5722;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.download-coupon-button:hover,
+.back-button:hover {
+  background-color: #E64A19;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 74, 25, 0.2);
+}
