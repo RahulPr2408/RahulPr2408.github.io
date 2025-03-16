@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import './PopularRestaurants.css'; // Import custom CSS
+import './PopularRestaurants.css';
+import Amaya_Logo from '../assets/amaya-logo.png';
+import Pantry_Logo from '../assets/pantry-logo.png';
+import Amaya_Menu from '../assets/amaya-menu.jpeg';
+import Amaya_Map from '../assets/Amaya_map.png';
 
 const PopularRestaurants = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -9,16 +13,16 @@ const PopularRestaurants = () => {
   const restaurants = {
     amaya: {
       name: 'Junoon',
-      logo: '../assets/amaya-logo.png',
+      logo: Amaya_Logo,
       location: 'First Canadian Place',
       address: '100 King St W, Toronto, ON M5X 1A9',
       phone: '(416) 214-0005',
-      map: '../assets/Amaya_map.png',
-      menu: '../assets/amaya-menu.jpeg',
+      map: Amaya_Map,
+      menu: Amaya_Menu,
     },
     pantry: {
       name: 'Pantry',
-      logo: '../assets/pantry.jpg',
+      logo: Pantry_Logo,
       location: 'King West',
       address: '500 King St W, Toronto, ON M5V 1L9',
       phone: '(416) 555-1234',
@@ -46,7 +50,7 @@ const PopularRestaurants = () => {
           <div className="col-md-3 mb-4">
             <div className="restaurant-card" onClick={() => openPopup('amaya')}>
               <img
-                src="../assets/junoon.jpg" // Replace with the actual image path
+                src={restaurants.amaya.logo}
                 alt="Junoon"
                 className="restaurant-image"
               />
@@ -61,7 +65,7 @@ const PopularRestaurants = () => {
           <div className="col-md-3 mb-4">
             <div className="restaurant-card" onClick={() => openPopup('pantry')}>
               <img
-                src="../assets/pantry.jpg" // Replace with the actual image path
+                src={restaurants.pantry.logo}
                 alt="Pantry"
                 className="restaurant-image"
               />
@@ -89,14 +93,14 @@ const PopularRestaurants = () => {
                       alt={selectedRestaurant.name}
                       className="partner-image"
                     />
-                    <div className="location-info">
-                      <h3>{selectedRestaurant.name}</h3>
-                      <p>
-                        <strong>Located in:</strong> {selectedRestaurant.location}<br />
-                        <strong>Address:</strong> {selectedRestaurant.address}<br />
-                        <strong>Phone:</strong> {selectedRestaurant.phone}
-                      </p>
-                    </div>
+                    <h3 className="partner-name">{selectedRestaurant.name}</h3>
+                  </div>
+                  <div className="location-info">
+                    <p>
+                      <strong>Located in:</strong> {selectedRestaurant.location}<br />
+                      <strong>Address:</strong> {selectedRestaurant.address}<br />
+                      <strong>Phone:</strong> {selectedRestaurant.phone}
+                    </p>
                   </div>
                   <div className="map-image">
                     <img

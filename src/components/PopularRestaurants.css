@@ -106,13 +106,16 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: start;
+  justify-content: center;
   gap: 20px; /* Spacing between restaurant logo and map */
+  padding-top: 10px;
 }
 
 .restaurant-logo-info {
   display: flex;
   align-items: center;
-  gap: 20px; /* Spacing between logo and location info */
+  gap: 20px; /* Spacing between logo and name */
 }
 
 .partner-image {
@@ -121,20 +124,23 @@
   border-radius: 10px;
 }
 
-.location-info h3 {
+.partner-name {
   font-size: 1.5rem;
   color: #2f4f4f; /* Dark slate gray */
 }
 
-.location-info p {
+.location-info {
   font-size: 1rem;
   color: #777;
 }
 
 .map-image img {
-  width: 100%;
-  height: auto;
+  width: 649px; /* Fixed width */
+  height: 400px; /* Fixed height */
   border-radius: 10px;
+  display: flex;
+  align-items: start;
+  object-fit: contain; /* Ensure the image covers the area */
 }
 
 /* Right Side */
@@ -143,6 +149,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px; /* Spacing between menu and button */
+  padding-top: 30px;
 }
 
 .menu-image img {
