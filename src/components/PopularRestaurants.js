@@ -4,6 +4,7 @@ import Amaya_Logo from '../assets/amaya-logo.png';
 import Pantry_Logo from '../assets/pantry-logo.png';
 import Amaya_Menu from '../assets/amaya-menu.jpeg';
 import Amaya_Map from '../assets/Amaya_map.png';
+import Pantry_Map from '../assets/map-pantry.jpg';
 
 const PopularRestaurants = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -24,9 +25,9 @@ const PopularRestaurants = () => {
       name: 'Pantry',
       logo: Pantry_Logo,
       location: 'King West',
-      address: '500 King St W, Toronto, ON M5V 1L9',
+      address: '199 Bay St., Floor 1 Commerce Court West, Toronto, ON M5L 1G9',
       phone: '(416) 555-1234',
-      map: '../assets/map-pantry.jpg',
+      map: Pantry_Map,
       menu: '../assets/menu-pantry.jpg',
     },
   };
