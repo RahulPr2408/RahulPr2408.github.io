@@ -220,3 +220,45 @@
     padding-bottom: 20px;
   }
 }
+/* I added the footer mobile responsive code below, just comment out the below code to get the old result --- Rahul Sharma */
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 15px;
+  }
+
+  .footer-logo {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+
+  .footer-section {
+    width: 100%;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .footer-form {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer-input,
+  .btn-custom-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .social-links {
+    justify-content: center;
+    margin: 15px 0;
+  }
+
+  .footer-images {
+    gap: 8px;
+  }
+
+  .footer-image {
+    width: 60px;
+    height: 60px;
+  }
+}

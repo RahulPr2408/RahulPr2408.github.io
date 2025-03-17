@@ -49,3 +49,34 @@
   color: #777;
   line-height: 1.6;
 }
+
+/* I added the footer mobile responsive code below, just comment out the below code to get the old result --- Rahul Sharma */
+
+@media screen and (max-width: 768px) {
+  .team-section {
+    padding: 30px 15px;
+  }
+
+  .team-title {
+    font-size: 2rem;
+    margin-top: 10px;
+  }
+
+  .team-image {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+  }
+
+  .team-name {
+    font-size: 1.2rem;
+  }
+
+  .team-designation {
+    font-size: 1rem;
+  }
+
+  .team-description {
+    font-size: 0.9rem;
+  }
+}

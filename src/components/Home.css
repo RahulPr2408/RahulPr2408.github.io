@@ -63,7 +63,7 @@
 .about-section {
   padding: 40px 20px;
   border-radius: 10px;
-  margin-top: -420px;
+  margin-top: -200px; /* Adjusted margin to prevent overlap */
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align content to the left */
@@ -116,4 +116,68 @@
 .btn-custom-secondary-hero:hover {
   color: var(--Neutral-01, #FFE4C4);
   background-color: #FF6347; /* Darker shade on hover */
+}
+
+@media screen and (max-width: 768px) {
+  .hero-section {
+    height: 100vh;
+    padding: 20px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-content {
+    font-size: 40px;
+    line-height: 50px;
+    margin-top: -150px;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .hero-subtitle {
+    font-size: 40px;
+    line-height: 50px;
+    margin-top: -150px;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .about-section {
+    margin-top: -500px; /* Adjusted margin for mobile view */
+    padding: 20px;
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .about-text {
+    font-size: 1rem;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .button-container {
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn-custom-primary-hero,
+  .btn-custom-secondary-hero {
+    width: 200px;
+    padding: 12px 0;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .hero-content,
+  .hero-subtitle {
+    font-size: 55px;
+    line-height: 70px;
+  }
+
+  .about-section {
+    margin-top: -300px;
+    max-width: 600px;
+  }
 }
