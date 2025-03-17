@@ -22,11 +22,19 @@
   width: 210px; /* Fixed width */
   height: 233px; /* Fixed height */
   margin: 0 auto; /* Center the card */
+  position: relative;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .restaurant-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.restaurant-card:active {
+  transform: scale(0.98);
 }
 
 .restaurant-image {
@@ -244,4 +252,111 @@
   background-color: #E64A19;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(230, 74, 25, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .popup-grid {
+    flex-direction: column;
+  }
+
+  .popup-content {
+    width: 95%;
+    height: 95%;
+    padding: 15px;
+  }
+
+  .popup-left, .popup-right {
+    width: 100%;
+  }
+
+  .map-image img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
+
+  .menu-image img {
+    width: 100%;
+    height: auto;
+  }
+
+  .partner-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .partner-name {
+    font-size: 1.2rem;
+  }
+
+  .location-info {
+    font-size: 0.9rem;
+  }
+
+  .btn-coupon {
+    align-self: center;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .coupon-container {
+    max-width: 95%;
+  }
+
+  .coupon-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .download-coupon-button,
+  .back-button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    padding: 0 15px;
+  }
+
+  .restaurant-card {
+    width: 100%;
+    max-width: 210px;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .restaurant-card:hover {
+    transform: none;
+  }
+
+  .restaurant-card:active {
+    transform: scale(0.98);
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurant-card {
+    width: 180px;
+    height: 200px;
+  }
+
+  .restaurant-image {
+    height: 120px;
+  }
+
+  .restaurant-name {
+    font-size: 1rem;
+  }
+
+  .restaurant-location {
+    font-size: 0.8rem;
+  }
+
+  .popup-content {
+    padding: 10px;
+  }
 }

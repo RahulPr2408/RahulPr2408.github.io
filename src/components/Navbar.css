@@ -112,3 +112,33 @@
     justify-content: center;
   }
 }
+
+/* I added the footer mobile responsive code below, just comment out the below code to get the old result --- Rahul Sharma */
+/* 
+@media (max-width: 768px) {
+  .custom-navbar {
+    padding: 8px 15px;
+  }
+
+  .navbar-logo {
+    height: 40px;
+  }
+
+  .collapse {
+    top: 56px;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 20px;
+  }
+
+  .nav-item {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .btn-outline-light {
+    width: 200px;
+    margin: 10px auto;
+  }
+} */

@@ -1,4 +1,4 @@
-  /* About Us Section Styling */
+/* About Us Section Styling */
 .about-us-section {
   background-image: url('../assets/AboutUs-Background.jpeg'); /* Replace with your image path */
   background-size: cover;
@@ -45,4 +45,28 @@
 
 .about-us-text strong {
   color: #ff6347; /* Tomato color for emphasis */
+}
+
+/* I added the footer mobile responsive code below, just comment out the below code to get the old result --- Rahul Sharma */
+@media screen and (max-width: 768px) {
+  .about-us-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 60px 15px;
+  }
+
+  .about-us-content {
+    padding: 25px;
+    margin: 15px;
+  }
+
+  .about-us-title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .about-us-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
 }
