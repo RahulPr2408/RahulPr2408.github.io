@@ -18,8 +18,8 @@ const Home = () => {
               helping those who need it most.
             </p>
             <div className="button-container">
-              <button className="btn-custom-primary-hero">About Us</button>
-              <button className="btn-custom-secondary-hero">Get Coupon</button>
+              <button className="btn-custom-primary">About Us</button>
+              <button className="btn-custom-secondary">Get Coupon</button>
             </div>
           </div>
         </div>
