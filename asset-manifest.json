@@ -1,26 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.9e89f81b.css",
-    "main.js": "/static/js/main.9cb40d2b.js",
-    "static/media/footer_image_3.jpg": "/static/media/footer_image_3.367305c939a80629b64f.jpg",
+    "main.css": "/static/css/main.7f7444b5.css",
+    "main.js": "/static/js/main.dbfacd61.js",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
-    "static/media/footer_image_2.jpg": "/static/media/footer_image_2.97f5f242de728672806b.jpg",
-    "static/media/footer_image_1.jpg": "/static/media/footer_image_1.6e26120ef23229118d2a.jpg",
     "static/media/Home3.jpeg": "/static/media/Home3.a20c257f06275752251e.jpeg",
+    "static/media/coupon_code.jpg": "/static/media/coupon_code.014224ce13a25f60a868.jpg",
     "static/media/Vaishal.jpg": "/static/media/Vaishal.9ba8088ae6a82a7297f7.jpg",
-    "static/media/footer_image_4.jpg": "/static/media/footer_image_4.522a7f630d44eee4955d.jpg",
     "static/media/Yash.jpg": "/static/media/Yash.1f093a3d131f607f9f6b.jpg",
+    "static/media/Amaya_map.png": "/static/media/Amaya_map.973a0b3c1e520f66c918.png",
     "static/media/Aarushi.jpg": "/static/media/Aarushi.f3df903c120c86fe7fda.jpg",
     "static/media/Soumya.jpg": "/static/media/Soumya.2b81ebce77040d53c2e8.jpg",
     "static/media/Vaibhav.jpg": "/static/media/Vaibhav.e37ad001b930281a8247.jpg",
     "static/media/Areeb.jpg": "/static/media/Areeb.a9fb1338ad6a62f1b746.jpg",
+    "static/media/amaya-logo.png": "/static/media/amaya-logo.c5f434de681607b6797a.png",
+    "static/media/amaya-menu.jpeg": "/static/media/amaya-menu.9ea1dc97c7907500b9a9.jpeg",
+    "static/media/map-pantry.jpg": "/static/media/map-pantry.8e31405d8f02fd106148.jpg",
+    "static/media/pantry-logo.png": "/static/media/pantry-logo.6baf2c10369ad6d27030.png",
     "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.20abce9c6fc31b04808f.png",
     "index.html": "/index.html",
-    "main.9e89f81b.css.map": "/static/css/main.9e89f81b.css.map",
-    "main.9cb40d2b.js.map": "/static/js/main.9cb40d2b.js.map"
+    "main.7f7444b5.css.map": "/static/css/main.7f7444b5.css.map",
+    "main.dbfacd61.js.map": "/static/js/main.dbfacd61.js.map"
   },
   "entrypoints": [
-    "static/css/main.9e89f81b.css",
-    "static/js/main.9cb40d2b.js"
+    "static/css/main.7f7444b5.css",
+    "static/js/main.dbfacd61.js"
   ]
 }
