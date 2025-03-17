@@ -75,7 +75,6 @@
 /* Footer Links */
 .footer-links {
   list-style: none;
-  padding: 0px 25px 0px 25px ;
 }
  
 .footer-links li {
@@ -89,10 +88,8 @@
 }
  
 .footer-links a:hover {
-  color: #FFE4C4!important; /* Optional: Gold hover effect */
-  background-color: #FF6347 !important;
-  border-radius: 120px;
-  padding: 0 30px 0 30px;
+  color: #FF6347!important; /* Optional: Gold hover effect */
+  text-decoration: underline !important;
 }
  
 /* Pages & Utility Pages - Separate Columns on Web */
