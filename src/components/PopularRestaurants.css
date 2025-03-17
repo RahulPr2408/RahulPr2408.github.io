@@ -311,3 +311,147 @@
     padding: 2vw 3.5vw;
   }
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .popup-grid {
+    flex-direction: column;
+  }
+
+  .popup-content {
+    width: 95%;
+    height: 95%;
+    padding: 15px;
+  }
+
+  .popup-left, .popup-right {
+    width: 100%;
+  }
+
+  .map-image img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+  }
+
+  .menu-image img {
+    width: 100%;
+    height: auto;
+  }
+
+  .partner-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .partner-name {
+    font-size: 1.2rem;
+  }
+
+  .location-info {
+    font-size: 0.9rem;
+  }
+
+  .btn-coupon {
+    align-self: center;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .coupon-container {
+    max-width: 95%;
+  }
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .restaurant-card {
+    width: 18vw;
+    height: 20vw;
+  }
+
+  .popup-content {
+    width: 95vw;
+    height: 85vh;
+  }
+
+  .popup-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .partner-image {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .map-image img {
+    width: 45vw;
+    height: 30vw;
+  }
+
+  .btn-coupon {
+    padding: 1.2vw 2.5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .restaurant-card {
+    width: 22vw;
+    height: 24vw;
+  }
+
+  .popup-content {
+    width: 95vw;
+    height: 85vh;
+  }
+
+  .popup-grid {
+    flex-direction: column;
+  }
+
+  .partner-image {
+    width: 12vw;
+    height: 12vw;
+  }
+
+  .map-image img {
+    width: 50vw;
+    height: 35vw;
+  }
+
+  .btn-coupon {
+    padding: 1.5vw 3vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurant-card {
+    width: 26vw;
+    height: 28vw;
+  }
+
+  .popup-content {
+    width: 95vw;
+    height: 80vh;
+    padding: 4vw;
+  }
+
+  .popup-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .partner-image {
+    width: 14vw;
+    height: 14vw;
+  }
+
+  .map-image img {
+    width: 55vw;
+    height: 40vw;
+  }
+
+  .btn-coupon {
+    padding: 2vw 3.5vw;
+  }
+}

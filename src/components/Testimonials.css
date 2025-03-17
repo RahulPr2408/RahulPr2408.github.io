@@ -68,3 +68,35 @@
   font-size: 0.9rem;
   color: #777;
 }
+
+/* I added the footer mobile responsive code below, just comment out the below code to get the old result --- Rahul Sharma */
+@media screen and (max-width: 768px) {
+  .testimonials-section {
+    padding: 30px 15px;
+  }
+
+  .testimonials-section h2 {
+    font-size: 2rem;
+  }
+
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .testimonial-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .author-info strong {
+    font-size: 0.9rem;
+  }
+
+  .author-info cite {
+    font-size: 0.8rem;
+  }
+}
