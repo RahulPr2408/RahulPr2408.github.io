@@ -35,10 +35,22 @@
 .about-text {
   font-size: 1.5vw; /* Scales with screen */
   line-height: 1.6;
-  color: #111;
+  color: #2F4F4F;
   margin-bottom: 1.5vw;
   text-align: left;
 }
+
+
+.btn-custom-primary {
+  padding: 10px 20px;
+  border-radius: 120px;
+  background-color: #FFE4C4;
+  color: black;
+  border: 1px solid #FF6347;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
 
 /* Buttons Container */
 .button-container {
@@ -49,17 +61,23 @@
   width: 100%;
 }
 
-/* Buttons (Scales Dynamically) */
-.btn-custom-primary-hero, 
-.btn-custom-secondary-hero {
-  padding: 1vw 1.5vw;
-  border-radius: 30px;
-  font-size: 1vw; /* Scales dynamically */
-  border: none;
+
+.btn-custom-secondary {
+  padding: 10px 20px;
+  border-radius: 120px;
+  background-color: #FF6347;
+  color: #FFE4C4;
+  border: 1px solid #FFE4C4;
   cursor: pointer;
   transition: 0.3s ease;
-  width: 12vw; /* Dynamic button width */
-  text-align: center;
+}
+
+ 
+/* Optional: Hover Effect */
+.btn-custom-secondary:hover {
+  border: 1px solid #FF6347; /* Changes border color on hover */
+  color: var(--Neutral-01, #2F4F4F);
+  background-color: #FFE4C4;
 }
 
 /* Responsive Adjustments */
