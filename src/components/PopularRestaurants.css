@@ -1,54 +1,60 @@
 /* Popular Restaurants Section Styling */
 .popular-restaurants-section {
   background-color: rgba(47, 79, 79, 1); /* Dark slate gray background */
-  padding: 60px 0;
+  padding: 5vw 0; /* Scales padding with screen */
+  text-align: center;
 }
 
+/* Section Title */
 .section-title {
-  font-size: 2.5rem;
+  font-size: 3vw; /* Scales dynamically */
   font-weight: bold;
-  color: rgba(255, 228, 196, 1); /* Light text color */
-  margin-bottom: 40px;
+  color: rgba(255, 228, 196, 1);
+  margin-bottom: 3vw;
 }
 
 /* Restaurant Card Styling */
 .restaurant-card {
-  background-color: #fff; /* White background */
+  background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer; /* Indicate clickable */
-  width: 210px; /* Fixed width */
-  height: 233px; /* Fixed height */
-  margin: 0 auto; /* Center the card */
+  cursor: pointer;
+  width: 15vw; /* Scales dynamically */
+  height: 18vw; /* Scales dynamically */
+  margin: 0 auto;
 }
 
 .restaurant-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-1vw);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Restaurant Image */
 .restaurant-image {
   width: 100%;
-  height: 140px; /* Adjust height to fit within the card */
-  object-fit: cover; /* Ensure the image covers the area */
+  height: 10vw;
+  object-fit: cover;
 }
 
+/* Restaurant Info */
 .restaurant-info {
-  padding: 15px;
+  padding: 1vw;
   text-align: center;
 }
 
+/* Restaurant Name */
 .restaurant-name {
-  font-size: 1.2rem; /* Slightly smaller font size */
+  font-size: 1.2vw;
   font-weight: bold;
-  color: #2f4f4f; /* Dark slate gray */
-  margin-bottom: 8px; /* Reduced margin */
+  color: #2f4f4f;
+  margin-bottom: 0.8vw;
 }
 
+/* Restaurant Location */
 .restaurant-location {
-  font-size: 0.9rem; /* Slightly smaller font size */
+  font-size: 1vw;
   color: #777;
 }
 
@@ -59,46 +65,47 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's on top */
+  z-index: 1000;
 }
 
 /* Popup Content */
 .popup-content {
   background-color: #fff;
   border-radius: 10px;
-  width: 90%; /* Adjust width as needed */
-  max-width: 1200px; /* Maximum width */
-  height: 90%; /* Adjust height as needed */
-  max-height: 800px; /* Maximum height */
-  overflow-y: auto; /* Enable scrolling if content overflows */
-  padding: 20px;
+  width: 90vw;
+  max-width: 1200px;
+  height: 90vh;
+  max-height: 800px;
+  overflow-y: auto;
+  padding: 3vw;
   position: relative;
 }
 
 /* Close Button */
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1vw;
+  right: 1vw;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.5vw;
   cursor: pointer;
-  color: #2f4f4f; /* Dark slate gray */
+  color: #2f4f4f;
 }
 
 .close-button:hover {
-  color: #ff6347; /* Tomato color on hover */
+  color: #ff6347;
 }
 
 /* Popup Grid Layout */
 .popup-grid {
   display: flex;
-  gap: 20px; /* Spacing between left and right sections */
+  gap: 2vw;
+  flex-wrap: wrap;
 }
 
 /* Left Side */
@@ -108,39 +115,37 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  gap: 20px; /* Spacing between restaurant logo and map */
-  padding-top: 10px;
+  gap: 2vw;
+  padding-top: 1vw;
 }
 
 .restaurant-logo-info {
   display: flex;
   align-items: center;
-  gap: 20px; /* Spacing between logo and name */
+  gap: 2vw;
 }
 
 .partner-image {
-  width: 100px; /* Adjust logo size */
-  height: 100px;
+  width: 8vw;
+  height: 8vw;
   border-radius: 10px;
 }
 
 .partner-name {
-  font-size: 1.5rem;
-  color: #2f4f4f; /* Dark slate gray */
+  font-size: 1.5vw;
+  color: #2f4f4f;
 }
 
 .location-info {
-  font-size: 1rem;
+  font-size: 1vw;
   color: #777;
 }
 
 .map-image img {
-  width: 649px; /* Fixed width */
-  height: 400px; /* Fixed height */
+  width: 40vw;
+  height: 25vw;
   border-radius: 10px;
-  display: flex;
-  align-items: start;
-  object-fit: contain; /* Ensure the image covers the area */
+  object-fit: contain;
 }
 
 /* Right Side */
@@ -148,8 +153,8 @@
   flex: 2;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Spacing between menu and button */
-  padding-top: 30px;
+  gap: 2vw;
+  padding-top: 3vw;
 }
 
 .menu-image img {
@@ -159,9 +164,9 @@
 }
 
 .btn-coupon {
-  align-self: flex-end; /* Align button to the right */
-  padding: 10px 20px;
-  background-color: #ff6347; /* Tomato color */
+  align-self: flex-end;
+  padding: 1vw 2vw;
+  background-color: #ff6347;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -170,34 +175,29 @@
 }
 
 .btn-coupon:hover {
-  background-color: #e5533d; /* Darker shade on hover */
+  background-color: #e5533d;
 }
 
+/* Coupon Section */
 .coupon-image {
   max-width: 100%;
   height: auto;
 }
 
-.download-coupon-button, .back-button {
+.download-coupon-button, 
+.back-button {
   background-color: #FF5722;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 1vw 2vw;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 1vw;
 }
 
-.download-coupon-button:hover, .back-button:hover {
+.download-coupon-button:hover, 
+.back-button:hover {
   background-color: #E64A19;
-}
-
-.coupon-content {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .coupon-container {
@@ -213,35 +213,101 @@
   height: auto;
   max-height: 70vh;
   object-fit: contain;
-  margin-bottom: 20px;
+  margin-bottom: 2vw;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.coupon-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .restaurant-card {
+    width: 18vw;
+    height: 20vw;
+  }
+
+  .popup-content {
+    width: 95vw;
+    height: 85vh;
+  }
+
+  .popup-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .partner-image {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .map-image img {
+    width: 45vw;
+    height: 30vw;
+  }
+
+  .btn-coupon {
+    padding: 1.2vw 2.5vw;
+  }
 }
 
-.download-coupon-button,
-.back-button {
-  background-color: #FF5722;
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+@media (max-width: 768px) {
+  .restaurant-card {
+    width: 22vw;
+    height: 24vw;
+  }
+
+  .popup-content {
+    width: 95vw;
+    height: 85vh;
+  }
+
+  .popup-grid {
+    flex-direction: column;
+  }
+
+  .partner-image {
+    width: 12vw;
+    height: 12vw;
+  }
+
+  .map-image img {
+    width: 50vw;
+    height: 35vw;
+  }
+
+  .btn-coupon {
+    padding: 1.5vw 3vw;
+  }
 }
 
-.download-coupon-button:hover,
-.back-button:hover {
-  background-color: #E64A19;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(230, 74, 25, 0.2);
+@media (max-width: 480px) {
+  .restaurant-card {
+    width: 26vw;
+    height: 28vw;
+  }
+
+  .popup-content {
+    width: 95vw;
+    height: 80vh;
+    padding: 4vw;
+  }
+
+  .popup-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .partner-image {
+    width: 14vw;
+    height: 14vw;
+  }
+
+  .map-image img {
+    width: 55vw;
+    height: 40vw;
+  }
+
+  .btn-coupon {
+    padding: 2vw 3.5vw;
+  }
 }

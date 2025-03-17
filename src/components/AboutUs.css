@@ -1,4 +1,4 @@
-  /* About Us Section Styling */
+/* About Us Section Styling */
 .about-us-section {
   background-image: url('../assets/AboutUs-Background.jpeg'); /* Replace with your image path */
   background-size: cover;
@@ -6,7 +6,9 @@
   height: 100vh; /* Full viewport height */
   display: flex;
   align-items: center;
+  justify-content: center; /* Center content */
   position: relative;
+  padding: 5vw; /* Responsive padding */
 }
 
 /* Overlay for better readability */
@@ -23,26 +25,91 @@
 /* Content Styling */
 .about-us-content {
   background-color: rgb(245, 236, 211, 0.9); /* Semi-transparent white background */
-  padding: 40px;
+  padding: 4vw; /* Scales with screen */
   border-radius: 10px;
   position: relative;
   z-index: 1;
+  max-width: 60vw; /* Responsive max width */
+  text-align: center;
 }
 
+/* Title Styling */
 .about-us-title {
-  font-size: 2.5rem;
+  font-size: 3vw; /* Scales dynamically */
   font-weight: bold;
   color: #2f4f4f; /* Dark slate gray */
-  margin-bottom: 20px;
+  margin-bottom: 2vw;
 }
 
+/* Text Styling */
 .about-us-text {
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: 1.5vw; /* Scales dynamically */
+  line-height: 1.6;
   color: #333; /* Dark text for readability */
-  margin-bottom: 20px;
+  margin-bottom: 1.5vw;
 }
 
+/* Highlight Text */
 .about-us-text strong {
   color: #ff6347; /* Tomato color for emphasis */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .about-us-section {
+    padding: 5vw 4vw;
+  }
+
+  .about-us-content {
+    max-width: 70vw;
+    padding: 3.5vw;
+  }
+
+  .about-us-title {
+    font-size: 3.5vw;
+  }
+
+  .about-us-text {
+    font-size: 1.8vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us-section {
+    height: auto;
+    padding: 10vw 5vw;
+  }
+
+  .about-us-content {
+    max-width: 80vw;
+    padding: 3vw;
+  }
+
+  .about-us-title {
+    font-size: 4vw;
+  }
+
+  .about-us-text {
+    font-size: 2vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-section {
+    height: auto;
+    padding: 12vw 5vw;
+  }
+
+  .about-us-content {
+    max-width: 90vw;
+    padding: 3vw;
+  }
+
+  .about-us-title {
+    font-size: 5vw;
+  }
+
+  .about-us-text {
+    font-size: 2.5vw;
+  }
 }
