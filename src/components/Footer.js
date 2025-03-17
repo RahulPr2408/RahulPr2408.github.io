@@ -30,6 +30,10 @@ const Footer = () => {
                     </a>
                 </div>
               </div>
+              <br></br>
+              <section id='contact' className="footer-text">
+                <p>Phone: +1 (647) 385-7259</p>
+              </section>
             </div>
           </div>
 
@@ -38,10 +42,9 @@ const Footer = () => {
             <div className="footer-pages">
               <ul className="footer-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#team">Team</a></li>
+                <li><a href="#about">Our Story</a></li>
+                <li><a href="#team">Our Team</a></li>
                 <li><a href="#contact">Contact Us</a></li>
-                <li><a href="#blog">Blog</a></li>
               </ul>
             </div>
           </div>
@@ -50,10 +53,8 @@ const Footer = () => {
           <div className="col-md-3 middle-section-custom">
             <div className="footer-utility">
               <ul className="footer-links">
-                <li><Link to="/story">Our Story</Link></li>
-                <li><Link to="/people">People</Link></li>
                 <li><Link to="/partners">Partners</Link></li>
-                <li><Link to="/awards">Awards & Recognition</Link></li>
+                <li><Link to="/awards">Awards</Link></li>
                 <li><Link to="/faq">FAQ</Link></li>
                 <li><Link to="/privacy-policy">Privacy Policy</Link></li>
               </ul>
