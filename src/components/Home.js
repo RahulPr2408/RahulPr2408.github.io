@@ -20,10 +20,10 @@ const Home = () => {
             need. Our goal is simple: ensure that no good food goes to waste while
             helping those who need it most.
           </p>
-          <div className="button-container">
+          {/* <div className="button-container">
             <button className="btn-custom-primary-hero">About Us</button>
             <button className="btn-custom-secondary-hero">Get Coupon</button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
