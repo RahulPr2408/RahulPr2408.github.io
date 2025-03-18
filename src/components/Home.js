@@ -12,7 +12,7 @@ const Home = () => {
         <div className="about-section">
           <div className="about-content">
             <p className="about-text">
-              At First Plate, we fight food insecurity and reduce food waste by
+              At Second Plate, we fight food insecurity and reduce food waste by
               redistributing surplus food from restaurants and retailers to those in
               need. Our goal is simple: ensure that no good food goes to waste while
               helping those who need it most.
