@@ -361,6 +361,7 @@
   .coupon-container {
     max-width: 95%;
   }
+}
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
