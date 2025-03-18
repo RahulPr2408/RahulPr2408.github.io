@@ -1,8 +1,7 @@
 import React from 'react';
 import './Hero.css';
-import BackgroundImage from '../assets/Home3.jpeg'; // Import background image
 
-const Hero = () => {
+function Hero() {
   return (
     <div className="hero-section">
       <div className="hero-content">
@@ -10,6 +9,6 @@ const Hero = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Hero;
