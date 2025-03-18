@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div id="home" className="home-container">
       <div className="hero-container">
-        <Hero /> {/* Hero Section with Title */}
+        <Hero/> {/* Hero Section with Title */}
         
         {/* About Section (Aligned to Center-Left) */}
         <div className="about-section">
