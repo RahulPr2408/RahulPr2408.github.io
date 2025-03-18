@@ -12,7 +12,7 @@ const AboutUs = () => {
           {/* Right Side: Content */}
           <div className="col-md-6">
             <div className="about-us-content">
-              <h2 className="about-us-title">About Us</h2>
+              <h2 className="about-us-title">Our Story</h2>
               <p className="about-us-text">
                 We’re on a mission to fight food waste and hunger by rescuing surplus, perfectly edible food from restaurants and grocery stores. This food is transformed into nutritious, affordable meals for low- and middle-income families, students, and busy professionals.
               </p>
