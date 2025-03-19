@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        localStorage.setItem('token', data.jwtToken);
+        localStorage.setItem('userName', data.name);
+        setMessage('Login successful!');
+        navigate('/'); // Redirect to home page
+      } else {
+        setMessage(data.message || 'Login failed.');
+      }
+    } catch (error) {
+      setMessage('An error occurred. Please try again.');
+      console.error('Login error:', error);
+    }
+  };
+
   return (
     <>
       {/* Top Section with Background Image */}
@@ -16,7 +50,7 @@ const Login = () => {
           </div>
 
           <div className="login-form-container">
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleLogin}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input 
@@ -24,6 +58,8 @@ const Login = () => {
                   id="email" 
                   placeholder="Enter your email" 
                   className="form-input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -33,6 +69,8 @@ const Login = () => {
                   id="password" 
                   placeholder="********" 
                   className="form-input"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="form-options">
@@ -43,6 +81,7 @@ const Login = () => {
                 <a href="#" className="forgot-link">Forgot password</a>
               </div>
               <button type="submit" className="sign-in-btn">Sign In</button>
+              {message && <p className="message">{message}</p>}
               <button type="button" className="google-sign-in">
                 <img 
                   src="https://developers.google.com/identity/images/g-logo.png" 

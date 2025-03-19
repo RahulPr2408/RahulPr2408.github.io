@@ -8,8 +8,9 @@ import Team from './components/Team';
 import AboutUs from './components/AboutUs';
 import PopularRestaurants from './components/PopularRestaurants';
 import AllTeamMembers from './components/AllTeamMembers';
-import Login from './components/Login';
-import SignUp from './components/SignUp'; // Import SignUp component
+import Login from './components/login/Login';
+import SignUp from './components/login/SignUp'; // Import SignUp component
+import RestaurantLogin from './components/login/RestaurantLogin'; // Import RestaurantLogin component
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/team" element={<AllTeamMembers />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} /> 
+          <Route path="/restaurant-login" element={<RestaurantLogin />} /> {/* Add RestaurantLogin route */}
         </Routes>
         <Footer />
       </Router>

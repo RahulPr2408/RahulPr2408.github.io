@@ -1,6 +1,6 @@
 /* Main Content Styles */
 .main-content {
-  background-image: url('../assets/home_background_image.png'); /* Ensure this path is correct */
+  background-image: url('../../assets/home_background_image.png'); /* Ensure this path is correct */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -15,7 +15,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better contrast */
+  background-color: rgba(255, 255, 255, 0.785); /* Slightly more opaque for better contrast */
   z-index: 1;
 }
 
