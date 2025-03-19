@@ -187,3 +187,103 @@
   color: #e94836;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 20px 15px;
+    margin-top: 60px;
+  }
+
+  .login-title {
+    font-size: 42px;
+    margin-bottom: 15px;
+  }
+
+  .welcome-text {
+    font-size: 14px;
+    padding: 0 10px;
+    margin-bottom: 25px;
+  }
+
+  .login-form-container {
+    padding: 25px 20px;
+    margin: 0 10px;
+    border-radius: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .forgot-link {
+    align-self: flex-end;
+  }
+
+  .sign-in-btn,
+  .google-sign-in {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    padding: 30px 15px;
+  }
+
+  .contact-container {
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+  }
+
+  .contact-item {
+    padding: 0;
+  }
+
+  .contact-item h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .contact-item p {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .message {
+    font-size: 14px;
+    padding: 8px;
+    margin: 10px 0;
+  }
+}
+
+/* Additional adjustments for very small screens */
+@media (max-width: 360px) {
+  .login-title {
+    font-size: 36px;
+  }
+
+  .login-form-container {
+    padding: 20px 15px;
+  }
+
+  .google-sign-in {
+    font-size: 13px;
+  }
+
+  .google-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
