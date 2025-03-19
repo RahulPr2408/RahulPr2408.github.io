@@ -1,9 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.2c8887c7.css",
-    "main.js": "/static/js/main.d078e029.js",
+    "main.css": "/static/css/main.f6986584.css",
+    "main.js": "/static/js/main.d6f9a3fa.js",
+    "static/media/Rahul.png": "/static/media/Rahul.525c70b97c0d6e526204.png",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
+    "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
+    "static/media/Vanessa.jpg": "/static/media/Vanessa.bb400bb1567b3a67c161.jpg",
+    "static/media/Ekanshi.jpg": "/static/media/Ekanshi.9ddd1069c782533abdf4.jpg",
+    "static/media/Yash.jpg": "/static/media/Yash.ca0f75a0a9e82ec9255a.jpg",
+    "static/media/Ayush.jpg": "/static/media/Ayush.cb6d4eb5c990f110a9ee.jpg",
+    "static/media/Vaibhav.JPG": "/static/media/Vaibhav.0566ae54d7d5859fdd26.JPG",
+    "static/media/Team_Photo.JPG": "/static/media/Team_Photo.e8b907c2026c3aed0c2d.JPG",
+    "static/media/Rishil_2.JPG": "/static/media/Rishil_2.046abacc33246bd40839.JPG",
     "static/media/Home3.jpeg": "/static/media/Home3.a20c257f06275752251e.jpeg",
+    "static/media/Soumya.jpg": "/static/media/Soumya.00a86bc19b9d14d90636.jpg",
     "static/media/Payal.png": "/static/media/Payal.884c5eb334eeb2382eb3.png",
     "static/media/Nilima.png": "/static/media/Nilima.604647df201e9f94d1b8.png",
     "static/media/coupon_code.jpg": "/static/media/coupon_code.014224ce13a25f60a868.jpg",
@@ -15,14 +25,14 @@
     "static/media/amaya-logo.png": "/static/media/amaya-logo.c5f434de681607b6797a.png",
     "static/media/amaya-menu.jpeg": "/static/media/amaya-menu.9ea1dc97c7907500b9a9.jpeg",
     "static/media/map-pantry.jpg": "/static/media/map-pantry.8e31405d8f02fd106148.jpg",
+    "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.a7abbc318b6ac85c87f7.png",
     "static/media/pantry-logo.png": "/static/media/pantry-logo.6baf2c10369ad6d27030.png",
-    "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.20abce9c6fc31b04808f.png",
     "index.html": "/index.html",
-    "main.2c8887c7.css.map": "/static/css/main.2c8887c7.css.map",
-    "main.d078e029.js.map": "/static/js/main.d078e029.js.map"
+    "main.f6986584.css.map": "/static/css/main.f6986584.css.map",
+    "main.d6f9a3fa.js.map": "/static/js/main.d6f9a3fa.js.map"
   },
   "entrypoints": [
-    "static/css/main.2c8887c7.css",
-    "static/js/main.d078e029.js"
+    "static/css/main.f6986584.css",
+    "static/js/main.d6f9a3fa.js"
   ]
 }
