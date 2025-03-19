@@ -1,13 +1,12 @@
 import React from 'react';
-import './Login.css';
+import './Login.css'; // Reuse the same CSS file
 
-const Login = () => {
+const SignUp = () => {
   return (
     <>
-      {/* Top Section with Background Image */}
       <main className="main-content">
         <div className="login-section">
-          <h1 className="login-title">Login</h1>
+          <h1 className="login-title">Sign Up</h1>
           
           <div className="welcome-text">
             <p>Welcome to Second Plate – where every plate tells a story of kindness and connection.</p>
@@ -17,6 +16,15 @@ const Login = () => {
 
           <div className="login-form-container">
             <form className="login-form">
+              <div className="form-group">
+                <label htmlFor="full-name">Full Name</label>
+                <input 
+                  type="text" 
+                  id="full-name" 
+                  placeholder="Full Name" 
+                  className="form-input"
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input 
@@ -42,25 +50,20 @@ const Login = () => {
                 </div>
                 <a href="#" className="forgot-link">Forgot password</a>
               </div>
-              <button type="submit" className="sign-in-btn">Sign In</button>
+              <button type="submit" className="sign-in-btn">Create Account</button>
               <button type="button" className="google-sign-in">
-                <img 
-                  src="https://developers.google.com/identity/images/g-logo.png" 
-                  alt="Google Icon" 
-                  className="google-icon" 
-                />
+                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Icon" className="google-icon" />
                 Sign in with Google
               </button>
               <div className="signup-option">
-                <span>Don't have an account? </span>
-                <a href="#" className="signup-link">Sign up for free!</a>
+                <span>Already have an account? </span>
+                <a href="#" className="signup-link">Log in</a>
               </div>
             </form>
           </div>
         </div>
       </main>
 
-      {/* Bottom Section with Solid Background */}
       <section className="contact-section">
         <div className="contact-container">
           <div className="contact-item">
@@ -84,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

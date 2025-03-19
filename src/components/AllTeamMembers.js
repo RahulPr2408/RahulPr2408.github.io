@@ -5,7 +5,7 @@ import Areeb from "../assets/Areeb.jpg";
 import Vaishal from "../assets/Vaishal.jpg";
 import Aarushi from "../assets/Aarushi.jpg";
 import Yash from "../assets/Yash.jpg";
-import Vaibhav from "../assets/Vaibhav.JPG"
+import Vaibhav from "../assets/Vaibhav.jpg"
 import Rahul from "../assets/Rahul.png"
 import Soumya from "../assets/Soumya.jpg"
 import Vanessa from "../assets/Vanessa.jpg"
