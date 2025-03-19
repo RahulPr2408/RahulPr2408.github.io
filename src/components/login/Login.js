@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,8 +25,7 @@ const Login = () => {
       const data = await response.json();
       
       if (response.ok) {
-        localStorage.setItem('token', data.jwtToken);
-        localStorage.setItem('userName', data.name);
+        login(data.jwtToken, data.name);
         setMessage('Login successful!');
         navigate('/'); // Redirect to home page
       } else {
@@ -92,7 +93,7 @@ const Login = () => {
               </button>
               <div className="signup-option">
                 <span>Don't have an account? </span>
-                <a href="#" className="signup-link">Sign up for free!</a>
+                <Link to="/signup" className="signup-link">Sign up for free!</Link>
               </div>
             </form>
           </div>
