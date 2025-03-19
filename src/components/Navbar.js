@@ -16,6 +16,26 @@ const Navbar = () => {
     navigate('/');
   };
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && !event.target.closest('.navbar')) {
+        setIsOpen(false);
+      }
+      if (showProfileMenu && !event.target.closest('.profile-section')) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isOpen, showProfileMenu]);
+
+  // Close mobile menu when clicking on a link
+  const handleNavLinkClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div>
       <nav className='navbar navbar-expand-lg navbar-dark custom-navbar'>
@@ -34,25 +54,59 @@ const Navbar = () => {
           <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`} id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="#home">Home</a>
+                <a className="nav-link" href="#home" onClick={handleNavLinkClick}>Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#about">Our Story</a>
+                <a className="nav-link" href="#about" onClick={handleNavLinkClick}>Our Story</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#team">Our Team</a>
+                <a className="nav-link" href="#team" onClick={handleNavLinkClick}>Our Team</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#testimonial">Testimonial</a>
+                <a className="nav-link" href="#testimonial" onClick={handleNavLinkClick}>Testimonial</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#contact">Contact Us</a>
+                <a className="nav-link" href="#contact" onClick={handleNavLinkClick}>Contact Us</a>
               </li>
             </ul>
+
+            {/* Mobile-only profile section */}
+            <div className="d-lg-none">
+              {isLoggedIn ? (
+                <div className="profile-section">
+                  <div 
+                    className="profile-trigger"
+                    onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  >
+                    <AccountCircleIcon className="profile-icon" />
+                    <span className="user-name">{userName}</span>
+                  </div>
+                  {showProfileMenu && (
+                    <div className="profile-menu">
+                      <button onClick={() => {
+                        navigate('/profile');
+                        setIsOpen(false);
+                      }}>Profile</button>
+                      <button onClick={() => {
+                        handleLogout();
+                        setIsOpen(false);
+                      }}>Logout</button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <Link to="/login" className="btn-outline-light" onClick={handleNavLinkClick}>Login</Link>
+                  <Link to="/restaurant-login" className="btn-outline-light restaurant-login" onClick={handleNavLinkClick}>
+                    Restaurant Login
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
 
-          {/* Replace the login buttons with this new section */}
-          <div className="d-flex align-items-center">
+          {/* Desktop-only profile section */}
+          <div className="d-none d-lg-flex align-items-center">
             {isLoggedIn ? (
               <div className="profile-section">
                 <div 
