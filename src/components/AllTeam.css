@@ -4,7 +4,8 @@
 .team-hero-section {
   background-color: rgba(47, 79, 79, 1); /* Dark slate gray */
   width: 100%;
-  padding: 60px 0;
+  height: min-content;
+  padding: 5px;
   text-align: center;
 }
 

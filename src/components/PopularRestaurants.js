@@ -67,7 +67,7 @@ const PopularRestaurants = () => {
   return (
     <section className="popular-restaurants-section py-5">
       <div className="container">
-        <h2 className="section-title text-center mb-5">Our Partnered Restaurants</h2>
+        <h2 className="section-title text-center mb-5">Our Partner Restaurants</h2>
         <div className="row justify-content-center">
           {/* Card 1: Amaya */}
           <div className="col-md-3 mb-4">
