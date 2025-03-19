@@ -30,7 +30,7 @@ const Footer = () => {
               </div>
               <br></br>
               <section id='contact' className="footer-text">
-                <p>Phone: +1 (647) 385-7259</p>
+                <p>enactusnortheasternto@outlook.com</p>
               </section>
             </div>
           </div>
