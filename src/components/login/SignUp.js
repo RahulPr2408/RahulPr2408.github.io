@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const SignUp = () => {
@@ -97,7 +97,7 @@ const SignUp = () => {
               </button>
               <div className="signup-option">
                 <span>Already have an account? </span>
-                <a href="#" className="signup-link">Log in</a>
+                <Link to="/login" className="signup-link">Log in</Link>
               </div>
             </form>
           </div>
