@@ -1,7 +1,40 @@
-import React from 'react';
-import './Login.css'; // Reuse the same CSS file
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const SignUp = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/auth/signup', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ name, email, password }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setMessage('Signup successful! Redirecting to login...');
+        setTimeout(() => navigate('/login'), 2000);
+      } else {
+        setMessage(data.message || 'Signup failed.');
+      }
+    } catch (error) {
+      setMessage('An error occurred. Please try again.');
+      console.error('Signup error:', error);
+    }
+  };
+
   return (
     <>
       <main className="main-content">
@@ -15,7 +48,7 @@ const SignUp = () => {
           </div>
 
           <div className="login-form-container">
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleSignUp}>
               <div className="form-group">
                 <label htmlFor="full-name">Full Name</label>
                 <input 
@@ -23,6 +56,8 @@ const SignUp = () => {
                   id="full-name" 
                   placeholder="Full Name" 
                   className="form-input"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -32,6 +67,8 @@ const SignUp = () => {
                   id="email" 
                   placeholder="Enter your email" 
                   className="form-input"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -41,6 +78,8 @@ const SignUp = () => {
                   id="password" 
                   placeholder="********" 
                   className="form-input"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="form-options">
@@ -51,6 +90,7 @@ const SignUp = () => {
                 <a href="#" className="forgot-link">Forgot password</a>
               </div>
               <button type="submit" className="sign-in-btn">Create Account</button>
+              {message && <p className="message">{message}</p>}
               <button type="button" className="google-sign-in">
                 <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Icon" className="google-icon" />
                 Sign in with Google

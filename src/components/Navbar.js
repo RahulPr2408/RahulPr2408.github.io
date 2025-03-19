@@ -43,7 +43,8 @@ const Navbar = () => {
 
           {/* Login Button (Same Design) */}
           <div className="d-flex">
-            <button className="btn-outline-light">Login</button>
+            <Link to="/login" className="btn-outline-light">Login</Link>
+            <Link to="/restaurant-login" className="btn-outline-light restaurant-login">Restaurant Login</Link>
           </div>
         </div>
       </nav>

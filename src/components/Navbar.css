@@ -59,6 +59,23 @@
   color: var(--Neutral-01, #2F4F4F);
   background-color: #FFE4C4;
 }
+
+/* Restaurant Login Button */
+.restaurant-login {
+  margin-left: 10px;
+  padding: 12px 30px;
+  border-radius: 120px;
+  background-color: #FFE4C4;
+  color: #2F4F4F;
+  transition: background-color 0.3s ease, border 0.3s ease;
+  border: 1px solid #FF6347;
+}
+
+.restaurant-login:hover {
+  background-color: #FF6347;
+  color: #FFF;
+  border: 1px solid #FFE4C4;
+}
  
  
 /* 🟢 HAMBURGER MENU */
