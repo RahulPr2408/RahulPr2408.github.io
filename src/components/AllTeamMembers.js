@@ -1,0 +1,65 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './AllTeam.css'; // Import AllTeam.css
+import Areeb from "../assets/Areeb.jpg";
+import Vaishal from "../assets/Vaishal.jpg";
+import Aarushi from "../assets/Aarushi.jpg";
+import Yash from "../assets/Yash.jpg";
+import Vaibhav from "../assets/Vaibhav.JPG"
+import Rahul from "../assets/Rahul.jpg"
+import Soumya from "../assets/Soumya.jpg"
+import TeamPhoto from "../assets/Team_Photo.JPG";
+
+const AllTeamMembers = () => {
+  const teamMembers = [
+    { id: 1, name: 'Areeb Salsabil', position: 'President', email: 'salsabil.a@northeastern.edu', image: Areeb },
+    { id: 2, name: 'Vaishal Jariwala', position: 'Vice President', email: 'jariwala.va@northeastern.edu', image: Vaishal },
+    { id: 3, name: 'Aarushi Sharma', position: 'Vice President', email: 'sharma.aarush@northeastern.edu', image: Aarushi },
+    { id: 4, name: 'Yash Trivedi', position: 'Project Manager Head', email: 'sharma.aarush@northeastern.edu', image: Yash },
+    { id: 5, name: 'Vaibhav Patil', position: 'Project Manager Head', email: 'sharma.aarush@northeastern.edu', image: Vaibhav },
+    { id: 6, name: 'Rahul Prajapati', position: 'Technical Head', email: 'sharma.aarush@northeastern.edu', image: Rahul },
+    { id: 7, name: 'Soumya Singh', position: 'Technical Head', email: 'sharma.aarush@northeastern.edu', image: Soumya },
+    { id: 8, name: 'Ayush', position: 'Technical Head', email: 'sharma.aarush@northeastern.edu', image: Soumya },
+    { id: 9, name: 'Ekanshi Sharma', position: 'Technical Head', email: 'sharma.aarush@northeastern.edu', image: Soumya },
+    { id: 10, name: 'Rishil', position: 'Technical Head', email: 'sharma.aarush@northeastern.edu', image: Soumya },
+    { id: 10, name: 'Venessa', position: 'Technical Head', email: 'sharma.aarush@northeastern.edu', image: Soumya },
+    
+  ];
+
+  return (
+    <div>
+      {/* First Section: Full-width background with team photo and heading */}
+      <section className="team-hero-section">
+        <div className="team-hero-content">
+          <img src={TeamPhoto} alt="Our Team" className="team-hero-image" />
+          <h1 className="team-hero-title">Our Team</h1>
+        </div>
+      </section>
+
+      {/* Second Section: Grid layout for team members */}
+      <section className="team-grid-section">
+        <div className="container">
+          <div className="row">
+            {teamMembers.map(member => (
+              <div key={member.id} className="col-lg-3 col-md-4 col-sm-6 text-center mb-4">
+                <div className="team-member-square">
+                  <img src={member.image} alt={member.name} className="team-member-square-image" />
+                  <h3 className="team-member-square-name">{member.name}</h3>
+                  <p className="team-member-square-position">{member.position}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Back to Home Button inside the second section */}
+          <div className="text-center mt-4">
+            <Link to="/" className="see-all-btn">
+              &larr; Back to Home
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default AllTeamMembers;
