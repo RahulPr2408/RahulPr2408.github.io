@@ -1,0 +1,102 @@
+/* AllTeam.css */
+
+/* Hero Section for All Team Members Page */
+.team-hero-section {
+  background-color: rgba(47, 79, 79, 1); /* Dark slate gray */
+  width: 100%;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.team-hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.team-hero-image {
+  width: 100%;
+  max-height: 400px; /* Adjust height as needed */
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.team-hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff; /* White color for the All Team Members page */
+  margin-top: 20px;
+}
+
+/* Grid Layout for Team Members */
+.team-grid-section {
+  background-color: rgba(245, 236, 211, 1); /* Light beige */
+  padding: 60px 0;
+}
+
+/* Square Layout for Team Members */
+.team-member-square {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member-square:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-member-square-image {
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.team-member-square-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2F4F4F; /* Dark slate gray */
+  margin-bottom: 10px;
+}
+
+.team-member-square-position {
+  font-size: 1.2rem;
+  color: #FF6347; /* Tomato color */
+  margin-bottom: 10px;
+}
+
+/* Back to Home Button */
+.see-all-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #2F4F4F;
+  background-color: #FF6347;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.see-all-btn:hover {
+  background-color: #e5533d;
+}
+
+/* Responsive Grid Layout */
+@media (max-width: 768px) {
+  .col-lg-3 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-lg-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

@@ -1,4 +1,6 @@
-/* Team Section Styling */
+/* Team.css */
+
+/* Main Team Section */
 .team-section {
   background-color: #F5ECD3;
   padding: 60px 0;
@@ -50,8 +52,7 @@
   line-height: 1.6;
 }
 
-/* I added the footer mobile responsive code below, just comment out the below code to get the old result --- Rahul Sharma */
-
+/* Mobile Responsive Code */
 @media screen and (max-width: 768px) {
   .team-section {
     padding: 30px 15px;
@@ -79,4 +80,47 @@
   .team-description {
     font-size: 0.9rem;
   }
+}
+
+.see-all-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #2F4F4F;
+  background-color: #FF6347;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.see-all-btn:hover {
+  background-color: #e5533d;
+}
+
+/* Ensure the grid layout is responsive */
+@media (max-width: 768px) {
+  .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Styles for the Main Team Page */
+.main-team-hero-section {
+  background-color: rgba(245, 236, 211, 1); /* Light beige */
+  width: 100%;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.main-team-hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: rgba(47, 79, 79, 1); /* Dark slate gray */
+  margin-top: 20px;
+}
+
+.main-team-grid-section {
+  background-color: rgba(245, 236, 211, 1); /* Light beige */
+  padding: 60px 0;
 }
