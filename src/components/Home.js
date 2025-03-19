@@ -4,24 +4,27 @@ import Hero from './Hero'; // Import the new Hero component
 
 const Home = () => {
   return (
-    <div id="home" className="home-container">
-      <div className="hero-container">
-        <Hero/> {/* Hero Section with Title */}
-        
-        {/* About Section (Aligned to Center-Left) */}
-        <div className="about-section">
-          <div className="about-content">
-            <p className="about-text">
-              At Second Plate, we fight food insecurity and reduce food waste by
-              redistributing surplus food from restaurants and retailers to those in
-              need. Our goal is simple: ensure that no good food goes to waste while
-              helping those who need it most.
-            </p>
-            {/* <div className="button-container">
-              <button className="btn-custom-primary">About Us</button>
-              <button className="btn-custom-secondary">Get Coupon</button>
-            </div> */}
-          </div>
+    <div id='home' className="home-container">
+      {/* Hero Section */}
+      <div className="hero-section">
+        <div className="hero-content">
+        </div>
+      </div>
+
+      {/* About Section */}
+      <div className="about-section">
+        <div className="about-content">
+          <p className="hero-subtitle">From Plate to Purpose <br /> Share, Don't Waste!</p>
+          <p className="about-text">
+            At Second Plate, we fight food insecurity and reduce food waste by
+            redistributing surplus food from restaurants and retailers to those in
+            need. Our goal is simple: ensure that no good food goes to waste while
+            helping those who need it most.
+          </p>
+          {/* <div className="button-container">
+            <button className="btn-custom-primary-hero">About Us</button>
+            <button className="btn-custom-secondary-hero">Get Coupon</button>
+          </div> */}
         </div>
       </div>
     </div>
