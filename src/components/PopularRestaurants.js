@@ -5,7 +5,8 @@ import Pantry_Logo from '../assets/pantry-logo.png';
 import Amaya_Menu from '../assets/amaya-menu.jpeg';
 import Amaya_Map from '../assets/Amaya_map.png';
 import Pantry_Map from '../assets/map-pantry.jpg';
-import CouponImage from '../assets/coupon_code.jpg'; // Import the coupon image
+import CouponImage from '../assets/coupon_code.jpg';
+import Pantry_menu from "../assets/Pantry_Menu.jpg";
 
 const PopularRestaurants = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -31,7 +32,7 @@ const PopularRestaurants = () => {
       address: '199 Bay St., Floor 1 Commerce Court West, Toronto, ON M5L 1G9',
       phone: '(416) 555-1234',
       map: Pantry_Map,
-      menu: '../assets/menu-pantry.jpg',
+      menu: Pantry_menu,
     },
   };
 
