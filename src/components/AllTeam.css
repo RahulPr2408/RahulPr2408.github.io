@@ -88,6 +88,20 @@
   background-color: #e5533d;
 }
 
+/* LinkedIn Icon Styling */
+.linkedin-icon {
+  margin-left: 10px;
+  color: #0077b5; /* LinkedIn blue */
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+  background-color: transparent; /* Ensure no background */
+  text-decoration: none; /* Remove underline */
+}
+
+.linkedin-icon:hover {
+  color: #005f8e; /* Darker LinkedIn blue */
+}
+
 /* Responsive Grid Layout */
 @media (max-width: 768px) {
   .col-lg-3 {

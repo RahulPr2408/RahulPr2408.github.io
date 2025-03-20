@@ -14,7 +14,7 @@ const Testimonials = () => {
           <div className="col-md-4 mb-4">
             <div className="card h-100">
               <div className="card-body">
-                <h5 className="card-title">“helping those in need”</h5>
+                <h5 className="card-title">“Helping those in need”</h5>
                 <p className="card-text">
                 “Second Plate introduces ways to prevent food waste which is truly impressive and helping those in need. The partner restaurant Amaya serves delicious food.”
                 </p>
@@ -37,7 +37,7 @@ const Testimonials = () => {
           <div className="col-md-4 mb-4">
             <div className="card h-100">
               <div className="card-body">
-                <h5 className="card-title">“smart, sustainable approach”</h5>
+                <h5 className="card-title">“Smart, sustainable approach”</h5>
                 <p className="card-text">
                 “Second Plate is bridging the gap between food waste and hunger with a smart, sustainable approach. Their impact is real, and their mission is truly commendable!”
                 </p>
@@ -60,7 +60,7 @@ const Testimonials = () => {
           <div className="col-md-4 mb-4">
             <div className="card h-100">
               <div className="card-body">
-                <h5 className="card-title">“mission is impactful”</h5>
+                <h5 className="card-title">“Mission is impactful”</h5>
                 <p className="card-text">
                 “Second Plate is doing incredible work by repurposing surplus food to fight hunger and reduce waste. Their mission is impactful, sustainable, and truly makes a difference in communities. Highly recommend supporting them!”
                 </p>
