@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f6986584.css",
-    "main.js": "/static/js/main.22759bef.js",
+    "main.css": "/static/css/main.c3cd8475.css",
+    "main.js": "/static/js/main.49a63e28.js",
     "static/media/Rahul.png": "/static/media/Rahul.525c70b97c0d6e526204.png",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
@@ -29,11 +29,11 @@
     "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.a7abbc318b6ac85c87f7.png",
     "static/media/pantry-logo.png": "/static/media/pantry-logo.6baf2c10369ad6d27030.png",
     "index.html": "/index.html",
-    "main.f6986584.css.map": "/static/css/main.f6986584.css.map",
-    "main.22759bef.js.map": "/static/js/main.22759bef.js.map"
+    "main.c3cd8475.css.map": "/static/css/main.c3cd8475.css.map",
+    "main.49a63e28.js.map": "/static/js/main.49a63e28.js.map"
   },
   "entrypoints": [
-    "static/css/main.f6986584.css",
-    "static/js/main.22759bef.js"
+    "static/css/main.c3cd8475.css",
+    "static/js/main.49a63e28.js"
   ]
 }
