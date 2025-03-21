@@ -33,11 +33,11 @@ const Team = () => {
                 <p className="team-email">{member.email}</p>
               </div>
             ))}
-          </div>
-          <div className="text-center mt-4">
+            <div className="text-center mt-4">
             <Link to="/team" className="see-all-btn">
               See All <span>&rarr;</span>
             </Link>
+          </div>
           </div>
         </div>
       </div>
