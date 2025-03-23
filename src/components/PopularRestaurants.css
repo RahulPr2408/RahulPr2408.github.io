@@ -37,6 +37,7 @@
   width: 100%;
   height: 10vw;
   object-fit: cover;
+  margin-top: 5px;
 }
 
 /* Restaurant Info */
@@ -96,12 +97,12 @@
   font-size: 1.5vw;
   cursor: pointer;
   color: #2f4f4f;
+  padding: 1vw; /* Add padding for better touch area */
 }
 
 .close-button:hover {
   color: #ff6347;
 }
-
 /* Popup Grid Layout */
 .popup-grid {
   display: flex;
@@ -455,5 +456,68 @@
 
   .btn-coupon {
     padding: 2vw 3.5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .close-button {
+    font-size: 6vw; /* Larger font size for mobile */
+    top: 2vw;
+    right: 2vw;
+    padding: 2vw; /* Larger touch area */
+  }
+}
+
+/* Responsive Adjustments for Mobile Screens */
+@media (max-width: 768px) {
+  .restaurant-image {
+    height: 20vw; /* Increase height for better visibility on mobile */
+  }
+
+  .restaurant-card {
+    width: 40vw; /* Adjust card width for mobile */
+    height: 50vw; /* Adjust card height for mobile */
+  }
+
+  .restaurant-name {
+    font-size: 4vw; /* Increase font size for better readability */
+  }
+
+  .restaurant-location {
+    font-size: 3vw; /* Increase font size for better readability */
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurant-image {
+    height: 25vw; /* Further increase height for very small screens */
+  }
+
+  .restaurant-card {
+    width: 60vw; /* Adjust card width for very small screens */
+    height: 70vw; /* Adjust card height for very small screens */
+  }
+
+  .restaurant-name {
+    font-size: 5vw; /* Further increase font size */
+  }
+
+  .restaurant-location {
+    font-size: 4vw; /* Further increase font size */
+  }
+}
+
+/* Responsive Adjustments for Mobile Screens */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 6vw; /* Larger font size for mobile */
+    margin-bottom: 5vw; /* Increase margin for better spacing */
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 8vw; /* Even larger font size for very small screens */
+    margin-bottom: 6vw; /* Further increase margin */
   }
 }

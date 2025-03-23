@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PopularRestaurants.css';
 import Amaya_Logo from '../assets/amaya-logo.png';
 import Pantry_Logo from '../assets/pantry-logo.png';
@@ -64,6 +64,24 @@ const PopularRestaurants = () => {
     link.click();
     document.body.removeChild(link);
   };
+
+  // Close popup when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const popupContent = document.querySelector('.popup-content');
+      if (isPopupOpen && popupContent && !popupContent.contains(event.target)) {
+        closePopup();
+      }
+    };
+
+    if (isPopupOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isPopupOpen]);
 
   return (
     <section className="popular-restaurants-section py-5">

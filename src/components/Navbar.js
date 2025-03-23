@@ -11,9 +11,9 @@ const Navbar = () => {
       <nav className='navbar navbar-expand-lg navbar-dark custom-navbar'>
         <div className='container-fluid'>
           {/* Logo */}
-          <a className='navbar-brand' href='#home'>
+          <Link className='navbar-brand' to='/'>
             <img src={logo} alt="Second Plate Logo" className="navbar-logo" />
-          </a>
+          </Link>
 
           {/* 🟢 Hamburger Button for iPads & Mobile */}
           <button className="navbar-toggler" onClick={() => setIsOpen(!isOpen)}>
