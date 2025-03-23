@@ -70,6 +70,8 @@
   color: white;
   cursor: pointer;
   transition: 0.3s;
+  margin-left: auto; /* Push toggle button to the right */
+  padding: 0 10px; /* Add padding for better spacing */
 }
  
  
@@ -79,67 +81,38 @@
   .navbar-toggler {
     display: block;
   }
- 
+
   /* Hide Menu by Default on Mobile */
   .collapse {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px;
+    top: 80px; /* Adjusted top position to avoid overlap */
     left: 0;
     width: 100%;
     background: #2F4F4F;
     text-align: center;
     padding: 10px 0;
   }
- 
+
   /* Show Menu when Active */
   .collapse.show {
     display: flex;
   }
- 
+
   /* Stack Items in Mobile View */
   .navbar-nav {
     flex-direction: column;
     align-items: center;
   }
- 
+
   .nav-item {
     margin: 10px 0;
   }
- 
-  .d-flex {
-    margin-top: 10px;
-    justify-content: center;
+
+  /* Adjust Toggle Button Alignment */
+  .navbar-toggler {
+    margin-left: auto; /* Push toggle button to the right */
+    padding: 0 10px; /* Add padding for better spacing */
   }
 }
-
-/* I added the footer mobile responsive code below, just comment out the below code to get the old result --- Rahul Sharma */
-/* 
-@media (max-width: 768px) {
-  .custom-navbar {
-    padding: 8px 15px;
-  }
-
-  .navbar-logo {
-    height: 40px;
-  }
-
-  .collapse {
-    top: 56px;
-  }
-
-  .navbar-nav .nav-link {
-    padding: 10px 20px;
-  }
-
-  .nav-item {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .btn-outline-light {
-    width: 200px;
-    margin: 10px auto;
-  }
-} */
