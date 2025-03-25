@@ -12,6 +12,7 @@ import Login from './components/login/Login';
 import SignUp from './components/login/SignUp'; // Import SignUp component
 import RestaurantLogin from './components/login/RestaurantLogin'; // Import RestaurantLogin component
 import { AuthProvider } from './context/AuthContext';
+import OAuthCallback from './components/login/OAuthCallback'; // Import OAuthCallback component
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} /> 
             <Route path="/restaurant-login" element={<RestaurantLogin />} /> {/* Add RestaurantLogin route */}
+            <Route path="/oauth-callback" element={<OAuthCallback />} /> {/* Add OAuthCallback route */}
           </Routes>
           <Footer />
         </Router>

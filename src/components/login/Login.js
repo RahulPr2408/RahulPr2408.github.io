@@ -37,6 +37,10 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:3000/auth/google';
+  };
+
   return (
     <>
       {/* Top Section with Background Image */}
@@ -83,7 +87,11 @@ const Login = () => {
               </div>
               <button type="submit" className="sign-in-btn">Sign In</button>
               {message && <p className="message">{message}</p>}
-              <button type="button" className="google-sign-in">
+              <button 
+                type="button" 
+                className="google-sign-in"
+                onClick={handleGoogleLogin}
+              >
                 <img 
                   src="https://developers.google.com/identity/images/g-logo.png" 
                   alt="Google Icon" 
