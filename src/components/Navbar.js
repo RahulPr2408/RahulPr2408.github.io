@@ -10,9 +10,16 @@ const Navbar = () => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { isLoggedIn, userName, logout } = useAuth();
   const navigate = useNavigate();
+  
+  const isRestaurantLoggedIn = localStorage.getItem('restaurantToken');
 
   const handleLogout = () => {
     logout();
+    navigate('/');
+  };
+
+  const handleRestaurantLogout = () => {
+    localStorage.removeItem('restaurantToken');
     navigate('/');
   };
 
@@ -96,10 +103,21 @@ const Navbar = () => {
                 </div>
               ) : (
                 <>
-                  <Link to="/login" className="btn-outline-light" onClick={handleNavLinkClick}>Login</Link>
-                  <Link to="/restaurant-login" className="btn-outline-light restaurant-login" onClick={handleNavLinkClick}>
-                    Restaurant Login
-                  </Link>
+                  {!isRestaurantLoggedIn && (
+                    <Link to="/login" className="btn-outline-light" onClick={handleNavLinkClick}>Login</Link>
+                  )}
+                  {isRestaurantLoggedIn ? (
+                    <button className="btn-outline-light restaurant-login" onClick={() => {
+                      handleRestaurantLogout();
+                      handleNavLinkClick();
+                    }}>
+                      Restaurant Logout
+                    </button>
+                  ) : (
+                    <Link to="/restaurant-login" className="btn-outline-light restaurant-login" onClick={handleNavLinkClick}>
+                      Restaurant Login
+                    </Link>
+                  )}
                 </>
               )}
             </div>
@@ -125,10 +143,18 @@ const Navbar = () => {
               </div>
             ) : (
               <>
-                <Link to="/login" className="btn-outline-light">Login</Link>
-                <Link to="/restaurant-login" className="btn-outline-light restaurant-login">
-                  Restaurant Login
-                </Link>
+                {!isRestaurantLoggedIn && (
+                  <Link to="/login" className="btn-outline-light">Login</Link>
+                )}
+                {isRestaurantLoggedIn ? (
+                  <button className="btn-outline-light restaurant-login" onClick={handleRestaurantLogout}>
+                    Restaurant Logout
+                  </button>
+                ) : (
+                  <Link to="/restaurant-login" className="btn-outline-light restaurant-login">
+                    Restaurant Login
+                  </Link>
+                )}
               </>
             )}
           </div>

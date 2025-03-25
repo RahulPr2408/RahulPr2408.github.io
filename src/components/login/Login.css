@@ -119,23 +119,28 @@
 }
 
 .google-sign-in {
-  width: 100%;
-  padding: 14px;
-  background-color: white;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #444;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s;
   margin-bottom: 15px;
 }
 
+.google-sign-in:hover {
+  background-color: #f8f8f8;
+}
+
 .google-icon {
-  width: 20px; /* Adjusted to match the image */
-  height: 20px;
+  width: 18px;
+  height: 18px;
   margin-right: 10px;
 }
 
@@ -186,6 +191,26 @@
 .phone {
   color: #e94836;
   font-weight: bold;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.separator span {
+  padding: 0 10px;
+  color: #666;
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {

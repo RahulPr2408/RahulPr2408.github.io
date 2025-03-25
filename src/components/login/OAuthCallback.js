@@ -10,10 +10,19 @@ const OAuthCallback = () => {
   useEffect(() => {
     const token = searchParams.get('token');
     const name = searchParams.get('name');
+    const isRestaurant = searchParams.get('isRestaurant');
+    const id = searchParams.get('id');
     
     if (token && name) {
-      login(token, name);
-      navigate('/');
+      if (isRestaurant === 'true') {
+        localStorage.setItem('restaurantToken', token);
+        localStorage.setItem('restaurantName', name);
+        localStorage.setItem('restaurantId', id);
+        navigate('/restaurant-dashboard');
+      } else {
+        login(token, name);
+        navigate('/');
+      }
     } else {
       navigate('/login');
     }
