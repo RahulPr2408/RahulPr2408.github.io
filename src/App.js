@@ -14,6 +14,8 @@ import RestaurantLogin from './components/login/RestaurantLogin'; // Import Rest
 import { AuthProvider } from './context/AuthContext';
 import OAuthCallback from './components/login/OAuthCallback'; // Import OAuthCallback component
 import RestaurantSignUp from './components/login/RestaurantSignUp'; // Import RestaurantSignUp component
+import RestaurantDashboard from './components/dashboard/RestaurantDashboard'; // Import RestaurantDashboard component
+import ProtectedRoute from './components/routes/ProtectedRoute';
 
 function App() {
   return (
@@ -37,6 +39,14 @@ function App() {
             <Route path="/restaurant-login" element={<RestaurantLogin />} /> {/* Add RestaurantLogin route */}
             <Route path="/oauth-callback" element={<OAuthCallback />} /> {/* Add OAuthCallback route */}
             <Route path="/restaurant-signup" element={<RestaurantSignUp />} /> {/* Add RestaurantSignUp route */}
+            <Route 
+              path="/restaurant-dashboard" 
+              element={
+                <ProtectedRoute type="restaurant">
+                  <RestaurantDashboard />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
           <Footer />
         </Router>

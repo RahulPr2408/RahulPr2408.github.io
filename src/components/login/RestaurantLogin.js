@@ -26,6 +26,7 @@ const RestaurantLogin = () => {
       if (response.ok) {
         localStorage.setItem('restaurantToken', data.jwtToken);
         localStorage.setItem('restaurantName', data.name);
+        localStorage.setItem('restaurantId', data._id);
         setMessage('Login successful!');
         navigate('/restaurant-dashboard'); // You'll need to create this route
       } else {
@@ -38,7 +39,7 @@ const RestaurantLogin = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:3000/auth/restaurant/google';
+    window.location.href = 'http://localhost:3000/auth/google?restaurant=true';
   };
 
   return (
@@ -87,6 +88,11 @@ const RestaurantLogin = () => {
               </div>
               <button type="submit" className="sign-in-btn">Sign In</button>
               {message && <p className="message">{message}</p>}
+              
+              <div className="separator">
+                <span>or</span>
+              </div>
+
               <button 
                 type="button" 
                 className="google-sign-in"
@@ -97,8 +103,9 @@ const RestaurantLogin = () => {
                   alt="Google Icon" 
                   className="google-icon" 
                 />
-                Sign in with Google
+                Continue with Google
               </button>
+
               <div className="signup-option">
                 <span>Don't have an account? </span>
                 <Link to="/restaurant-signup" className="signup-link">Sign up for free!</Link>
