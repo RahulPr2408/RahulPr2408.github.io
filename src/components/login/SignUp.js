@@ -35,6 +35,10 @@ const SignUp = () => {
     }
   };
 
+  const handleGoogleSignUp = () => {
+    window.location.href = 'http://localhost:3000/auth/google';
+  };
+
   return (
     <>
       <main className="main-content">
@@ -91,9 +95,13 @@ const SignUp = () => {
               </div>
               <button type="submit" className="sign-in-btn">Create Account</button>
               {message && <p className="message">{message}</p>}
-              <button type="button" className="google-sign-in">
+              <button 
+                type="button" 
+                className="google-sign-in"
+                onClick={handleGoogleSignUp}
+              >
                 <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Icon" className="google-icon" />
-                Sign in with Google
+                Sign up with Google
               </button>
               <div className="signup-option">
                 <span>Already have an account? </span>
