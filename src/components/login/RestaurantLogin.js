@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const RestaurantLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,19 +17,17 @@ const RestaurantLogin = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
-      }
-
       const data = await response.json();
-      if (data.success) {
-        setMessage('Login successful!');
+      
+      if (response.ok) {
         localStorage.setItem('restaurantToken', data.jwtToken);
         localStorage.setItem('restaurantName', data.name);
+        setMessage('Login successful!');
+        navigate('/restaurant-dashboard'); // You'll need to create this route
       } else {
         setMessage(data.message || 'Login failed.');
       }
@@ -101,7 +101,7 @@ const RestaurantLogin = () => {
               </button>
               <div className="signup-option">
                 <span>Don't have an account? </span>
-                <a href="#" className="signup-link">Sign up for free!</a>
+                <Link to="/restaurant-signup" className="signup-link">Sign up for free!</Link>
               </div>
             </form>
           </div>
