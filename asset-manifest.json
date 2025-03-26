@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.2a3d390c.css",
-    "main.js": "/static/js/main.b1c1c96c.js",
+    "main.js": "/static/js/main.66f8a7a0.js",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Team_Photo.JPG": "/static/media/Team_Photo.e8b907c2026c3aed0c2d.JPG",
     "static/media/Home3.jpeg": "/static/media/Home3.a20c257f06275752251e.jpeg",
@@ -23,17 +23,17 @@
     "static/media/Muskan.jpg": "/static/media/Muskan.f1d3605aec2b7d4ca0a2.jpg",
     "static/media/Leo.jpg": "/static/media/Leo.b76f736ac427c89c3b9a.jpg",
     "static/media/amaya-logo.png": "/static/media/amaya-logo.c5f434de681607b6797a.png",
-    "static/media/amaya-menu.jpeg": "/static/media/amaya-menu.9ea1dc97c7907500b9a9.jpeg",
+    "static/media/amaya-menu.jpg": "/static/media/amaya-menu.ccdcec42c184ead04c3d.jpg",
     "static/media/map-pantry.jpg": "/static/media/map-pantry.8e31405d8f02fd106148.jpg",
     "static/media/Pantry_Menu.jpg": "/static/media/Pantry_Menu.9dfc5bb31a987c700c70.jpg",
     "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.a7abbc318b6ac85c87f7.png",
     "static/media/pantry-logo.png": "/static/media/pantry-logo.6baf2c10369ad6d27030.png",
     "index.html": "/index.html",
     "main.2a3d390c.css.map": "/static/css/main.2a3d390c.css.map",
-    "main.b1c1c96c.js.map": "/static/js/main.b1c1c96c.js.map"
+    "main.66f8a7a0.js.map": "/static/js/main.66f8a7a0.js.map"
   },
   "entrypoints": [
     "static/css/main.2a3d390c.css",
-    "static/js/main.b1c1c96c.js"
+    "static/js/main.66f8a7a0.js"
   ]
 }
