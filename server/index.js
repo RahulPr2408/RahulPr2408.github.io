@@ -6,6 +6,7 @@ const UserModel = require('./Models/User')
 const cors = require('cors')
 const AuthRouter = require('./Routes/AuthRouter')
 const DashboardRouter = require('./Routes/DashboardRouter')
+const RestaurantRouter = require('./Routes/RestaurantRouter')
 
 require('dotenv').config()
 require('./Models/db')
@@ -53,6 +54,7 @@ app.use(express.json())
 // Routes
 app.use('/api/auth', AuthRouter)
 app.use('/api/dashboard', DashboardRouter)
+app.use('/api/restaurants', RestaurantRouter)
 
 const PORT = process.env.PORT || 5000
 
