@@ -30,29 +30,16 @@ const RestaurantSignUp = () => {
         body: JSON.stringify(formData),
       });
       
+      const data = await response.json();
+      
       if (!response.ok) {
-        let errorData;
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          errorData = await response.json();
-        } else {
-          const errorText = await response.text();
-          try {
-            errorData = JSON.parse(errorText);
-          } catch (parseError) {
-            console.error('Failed to parse error JSON:', errorText);
-            setMessage('Signup failed due to a server error.');
-            return;
-          }
-        }
-        throw new Error(errorData.message || 'Registration failed');
+        throw new Error(data.message || 'Failed to register restaurant');
       }
 
-      const data = await response.json();
       setMessage('Registration successful! Redirecting to login...');
       setTimeout(() => navigate('/restaurant-login'), 2000);
     } catch (error) {
-      setMessage(error.message || 'An error occurred. Please try again.');
+      setMessage(error.message || 'Registration failed. Please try again.');
       console.error('Signup error:', error);
     }
   };
