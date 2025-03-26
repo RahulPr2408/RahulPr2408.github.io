@@ -3,15 +3,14 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const jwt = require('jsonwebtoken')
 const UserModel = require('./Models/User')
-const app = express()
-const bodyParser = require('body-parser')
 const cors = require('cors')
 const AuthRouter = require('./Routes/AuthRouter')
+const DashboardRouter = require('./Routes/DashboardRouter')
 
 require('dotenv').config()
 require('./Models/db')
 
-const PORT = process.env.PORT || 8080
+const app = express()
 
 // Passport config
 passport.use(new GoogleStrategy({
@@ -41,7 +40,7 @@ passport.use(new GoogleStrategy({
 
 app.use(passport.initialize());
 
-// Update CORS configuration
+// CORS and middleware configuration
 app.use(cors({
   origin: 'http://localhost:3001',
   credentials: true,
@@ -50,9 +49,12 @@ app.use(cors({
 }))
 
 app.use(express.json())
-app.use(bodyParser.json())
 
-app.use('/auth', AuthRouter)
+// Routes
+app.use('/api/auth', AuthRouter)
+app.use('/api/dashboard', DashboardRouter)
+
+const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`)

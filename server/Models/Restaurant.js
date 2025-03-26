@@ -22,6 +22,18 @@ const RestaurantSchema = new Schema({
   phone: {
     type: String,
     required: true,
+  },
+  openTime: {
+    type: String,
+    default: '09:00'
+  },
+  closeTime: {
+    type: String,
+    default: '22:00'
+  },
+  isOpen: {
+    type: Boolean,
+    default: true
   }
 });
 
