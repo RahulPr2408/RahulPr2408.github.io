@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './RestaurantDashboard.css';
+import * as dashboardService from '../../services/dashboardService';
 
 const RestaurantDashboard = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -17,28 +18,72 @@ const RestaurantDashboard = () => {
     isOpen: true
   });
 
-  const handleAddItem = (e) => {
+  useEffect(() => {
+    fetchMenuItems();
+  }, []);
+
+  const fetchMenuItems = async () => {
+    try {
+      const response = await dashboardService.getMenuItems();
+      setFoodItems(response.data);
+    } catch (error) {
+      console.error('Error fetching menu items:', error);
+    }
+  };
+
+  const handleAddItem = async (e) => {
     e.preventDefault();
-    setFoodItems([...foodItems, { ...newItem, id: Date.now() }]);
-    setNewItem({
-      name: '',
-      price: '',
-      description: '',
-      category: 'main',
-      quantity: '',
-      isAvailable: true
-    });
+    try {
+      const response = await dashboardService.addMenuItem(newItem);
+      setFoodItems([...foodItems, response.data]);
+      setNewItem({
+        name: '',
+        price: '',
+        description: '',
+        category: 'main',
+        quantity: '',
+        isAvailable: true
+      });
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
   };
 
-  const handleRemoveItem = (id) => {
-    setFoodItems(foodItems.filter(item => item.id !== id));
+  const handleRemoveItem = async (id) => {
+    try {
+      await dashboardService.deleteMenuItem(id);
+      setFoodItems(foodItems.filter(item => item._id !== id));
+    } catch (error) {
+      console.error('Error removing item:', error);
+    }
   };
 
-  const toggleItemAvailability = (id) => {
-    setFoodItems(foodItems.map(item => 
-      item.id === id ? { ...item, isAvailable: !item.isAvailable } : item
-    ));
+  const toggleItemAvailability = async (id) => {
+    try {
+      const item = foodItems.find(item => item._id === id);
+      const response = await dashboardService.updateMenuItem(id, {
+        ...item,
+        isAvailable: !item.isAvailable
+      });
+      setFoodItems(foodItems.map(item => 
+        item._id === id ? response.data : item
+      ));
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
   };
+
+  const updateRestaurantStatus = async () => {
+    try {
+      await dashboardService.updateRestaurantStatus(restaurantInfo);
+    } catch (error) {
+      console.error('Error updating restaurant status:', error);
+    }
+  };
+
+  useEffect(() => {
+    updateRestaurantStatus();
+  }, [restaurantInfo]);
 
   return (
     <div className="dashboard-container">
@@ -137,12 +182,12 @@ const RestaurantDashboard = () => {
           <h2>Menu Items</h2>
           <div className="items-grid">
             {foodItems.map(item => (
-              <div key={item.id} className="food-item-card">
+              <div key={item._id} className="food-item-card">
                 <div className="food-item-header">
                   <h3>{item.name}</h3>
                   <button 
                     className="remove-item-btn"
-                    onClick={() => handleRemoveItem(item.id)}
+                    onClick={() => handleRemoveItem(item._id)}
                   >
                     ×
                   </button>
@@ -155,7 +200,7 @@ const RestaurantDashboard = () => {
                   </span>
                   <button 
                     className={`availability-toggle ${item.isAvailable ? 'available' : 'unavailable'}`}
-                    onClick={() => toggleItemAvailability(item.id)}
+                    onClick={() => toggleItemAvailability(item._id)}
                   >
                     {item.isAvailable ? 'In Stock' : 'Out of Stock'}
                   </button>

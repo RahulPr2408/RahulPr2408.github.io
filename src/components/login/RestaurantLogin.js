@@ -11,7 +11,7 @@ const RestaurantLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/auth/restaurant/login', {
+      const response = await fetch('http://localhost:3000/api/auth/restaurant/login', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

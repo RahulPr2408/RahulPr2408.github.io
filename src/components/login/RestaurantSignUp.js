@@ -20,25 +20,39 @@ const RestaurantSignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/auth/restaurant/signup', {
+      const response = await fetch('http://localhost:3000/api/auth/restaurant/signup', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         credentials: 'include',
         body: JSON.stringify(formData),
       });
       
-      const data = await response.json();
-      
-      if (response.ok) {
-        setMessage('Registration successful! Redirecting to login...');
-        setTimeout(() => navigate('/restaurant-login'), 2000);
-      } else {
-        setMessage(data.message || 'Registration failed.');
+      if (!response.ok) {
+        let errorData;
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          errorData = await response.json();
+        } else {
+          const errorText = await response.text();
+          try {
+            errorData = JSON.parse(errorText);
+          } catch (parseError) {
+            console.error('Failed to parse error JSON:', errorText);
+            setMessage('Signup failed due to a server error.');
+            return;
+          }
+        }
+        throw new Error(errorData.message || 'Registration failed');
       }
+
+      const data = await response.json();
+      setMessage('Registration successful! Redirecting to login...');
+      setTimeout(() => navigate('/restaurant-login'), 2000);
     } catch (error) {
-      setMessage('An error occurred. Please try again.');
+      setMessage(error.message || 'An error occurred. Please try again.');
       console.error('Signup error:', error);
     }
   };
