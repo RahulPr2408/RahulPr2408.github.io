@@ -13,6 +13,7 @@ const PopularRestaurants = () => {
   const [isCouponPopupOpen, setIsCouponPopupOpen] = useState(false);
   const [showCouponContent, setShowCouponContent] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const [menuItems, setMenuItems] = useState([]); // new state
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -34,12 +35,14 @@ const PopularRestaurants = () => {
   const openPopup = (restaurant) => {
     setSelectedRestaurant(restaurant);
     setIsPopupOpen(true);
+    fetchMenuItems(restaurant._id); // Fetch menu items when popup opens
   };
 
   const closePopup = () => {
     setIsPopupOpen(false);
     setSelectedRestaurant(null);
     setShowCouponContent(false);
+    setMenuItems([]); // Clear menu items when popup closes
   };
 
   const openCouponContent = () => {
@@ -58,6 +61,19 @@ const PopularRestaurants = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const fetchMenuItems = async (restaurantId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/restaurants/${restaurantId}/menu`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setMenuItems(data);
+    } catch (error) {
+      console.error('Could not fetch menu items:', error);
+    }
   };
 
   return (
@@ -95,7 +111,7 @@ const PopularRestaurants = () => {
                   <div className="popup-left">
                     <div className="restaurant-logo-info">
                       <img
-                        src={selectedRestaurant.logo}
+                        src={Math.random() > 0.5 ? require('../assets/pantry-logo.png') : require('../assets/amaya-logo.png')}
                         alt={selectedRestaurant.name}
                         className="partner-image"
                       />
@@ -110,7 +126,7 @@ const PopularRestaurants = () => {
                     </div>
                     <div className="map-image">
                       <img
-                        src={selectedRestaurant.map}
+                        src="../assets/map-pantry.jpg"
                         alt="Map"
                         className="map-img"
                       />
@@ -119,12 +135,20 @@ const PopularRestaurants = () => {
 
                   {/* Right Side */}
                   <div className="popup-right">
-                    <div className="menu-image">
-                      <img
-                        src={selectedRestaurant.menu}
-                        alt="Menu"
-                        className="menu-img"
-                      />
+                    {/* Display Menu Items */}
+                    <div className="menu-items">
+                      <h4>Menu</h4>
+                      {menuItems.length > 0 ? (
+                        <ul>
+                          {menuItems.map((item) => (
+                            <li key={item._id}>
+                              {item.name} - ${item.price}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No menu items available.</p>
+                      )}
                     </div>
                     <button className="btn-coupon" onClick={openCouponContent}>
                       Get Coupons
