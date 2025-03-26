@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PopularRestaurants.css';
 import Amaya_Logo from '../assets/amaya-logo.png';
 import Pantry_Logo from '../assets/pantry-logo.png';
@@ -12,31 +12,27 @@ const PopularRestaurants = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isCouponPopupOpen, setIsCouponPopupOpen] = useState(false);
   const [showCouponContent, setShowCouponContent] = useState(false);
+  const [restaurants, setRestaurants] = useState([]);
 
-  // Restaurant data
-  const restaurants = {
-    amaya: {
-      name: 'Junoon',
-      logo: Amaya_Logo,
-      location: 'First Canadian Place',
-      address: '100 King St W, Toronto, ON M5X 1A9',
-      phone: '(416) 214-0005',
-      map: Amaya_Map,
-      menu: Amaya_Menu,
-    },
-    pantry: {
-      name: 'Pantry',
-      logo: Pantry_Logo,
-      location: 'King West',
-      address: '199 Bay St., Floor 1 Commerce Court West, Toronto, ON M5L 1G9',
-      phone: '(416) 555-1234',
-      map: Pantry_Map,
-      menu: '../assets/menu-pantry.jpg',
-    },
-  };
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/restaurants');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setRestaurants(data);
+      } catch (error) {
+        console.error('Could not fetch restaurants:', error);
+      }
+    };
 
-  const openPopup = (restaurantKey) => {
-    setSelectedRestaurant(restaurants[restaurantKey]);
+    fetchRestaurants();
+  }, []);
+
+  const openPopup = (restaurant) => {
+    setSelectedRestaurant(restaurant);
     setIsPopupOpen(true);
   };
 
@@ -69,35 +65,21 @@ const PopularRestaurants = () => {
       <div className="container">
         <h2 className="section-title text-center mb-5">Our Partner Restaurants</h2>
         <div className="row justify-content-center">
-          {/* Card 1: Amaya */}
-          <div className="col-md-3 mb-4">
-            <div className="restaurant-card" onClick={() => openPopup('amaya')}>
-              <img
-                src={restaurants.amaya.logo}
-                alt="Junoon"
-                className="restaurant-image"
-              />
-              <div className="restaurant-info">
-                <h3 className="restaurant-name">Junoon</h3>
-                <p className="restaurant-location">Junoon by Amaya</p>
+          {restaurants.map((restaurant) => (
+            <div className="col-md-3 mb-4" key={restaurant._id}>
+              <div className="restaurant-card" onClick={() => openPopup(restaurant)}>
+                <img
+                  src={restaurant.logo}
+                  alt={restaurant.name}
+                  className="restaurant-image"
+                />
+                <div className="restaurant-info">
+                  <h3 className="restaurant-name">{restaurant.name}</h3>
+                  <p className="restaurant-location">{restaurant.location}</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Card 2: Pantry */}
-          <div className="col-md-3 mb-4">
-            <div className="restaurant-card" onClick={() => openPopup('pantry')}>
-              <img
-                src={restaurants.pantry.logo}
-                alt="Pantry"
-                className="restaurant-image"
-              />
-              <div className="restaurant-info">
-                <h3 className="restaurant-name">Pantry</h3>
-                <p className="restaurant-location">Pantry - King West</p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Popup Menu */}
