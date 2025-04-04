@@ -8,6 +8,7 @@ import Team from './components/Team';
 import AboutUs from './components/AboutUs';
 import PopularRestaurants from './components/PopularRestaurants';
 import AllTeamMembers from './components/AllTeamMembers';
+import Faq from './components/Faq';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             </>
           } />
           <Route path="/team" element={<AllTeamMembers />} />
+          <Route path="/faq" element={<Faq />} />  {/* ✅ Add the FAQ Route */}
         </Routes>
         <Footer />
       </Router>
