@@ -7,6 +7,7 @@ const cors = require('cors')
 const AuthRouter = require('./Routes/AuthRouter')
 const DashboardRouter = require('./Routes/DashboardRouter')
 const RestaurantRouter = require('./Routes/RestaurantRouter')
+const path = require('path')
 
 require('dotenv').config()
 require('./Models/db')
@@ -17,7 +18,7 @@ const app = express()
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:3000/auth/google/callback"
   },
   async function(accessToken, refreshToken, profile, done) {
     try {
@@ -29,7 +30,7 @@ passport.use(new GoogleStrategy({
       const newUser = new UserModel({
         name: profile.displayName,
         email: profile.emails[0].value,
-        password: 'google-oauth' // You might want to handle this differently
+        password: 'google-oauth'
       });
       await newUser.save();
       done(null, newUser);
@@ -43,7 +44,7 @@ app.use(passport.initialize());
 
 // CORS and middleware configuration
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: process.env.FRONTEND_URL || 'http://localhost:3001',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
@@ -51,10 +52,21 @@ app.use(cors({
 
 app.use(express.json())
 
-// Routes
+
 app.use('/api/auth', AuthRouter)
 app.use('/api/dashboard', DashboardRouter)
 app.use('/api/restaurants', RestaurantRouter)
+
+// Auth routes that don't have the /api prefix
+app.use('/auth', AuthRouter)
+
+
+app.use(express.static(path.join(__dirname, '../build')));
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 5000
 

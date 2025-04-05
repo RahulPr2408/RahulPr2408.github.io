@@ -12,7 +12,13 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/auth/signup', {
+      // Use relative path if frontend and backend are on same origin
+      const sameOrigin = process.env.REACT_APP_SAME_ORIGIN === 'true';
+      const apiUrl = sameOrigin 
+        ? '/api/auth/signup' 
+        : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'}/api/auth/signup`;
+        
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json'
@@ -36,7 +42,13 @@ const SignUp = () => {
   };
 
   const handleGoogleSignUp = () => {
-    window.location.href = 'http://localhost:3000/auth/google';
+    // Use relative path if frontend and backend are on same origin
+    const sameOrigin = process.env.REACT_APP_SAME_ORIGIN === 'true';
+    const authUrl = sameOrigin
+      ? '/auth/google'
+      : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'}/auth/google`;
+      
+    window.location.href = authUrl;
   };
 
   return (
