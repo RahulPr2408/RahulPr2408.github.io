@@ -27,7 +27,13 @@ router.get('/google/callback',
       { expiresIn: '24h' }
     );
     
-    res.redirect(`http://localhost:3001/oauth-callback?token=${token}&name=${req.user.name}`);
+    // Use relative path when frontend and backend are on same origin
+    const sameOrigin = process.env.SAME_ORIGIN === 'true' || process.env.NODE_ENV === 'production';
+    const redirectUrl = sameOrigin
+      ? `/oauth-callback?token=${token}&name=${req.user.name}`
+      : `${process.env.FRONTEND_URL || 'http://localhost:3001'}/oauth-callback?token=${token}&name=${req.user.name}`;
+    
+    res.redirect(redirectUrl);
   }
 );
 
@@ -48,7 +54,13 @@ router.get('/restaurant/google/callback',
       { expiresIn: '24h' }
     );
     
-    res.redirect(`http://localhost:3001/oauth-callback?token=${token}&name=${req.user.name}&type=restaurant`);
+    // Use relative path when frontend and backend are on same origin
+    const sameOrigin = process.env.SAME_ORIGIN === 'true' || process.env.NODE_ENV === 'production';
+    const redirectUrl = sameOrigin
+      ? `/oauth-callback?token=${token}&name=${req.user.name}&type=restaurant`
+      : `${process.env.FRONTEND_URL || 'http://localhost:3001'}/oauth-callback?token=${token}&name=${req.user.name}&type=restaurant}`;
+    
+    res.redirect(redirectUrl);
   }
 );
 
