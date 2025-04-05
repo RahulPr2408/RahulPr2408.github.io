@@ -113,7 +113,7 @@ const PopularRestaurants = () => {
               />
               <div className="restaurant-info">
                 <h3 className="restaurant-name">Pantry</h3>
-                <p className="restaurant-location">Pantry - King West</p>
+                <p className="restaurant-location">Pantry Commerce Court</p>
               </div>
             </div>
           </div>
@@ -142,7 +142,8 @@ const PopularRestaurants = () => {
                       <p>
                         <strong>Located in:</strong> {selectedRestaurant.location}<br />
                         <strong>Address:</strong> {selectedRestaurant.address}<br />
-                        <strong>Phone:</strong> {selectedRestaurant.phone}
+                        <strong>Phone:</strong> {selectedRestaurant.phone}<br />
+                        <strong>Pick up time between 3:00-5:00pm</strong>
                       </p>
                     </div>
                     <div className="map-image">
