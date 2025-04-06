@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.2a3d390c.css",
-    "main.js": "/static/js/main.66f8a7a0.js",
+    "main.css": "/static/css/main.dbdd3b60.css",
+    "main.js": "/static/js/main.8e6ed995.js",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Team_Photo.JPG": "/static/media/Team_Photo.e8b907c2026c3aed0c2d.JPG",
     "static/media/Home3.jpeg": "/static/media/Home3.a20c257f06275752251e.jpeg",
@@ -11,6 +11,7 @@
     "static/media/Nilima.png": "/static/media/Nilima.604647df201e9f94d1b8.png",
     "static/media/coupon_code.jpg": "/static/media/coupon_code.014224ce13a25f60a868.jpg",
     "static/media/Vaishal.jpg": "/static/media/Vaishal.9ba8088ae6a82a7297f7.jpg",
+    "static/media/Pantry_Menu.png": "/static/media/Pantry_Menu.afe44c340c7dcfc65ab0.png",
     "static/media/Amaya_map.png": "/static/media/Amaya_map.973a0b3c1e520f66c918.png",
     "static/media/Aarushi.jpg": "/static/media/Aarushi.f3df903c120c86fe7fda.jpg",
     "static/media/Vaibhav.jpg": "/static/media/Vaibhav.20aa1752041ce8db3726.jpg",
@@ -21,19 +22,18 @@
     "static/media/Ayush.jpg": "/static/media/Ayush.b54ff26ed64f4faadea8.jpg",
     "static/media/Yash.jpg": "/static/media/Yash.dcc879d540afddb484a6.jpg",
     "static/media/Muskan.jpg": "/static/media/Muskan.f1d3605aec2b7d4ca0a2.jpg",
+    "static/media/amaya-menu.png": "/static/media/amaya-menu.dccc89370b81744b3097.png",
     "static/media/Leo.jpg": "/static/media/Leo.b76f736ac427c89c3b9a.jpg",
     "static/media/amaya-logo.png": "/static/media/amaya-logo.c5f434de681607b6797a.png",
-    "static/media/amaya-menu.jpg": "/static/media/amaya-menu.ccdcec42c184ead04c3d.jpg",
     "static/media/map-pantry.jpg": "/static/media/map-pantry.8e31405d8f02fd106148.jpg",
-    "static/media/Pantry_Menu.jpg": "/static/media/Pantry_Menu.9dfc5bb31a987c700c70.jpg",
     "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.a7abbc318b6ac85c87f7.png",
     "static/media/pantry-logo.png": "/static/media/pantry-logo.6baf2c10369ad6d27030.png",
     "index.html": "/index.html",
-    "main.2a3d390c.css.map": "/static/css/main.2a3d390c.css.map",
-    "main.66f8a7a0.js.map": "/static/js/main.66f8a7a0.js.map"
+    "main.dbdd3b60.css.map": "/static/css/main.dbdd3b60.css.map",
+    "main.8e6ed995.js.map": "/static/js/main.8e6ed995.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a3d390c.css",
-    "static/js/main.66f8a7a0.js"
+    "static/css/main.dbdd3b60.css",
+    "static/js/main.8e6ed995.js"
   ]
 }
