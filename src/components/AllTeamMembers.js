@@ -27,9 +27,9 @@ const AllTeamMembers = () => {
     { id: 7, name: 'Rahul Prajapati', position: 'Technical Head', email: 'prajapati.rah@northeastern.edu', image: Rahul, linkedin: 'https://www.linkedin.com/in/rahulprajapati24/' },
     { id: 8, name: 'Soumya Singh', position: 'UI/UX Designer', email: 'singh.soumy@northeastern.edu', image: Soumya, linkedin: 'https://www.linkedin.com/in/soumyasinghso/' },
     { id: 9, name: 'Muskan Purkar', position: 'Outreach Partner', email: 'purkar.m@northeastern.edu', image: Muskan, linkedin: 'https://www.linkedin.com/in/muskaanpurkar/' },
-    { id: 10, name: 'Ayush', position: 'Social Media Manager', email: 'sharma.aarush@northeastern.edu', image: Ayush, linkedin: 'https://www.linkedin.com/in/ayush-patel-b284a8184/' },
-    { id: 11, name: 'Ekanshi Sharma', position: 'Social Media Manager', email: 'sharma.aarush@northeastern.edu', image: Ekanshi, linkedin: 'https://www.linkedin.com/in/ekankshi-sharma-7a0a78171/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app' },
-    { id: 12, name: 'Rishil', position: 'Social Media Manager', email: 'sharma.aarush@northeastern.edu', image: Rishil, linkedin: 'https://www.linkedin.com/in/rishil-patel-85705b1a2/' },
+    { id: 10, name: 'Ayush Patel', position: 'Social Media Manager', email: 'patel.ayushh@northeastern.edu', image: Ayush, linkedin: 'https://www.linkedin.com/in/ayush-patel-b284a8184/' },
+    { id: 11, name: 'Ekanshi Sharma', position: 'Social Media Team', email: 'sharma.aarush@northeastern.edu', image: Ekanshi, linkedin: 'https://www.linkedin.com/in/ekankshi-sharma-7a0a78171/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app' },
+    { id: 12, name: 'Rishil Patel', position: 'Social Media Team', email: 'sharma.aarush@northeastern.edu', image: Rishil, linkedin: 'https://www.linkedin.com/in/rishil-patel-85705b1a2/' },
   ];
 
   return (
