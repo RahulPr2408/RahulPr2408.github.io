@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './PopularRestaurants.css';
 import Amaya_Logo from '../assets/amaya-logo.png';
 import Pantry_Logo from '../assets/pantry-logo.png';
-import Amaya_Menu from '../assets/amaya-menu.jpg';
+import Amaya_Menu from '../assets/amaya-menu.png';
 import Amaya_Map from '../assets/Amaya_map.png';
 import Pantry_Map from '../assets/map-pantry.jpg';
 import CouponImage from '../assets/coupon_code.jpg';
-import Pantry_menu from "../assets/Pantry_Menu.jpg";
+import Pantry_menu from "../assets/Pantry_Menu.png";
 
 const PopularRestaurants = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
