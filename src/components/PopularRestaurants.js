@@ -14,6 +14,7 @@ const PopularRestaurants = () => {
   const [showCouponContent, setShowCouponContent] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
   const [menuItems, setMenuItems] = useState([]); // new state
+  const [menuRefreshKey, setMenuRefreshKey] = useState(0); // Add this line
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -31,6 +32,17 @@ const PopularRestaurants = () => {
 
     fetchRestaurants();
   }, []);
+
+  // Add this new useEffect to refresh menu items periodically
+  useEffect(() => {
+    if (selectedRestaurant) {
+      const interval = setInterval(() => {
+        fetchMenuItems(selectedRestaurant._id);
+      }, 5000); // Refresh every 5 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [selectedRestaurant, menuRefreshKey]);
 
   const openPopup = (restaurant) => {
     setSelectedRestaurant(restaurant);
@@ -139,10 +151,16 @@ const PopularRestaurants = () => {
                     <div className="menu-items">
                       <h4>Menu</h4>
                       {menuItems.length > 0 ? (
-                        <ul>
+                        <ul className="menu-list">
                           {menuItems.map((item) => (
-                            <li key={item._id}>
-                              {item.name} - ${item.price}
+                            <li key={item._id} className={`menu-item ${!item.isAvailable ? 'out-of-stock' : ''}`}>
+                              <div className="menu-item-content">
+                                <span className="item-name">{item.name}</span>
+                                <span className="item-price">${item.price}</span>
+                              </div>
+                              {!item.isAvailable && (
+                                <span className="out-of-stock-badge">Out of Stock</span>
+                              )}
                             </li>
                           ))}
                         </ul>

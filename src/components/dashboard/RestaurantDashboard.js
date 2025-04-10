@@ -9,7 +9,7 @@ const RestaurantDashboard = () => {
     price: '',
     description: '',
     category: 'main',
-    quantity: '',
+    quantity: '0',
     isAvailable: true
   });
   const [restaurantInfo, setRestaurantInfo] = useState({
@@ -34,18 +34,35 @@ const RestaurantDashboard = () => {
   const handleAddItem = async (e) => {
     e.preventDefault();
     try {
-      const response = await dashboardService.addMenuItem(newItem);
-      setFoodItems([...foodItems, response.data]);
-      setNewItem({
-        name: '',
-        price: '',
-        description: '',
-        category: 'main',
-        quantity: '',
-        isAvailable: true
-      });
+      // Validate required fields
+      if (!newItem.name || !newItem.price || !newItem.description) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      // Convert price and quantity to numbers
+      const itemToAdd = {
+        ...newItem,
+        price: parseFloat(newItem.price),
+        quantity: parseInt(newItem.quantity) || 0
+      };
+
+      const response = await dashboardService.addMenuItem(itemToAdd);
+      if (response.data) {
+        setFoodItems([...foodItems, response.data]);
+        // Reset form
+        setNewItem({
+          name: '',
+          price: '',
+          description: '',
+          category: 'main',
+          quantity: '0',
+          isAvailable: true
+        });
+      }
     } catch (error) {
       console.error('Error adding item:', error);
+      alert('Failed to add item. Please try again.');
     }
   };
 
@@ -128,53 +145,71 @@ const RestaurantDashboard = () => {
         <section className="add-food-section">
           <h2>Add New Food Item</h2>
           <form onSubmit={handleAddItem} className="add-food-form">
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Food Name"
-                value={newItem.name}
-                onChange={(e) => setNewItem({...newItem, name: e.target.value})}
-                required
-              />
+            <div className="form-row">
+              <div className="form-group">
+                <label>Food Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter food name"
+                  value={newItem.name}
+                  onChange={(e) => setNewItem({...newItem, name: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Price</label>
+                <div className="price-input">
+                  <span className="currency-symbol">$</span>
+                  <input
+                    type="number"
+                    placeholder="0.00"
+                    value={newItem.price}
+                    onChange={(e) => setNewItem({...newItem, price: e.target.value})}
+                    required
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+              </div>
             </div>
             <div className="form-group">
-              <input
-                type="number"
-                placeholder="Price"
-                value={newItem.price}
-                onChange={(e) => setNewItem({...newItem, price: e.target.value})}
-                required
-              />
-            </div>
-            <div className="form-group">
+              <label>Description</label>
               <textarea
-                placeholder="Description"
+                placeholder="Enter food description"
                 value={newItem.description}
                 onChange={(e) => setNewItem({...newItem, description: e.target.value})}
                 required
               />
             </div>
-            <div className="form-group">
-              <select
-                value={newItem.category}
-                onChange={(e) => setNewItem({...newItem, category: e.target.value})}
-              >
-                <option value="main">Main Course</option>
-                <option value="starter">Starter</option>
-                <option value="dessert">Dessert</option>
-                <option value="beverage">Beverage</option>
-              </select>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Category</label>
+                <select
+                  value={newItem.category}
+                  onChange={(e) => setNewItem({...newItem, category: e.target.value})}
+                >
+                  <option value="main">Main Course</option>
+                  <option value="starter">Starter</option>
+                  <option value="dessert">Dessert</option>
+                  <option value="beverage">Beverage</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Initial Availability</label>
+                <label className="switch">
+                  <input 
+                    type="checkbox" 
+                    checked={newItem.isAvailable}
+                    onChange={(e) => setNewItem({...newItem, isAvailable: e.target.checked})}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </div>
             </div>
-            <div className="form-group">
-              <input
-                type="number"
-                placeholder="Quantity Available"
-                value={newItem.quantity}
-                onChange={(e) => setNewItem({...newItem, quantity: e.target.value})}
-                required
-              />
-            </div>
-            <button type="submit" className="add-item-btn">Add Item</button>
+            <button type="submit" className="add-item-btn">
+              <span className="btn-icon">+</span>
+              Add New Item
+            </button>
           </form>
         </section>
 
@@ -198,12 +233,19 @@ const RestaurantDashboard = () => {
                   <span className={`category-tag ${item.category}`}>
                     {item.category}
                   </span>
-                  <button 
-                    className={`availability-toggle ${item.isAvailable ? 'available' : 'unavailable'}`}
-                    onClick={() => toggleItemAvailability(item._id)}
-                  >
-                    {item.isAvailable ? 'In Stock' : 'Out of Stock'}
-                  </button>
+                  <div className="item-availability">
+                    <label className="switch item-switch">
+                      <input 
+                        type="checkbox" 
+                        checked={item.isAvailable}
+                        onChange={() => toggleItemAvailability(item._id)}
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                    <span className={item.isAvailable ? 'available-text' : 'unavailable-text'}>
+                      {item.isAvailable ? 'In Stock' : 'Out of Stock'}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
