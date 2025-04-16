@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './PopularRestaurants.css';
-import Amaya_Logo from '../assets/amaya-logo.png';
-import Pantry_Logo from '../assets/pantry-logo.png';
-import Amaya_Menu from '../assets/amaya-menu.jpeg';
-import Amaya_Map from '../assets/Amaya_map.png';
-import Pantry_Map from '../assets/map-pantry.jpg';
 import CouponImage from '../assets/coupon_code.jpg'; // Import the coupon image
 
 const PopularRestaurants = () => {
@@ -88,6 +83,15 @@ const PopularRestaurants = () => {
     }
   };
 
+  // Helper function to get default image if restaurant image is not available
+  const getDefaultImage = (type) => {
+    if (type === 'logo') {
+      return Math.random() > 0.5 ? require('../assets/pantry-logo.png') : require('../assets/amaya-logo.png');
+    } else {
+      return Math.random() > 0.5 ? require('../assets/Amaya_map.png') : require('../assets/map-pantry.jpg');
+    }
+  };
+
   return (
     <section className="popular-restaurants-section py-5">
       <div className="container">
@@ -97,9 +101,10 @@ const PopularRestaurants = () => {
             <div className="col-md-3 mb-4" key={restaurant._id}>
               <div className="restaurant-card" onClick={() => openPopup(restaurant)}>
                 <img
-                  src={restaurant.logo}
+                  src={restaurant.logoImage || getDefaultImage('logo')}
                   alt={restaurant.name}
                   className="restaurant-image"
+                  onError={(e) => { e.target.src = getDefaultImage('logo'); }}
                 />
                 <div className="restaurant-info">
                   <h3 className="restaurant-name">{restaurant.name}</h3>
@@ -123,9 +128,10 @@ const PopularRestaurants = () => {
                   <div className="popup-left">
                     <div className="restaurant-logo-info">
                       <img
-                        src={Math.random() > 0.5 ? require('../assets/pantry-logo.png') : require('../assets/amaya-logo.png')}
+                        src={selectedRestaurant.logoImage || getDefaultImage('logo')}
                         alt={selectedRestaurant.name}
                         className="partner-image"
+                        onError={(e) => { e.target.src = getDefaultImage('logo'); }}
                       />
                       <h3 className="partner-name">{selectedRestaurant.name}</h3>
                     </div>
@@ -138,9 +144,10 @@ const PopularRestaurants = () => {
                     </div>
                     <div className="map-image">
                       <img
-                        src="../assets/map-pantry.jpg"
+                        src={selectedRestaurant.mapImage || getDefaultImage('map')}
                         alt="Map"
                         className="map-img"
+                        onError={(e) => { e.target.src = getDefaultImage('map'); }}
                       />
                     </div>
                   </div>
@@ -149,7 +156,7 @@ const PopularRestaurants = () => {
                   <div className="popup-right">
                     {/* Display Menu Items */}
                     <div className="menu-items">
-                      <h4>Menu</h4>
+                      <h4>Second Plate Exclusive Pricing</h4>
                       {menuItems.length > 0 ? (
                         <ul className="menu-list">
                           {menuItems.map((item) => (

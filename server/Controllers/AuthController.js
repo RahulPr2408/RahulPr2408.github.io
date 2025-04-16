@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const path = require('path');
+const fs = require('fs');
 const UserModel = require("../Models/User");
 const RestaurantModel = require("../Models/Restaurant");
 
@@ -68,20 +70,64 @@ const login = async (req, res) => {
 const restaurantSignup = async (req, res) => {
   try {
     const { name, email, password, address, phone } = req.body;
+    
+    // Check if restaurant already exists
     const restaurant = await RestaurantModel.findOne({ email });
     if (restaurant) {
       return res.status(409)
         .json({ message: 'Restaurant already exists', success: false });
     }
-    const restaurantModel = new RestaurantModel({ name, email, password, address, phone });
-    restaurantModel.password = await bcrypt.hash(password, 10);
+    
+    // Create restaurant model with basic info
+    const restaurantData = { 
+      name, 
+      email, 
+      password: await bcrypt.hash(password, 10), 
+      address, 
+      phone 
+    };
+    
+    // Handle file uploads if present
+    if (req.files) {
+      const uploadDir = path.join(__dirname, '../../public/uploads/restaurants');
+      
+      // Create directory if it doesn't exist
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      
+      // Handle logo image
+      if (req.files.logoImage) {
+        const logoFile = req.files.logoImage;
+        const logoFileName = `logo_${Date.now()}${path.extname(logoFile.name)}`;
+        const logoPath = path.join(uploadDir, logoFileName);
+        
+        await logoFile.mv(logoPath);
+        restaurantData.logoImage = `/uploads/restaurants/${logoFileName}`;
+      }
+      
+      // Handle map image
+      if (req.files.mapImage) {
+        const mapFile = req.files.mapImage;
+        const mapFileName = `map_${Date.now()}${path.extname(mapFile.name)}`;
+        const mapPath = path.join(uploadDir, mapFileName);
+        
+        await mapFile.mv(mapPath);
+        restaurantData.mapImage = `/uploads/restaurants/${mapFileName}`;
+      }
+    }
+    
+    // Save the restaurant
+    const restaurantModel = new RestaurantModel(restaurantData);
     await restaurantModel.save();
+    
     res.status(201)
       .json({
         message: "Restaurant registered successfully",
         success: true
       });
   } catch (err) {
+    console.error('Restaurant signup error:', err);
     res.status(500)
       .json({
         message: "Internal server error",
@@ -116,7 +162,8 @@ const restaurantLogin = async (req, res) => {
         success: true,
         jwtToken,
         email,
-        name: restaurant.name
+        name: restaurant.name,
+        _id: restaurant._id
       });
   } catch (err) {
     res.status(500)

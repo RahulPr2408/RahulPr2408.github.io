@@ -13,14 +13,38 @@ const RestaurantDashboard = () => {
     isAvailable: true
   });
   const [restaurantInfo, setRestaurantInfo] = useState({
+    name: '',
+    address: '',
+    phone: '',
     openTime: '09:00',
     closeTime: '22:00',
-    isOpen: true
+    isOpen: true,
+    logoImage: null,
+    mapImage: null
   });
+  const [logoPreview, setLogoPreview] = useState('');
+  const [mapPreview, setMapPreview] = useState('');
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
 
   useEffect(() => {
     fetchMenuItems();
+    fetchRestaurantInfo();
   }, []);
+
+  const fetchRestaurantInfo = async () => {
+    try {
+      // Get restaurant info from localStorage for now
+      const restaurantName = localStorage.getItem('restaurantName');
+      if (restaurantName) {
+        setRestaurantInfo(prevInfo => ({
+          ...prevInfo,
+          name: restaurantName
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching restaurant info:', error);
+    }
+  };
 
   const fetchMenuItems = async () => {
     try {
@@ -92,15 +116,71 @@ const RestaurantDashboard = () => {
 
   const updateRestaurantStatus = async () => {
     try {
-      await dashboardService.updateRestaurantStatus(restaurantInfo);
+      const { openTime, closeTime, isOpen } = restaurantInfo;
+      await dashboardService.updateRestaurantStatus({ openTime, closeTime, isOpen });
     } catch (error) {
       console.error('Error updating restaurant status:', error);
     }
   };
 
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const profileData = { ...restaurantInfo };
+      
+      console.log('Sending profile update data:', profileData);
+      
+      // Send update request
+      const response = await dashboardService.updateRestaurantProfile(profileData);
+      console.log('Profile update response:', response);
+      
+      if (response && response.success) {
+        alert('Profile updated successfully!');
+        setIsEditingProfile(false);
+        
+        // Update local storage if name changed
+        if (profileData.name !== localStorage.getItem('restaurantName')) {
+          localStorage.setItem('restaurantName', profileData.name);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      console.error('Error details:', error.response?.data || 'No error details available');
+      alert(`Failed to update profile: ${error.message || 'Unknown error'}`);
+    }
+  };
+
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setRestaurantInfo(prev => ({ ...prev, logoImage: file }));
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLogoPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleMapChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setRestaurantInfo(prev => ({ ...prev, mapImage: file }));
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setMapPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   useEffect(() => {
     updateRestaurantStatus();
-  }, [restaurantInfo]);
+  }, [restaurantInfo.openTime, restaurantInfo.closeTime, restaurantInfo.isOpen]);
 
   return (
     <div className="dashboard-container">
@@ -120,6 +200,87 @@ const RestaurantDashboard = () => {
       </header>
 
       <div className="dashboard-content">
+        <section className="restaurant-profile">
+          <div className="section-header">
+            <h2>Restaurant Profile</h2>
+            <button 
+              className="edit-profile-btn"
+              onClick={() => setIsEditingProfile(!isEditingProfile)}
+            >
+              {isEditingProfile ? 'Cancel Editing' : 'Edit Profile'}
+            </button>
+          </div>
+
+          {isEditingProfile ? (
+            <form onSubmit={handleProfileUpdate} className="profile-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Restaurant Name</label>
+                  <input
+                    type="text"
+                    value={restaurantInfo.name}
+                    onChange={(e) => setRestaurantInfo({...restaurantInfo, name: e.target.value})}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Phone Number</label>
+                  <input
+                    type="text"
+                    value={restaurantInfo.phone}
+                    onChange={(e) => setRestaurantInfo({...restaurantInfo, phone: e.target.value})}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Address</label>
+                <input
+                  type="text"
+                  value={restaurantInfo.address}
+                  onChange={(e) => setRestaurantInfo({...restaurantInfo, address: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Restaurant Logo</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleLogoChange}
+                  />
+                  {logoPreview && (
+                    <div className="image-preview">
+                      <img src={logoPreview} alt="Logo Preview" />
+                    </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>Restaurant Map</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleMapChange}
+                  />
+                  {mapPreview && (
+                    <div className="image-preview">
+                      <img src={mapPreview} alt="Map Preview" />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <button type="submit" className="save-profile-btn">Save Profile</button>
+            </form>
+          ) : (
+            <div className="profile-info">
+              <p><strong>Name:</strong> {restaurantInfo.name}</p>
+              <p><strong>Phone:</strong> {restaurantInfo.phone}</p>
+              <p><strong>Address:</strong> {restaurantInfo.address}</p>
+            </div>
+          )}
+        </section>
+
         <section className="restaurant-hours">
           <h2>Operating Hours</h2>
           <div className="hours-inputs">

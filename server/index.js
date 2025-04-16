@@ -4,6 +4,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const jwt = require('jsonwebtoken')
 const UserModel = require('./Models/User')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 const AuthRouter = require('./Routes/AuthRouter')
 const DashboardRouter = require('./Routes/DashboardRouter')
 const RestaurantRouter = require('./Routes/RestaurantRouter')
@@ -50,6 +51,17 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }))
 
+// File upload middleware
+app.use(fileUpload({
+  createParentPath: true,
+  limits: { 
+    fileSize: 5 * 1024 * 1024 // 5MB max file size
+  },
+  abortOnLimit: true,
+  useTempFiles: true,
+  tempFileDir: '/tmp/'
+}));
+
 app.use(express.json())
 
 
@@ -60,6 +72,8 @@ app.use('/api/restaurants', RestaurantRouter)
 // Auth routes that don't have the /api prefix
 app.use('/auth', AuthRouter)
 
+// Serve uploaded files
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
 app.use(express.static(path.join(__dirname, '../build')));
 

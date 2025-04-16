@@ -12,6 +12,39 @@ const authHeader = () => {
   } : {};
 };
 
+export const updateRestaurantProfile = async (profileData) => {
+  // Use FormData for file uploads
+  const formData = new FormData();
+  
+  // Add regular fields
+  if (profileData.name) formData.append('name', profileData.name);
+  if (profileData.address) formData.append('address', profileData.address);
+  if (profileData.phone) formData.append('phone', profileData.phone);
+  if (profileData.openTime) formData.append('openTime', profileData.openTime);
+  if (profileData.closeTime) formData.append('closeTime', profileData.closeTime);
+  if (profileData.isOpen !== undefined) formData.append('isOpen', profileData.isOpen);
+  
+  // Add files if present
+  if (profileData.logoImage) formData.append('logoImage', profileData.logoImage);
+  if (profileData.mapImage) formData.append('mapImage', profileData.mapImage);
+  
+  // Get the auth token
+  const token = localStorage.getItem('restaurantToken') || localStorage.getItem('token');
+  
+  // Send request with auth headers and form data
+  const response = await axios.post(
+    `${API_URL}/restaurant/profile`,
+    formData,
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        // Don't set Content-Type when sending FormData - axios sets it automatically with the boundary
+      }
+    }
+  );
+  return response.data;
+};
+
 export const updateRestaurantStatus = async (statusData) => {
   const response = await axios.put(
     `${API_URL}/restaurant/status`,

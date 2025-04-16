@@ -1,5 +1,84 @@
 const MenuItem = require('../Models/MenuItem');
 const Restaurant = require('../Models/Restaurant');
+const path = require('path');
+const fs = require('fs');
+
+// Add this new function to handle restaurant profile updates including images
+const updateRestaurantProfile = async (req, res) => {
+  try {
+    const updateData = {};
+    
+    console.log('Restaurant profile update request received');
+    console.log('Restaurant ID:', req.restaurant?._id);
+    console.log('Request body:', req.body);
+    console.log('Files:', req.files ? Object.keys(req.files) : 'No files');
+    
+    // Handle regular form fields
+    if (req.body.name) updateData.name = req.body.name;
+    if (req.body.address) updateData.address = req.body.address;
+    if (req.body.phone) updateData.phone = req.body.phone;
+    if (req.body.openTime) updateData.openTime = req.body.openTime;
+    if (req.body.closeTime) updateData.closeTime = req.body.closeTime;
+    if (req.body.isOpen !== undefined) updateData.isOpen = req.body.isOpen;
+    
+    // Handle file uploads
+    if (req.files) {
+      const uploadDir = path.join(__dirname, '../../public/uploads/restaurants');
+      
+      // Create directory if it doesn't exist
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      
+      // Handle logo image
+      if (req.files.logoImage) {
+        const logoFile = req.files.logoImage;
+        const logoFileName = `logo_${req.restaurant._id}_${Date.now()}${path.extname(logoFile.name)}`;
+        const logoPath = path.join(uploadDir, logoFileName);
+        
+        await logoFile.mv(logoPath);
+        updateData.logoImage = `/uploads/restaurants/${logoFileName}`;
+      }
+      
+      // Handle map image
+      if (req.files.mapImage) {
+        const mapFile = req.files.mapImage;
+        const mapFileName = `map_${req.restaurant._id}_${Date.now()}${path.extname(mapFile.name)}`;
+        const mapPath = path.join(uploadDir, mapFileName);
+        
+        await mapFile.mv(mapPath);
+        updateData.mapImage = `/uploads/restaurants/${mapFileName}`;
+      }
+    }
+    
+    if (!req.restaurant || !req.restaurant._id) {
+      return res.status(401)
+        .json({ success: false, message: "Restaurant not authenticated or ID missing" });
+    }
+    
+    const restaurant = await Restaurant.findByIdAndUpdate(
+      req.restaurant._id,
+      updateData,
+      { new: true }
+    );
+    
+    if (!restaurant) {
+      return res.status(404)
+        .json({ success: false, message: "Restaurant not found" });
+    }
+    
+    console.log('Restaurant profile updated successfully');
+    
+    res.header('Content-Type', 'application/json')
+       .status(200)
+       .json({ success: true, data: restaurant });
+  } catch (error) {
+    console.error('Update Profile Error:', error);
+    res.header('Content-Type', 'application/json')
+       .status(500)
+       .json({ success: false, message: error.message || "Internal server error" });
+  }
+};
 
 const updateRestaurantStatus = async (req, res) => {
   try {
@@ -98,6 +177,7 @@ const deleteMenuItem = async (req, res) => {
 };
 
 module.exports = {
+  updateRestaurantProfile,
   updateRestaurantStatus,
   addMenuItem,
   getMenuItems,

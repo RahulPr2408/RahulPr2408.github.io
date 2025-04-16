@@ -27,6 +27,34 @@ const loginValidation = (req, res, next) => {
 }
 
 const restaurantValidation = (req, res, next) => {
+  // When using FormData, ensure we handle the request properly
+  if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
+    // Basic validation for required fields
+    const { name, email, password, address, phone } = req.body;
+    
+    if (!name || !email || !password) {
+      return res.status(400)
+        .json({ message: "Required fields missing" });
+    }
+    
+    // Additional validation can be done here
+    if (name.length < 3 || password.length < 8) {
+      return res.status(400)
+        .json({ message: "Invalid field length" });
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400)
+        .json({ message: "Invalid email format" });
+    }
+    
+    next();
+    return;
+  }
+  
+  // For regular JSON requests, use Joi validation
   const schema = Joi.object({
     name: Joi.string().min(3).max(100).required(),
     email: Joi.string().email().required(),

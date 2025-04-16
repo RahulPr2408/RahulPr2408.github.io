@@ -23,6 +23,14 @@ const RestaurantSchema = new Schema({
     type: String,
     required: true,
   },
+  logoImage: {
+    type: String,
+    default: ''
+  },
+  mapImage: {
+    type: String,
+    default: ''
+  },
   openTime: {
     type: String,
     default: '09:00'
