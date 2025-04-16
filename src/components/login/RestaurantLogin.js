@@ -38,10 +38,6 @@ const RestaurantLogin = () => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:3000/auth/google?restaurant=true';
-  };
-
   return (
     <>
       {/* Top Section with Background Image */}
@@ -88,23 +84,6 @@ const RestaurantLogin = () => {
               </div>
               <button type="submit" className="sign-in-btn">Sign In</button>
               {message && <p className="message">{message}</p>}
-              
-              <div className="separator">
-                <span>or</span>
-              </div>
-
-              <button 
-                type="button" 
-                className="google-sign-in"
-                onClick={handleGoogleLogin}
-              >
-                <img 
-                  src="https://developers.google.com/identity/images/g-logo.png" 
-                  alt="Google Icon" 
-                  className="google-icon" 
-                />
-                Continue with Google
-              </button>
 
               <div className="signup-option">
                 <span>Don't have an account? </span>
