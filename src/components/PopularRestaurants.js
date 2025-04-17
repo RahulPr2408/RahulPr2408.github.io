@@ -83,6 +83,19 @@ const PopularRestaurants = () => {
     };
   }, [isPopupOpen]);
 
+  // Prevent background scroll when popup is open
+useEffect(() => {
+  if (isPopupOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
+  return () => {
+    document.body.style.overflow = 'auto';
+  };
+}, [isPopupOpen]);
+
   return (
     <section className="popular-restaurants-section py-5">
       <div className="container">
