@@ -20,6 +20,7 @@ const updateRestaurantProfile = async (req, res) => {
     if (req.body.openTime) updateData.openTime = req.body.openTime;
     if (req.body.closeTime) updateData.closeTime = req.body.closeTime;
     if (req.body.isOpen !== undefined) updateData.isOpen = req.body.isOpen;
+    if (req.body.menuType) updateData.menuType = req.body.menuType;
     
     // Handle file uploads
     if (req.files) {

@@ -42,6 +42,11 @@ const RestaurantSchema = new Schema({
   isOpen: {
     type: Boolean,
     default: true
+  },
+  menuType: {
+    type: String,
+    enum: ['standard', 'combo'],
+    default: 'standard'
   }
 });
 

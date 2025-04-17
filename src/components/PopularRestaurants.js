@@ -8,8 +8,9 @@ const PopularRestaurants = () => {
   const [isCouponPopupOpen, setIsCouponPopupOpen] = useState(false);
   const [showCouponContent, setShowCouponContent] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
-  const [menuItems, setMenuItems] = useState([]); // new state
-  const [menuRefreshKey, setMenuRefreshKey] = useState(0); // Add this line
+  const [menuItems, setMenuItems] = useState([]); // for standard menu
+  const [comboMenu, setComboMenu] = useState(null); // for combo menu
+  const [menuRefreshKey, setMenuRefreshKey] = useState(0);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -50,6 +51,7 @@ const PopularRestaurants = () => {
     setSelectedRestaurant(null);
     setShowCouponContent(false);
     setMenuItems([]); // Clear menu items when popup closes
+    setComboMenu(null); // Clear combo menu when popup closes
   };
 
   const openCouponContent = () => {
@@ -77,7 +79,15 @@ const PopularRestaurants = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setMenuItems(data);
+      
+      // Check if response is for a combo menu or standard menu
+      if (data.menuType === 'combo') {
+        setComboMenu(data);
+        setMenuItems([]);
+      } else {
+        setMenuItems(data);
+        setComboMenu(null);
+      }
     } catch (error) {
       console.error('Could not fetch menu items:', error);
     }
@@ -91,6 +101,92 @@ const PopularRestaurants = () => {
       return Math.random() > 0.5 ? require('../assets/Amaya_map.png') : require('../assets/map-pantry.jpg');
     }
   };
+
+  // Function to render standard menu
+  const renderStandardMenu = () => (
+    <div className="menu-items">
+      <h4>Second Plate Exclusive Pricing</h4>
+      {menuItems.length > 0 ? (
+        <ul className="menu-list">
+          {menuItems.map((item) => (
+            <li key={item._id} className={`menu-item ${!item.isAvailable ? 'out-of-stock' : ''}`}>
+              <div className="menu-item-content">
+                <span className="item-name">{item.name}</span>
+                <span className="item-price">${item.price}</span>
+              </div>
+              {!item.isAvailable && (
+                <span className="out-of-stock-badge">Out of Stock</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No menu items available.</p>
+      )}
+    </div>
+  );
+
+  // Function to render combo menu
+  const renderComboMenu = () => (
+    <div className="combo-menu">
+      <h4>Second Plate Exclusive Combo Pricing</h4>
+      {comboMenu && comboMenu.combos && comboMenu.combos.length > 0 ? (
+        <div className="combo-menu-container">
+          {/* Combo Options */}
+          <div className="combo-options-list">
+            {comboMenu.combos.map((combo) => (
+              <div key={combo._id} className="combo-option">
+                <div className="combo-header">
+                  <h5>{combo.name}</h5>
+                  <div className="combo-description">{combo.description}</div>
+                </div>
+                <div className="combo-prices">
+                  <span className="combo-original-price">${combo.originalPrice.toFixed(2)}</span>
+                  <span className="combo-sale-price">${combo.salePrice.toFixed(2)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Protein Options */}
+          {comboMenu.proteins && comboMenu.proteins.length > 0 && (
+            <div className="combo-section">
+              <h5>Proteins: (Choose 1 for Combo 1)</h5>
+              <ul className="combo-items-list">
+                {comboMenu.proteins.map((protein) => (
+                  <li key={protein._id} className={!protein.isAvailable ? 'out-of-stock' : ''}>
+                    {protein.name}
+                    {!protein.isAvailable && (
+                      <span className="out-of-stock-badge">Out of Stock</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {/* Side Options */}
+          {comboMenu.sides && comboMenu.sides.length > 0 && (
+            <div className="combo-section">
+              <h5>Sides: Choose 2 for Combo 1 OR Choose 3 for Combo 3</h5>
+              <ul className="combo-items-list">
+                {comboMenu.sides.map((side) => (
+                  <li key={side._id} className={!side.isAvailable ? 'out-of-stock' : ''}>
+                    {side.name}
+                    {!side.isAvailable && (
+                      <span className="out-of-stock-badge">Out of Stock</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p>No combo menu items available.</p>
+      )}
+    </div>
+  );
 
   return (
     <section className="popular-restaurants-section py-5">
@@ -109,6 +205,9 @@ const PopularRestaurants = () => {
                 <div className="restaurant-info">
                   <h3 className="restaurant-name">{restaurant.name}</h3>
                   <p className="restaurant-location">{restaurant.location}</p>
+                  {restaurant.menuType === 'combo' && (
+                    <span className="combo-badge">Combo Menu</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -134,6 +233,9 @@ const PopularRestaurants = () => {
                         onError={(e) => { e.target.src = getDefaultImage('logo'); }}
                       />
                       <h3 className="partner-name">{selectedRestaurant.name}</h3>
+                      {selectedRestaurant.menuType === 'combo' && (
+                        <span className="combo-badge">Combo Menu</span>
+                      )}
                     </div>
                     <div className="location-info">
                       <p>
@@ -154,27 +256,8 @@ const PopularRestaurants = () => {
 
                   {/* Right Side */}
                   <div className="popup-right">
-                    {/* Display Menu Items */}
-                    <div className="menu-items">
-                      <h4>Second Plate Exclusive Pricing</h4>
-                      {menuItems.length > 0 ? (
-                        <ul className="menu-list">
-                          {menuItems.map((item) => (
-                            <li key={item._id} className={`menu-item ${!item.isAvailable ? 'out-of-stock' : ''}`}>
-                              <div className="menu-item-content">
-                                <span className="item-name">{item.name}</span>
-                                <span className="item-price">${item.price}</span>
-                              </div>
-                              {!item.isAvailable && (
-                                <span className="out-of-stock-badge">Out of Stock</span>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p>No menu items available.</p>
-                      )}
-                    </div>
+                    {/* Display Menu Items based on menu type */}
+                    {comboMenu ? renderComboMenu() : renderStandardMenu()}
                     <button className="btn-coupon" onClick={openCouponContent}>
                       Get Coupons
                     </button>
