@@ -10,7 +10,7 @@ const Navbar = () => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { isLoggedIn, userName, logout } = useAuth();
   const navigate = useNavigate();
-  
+
   const isRestaurantLoggedIn = localStorage.getItem('restaurantToken');
 
   const handleLogout = () => {
@@ -23,7 +23,7 @@ const Navbar = () => {
     navigate('/');
   };
 
-  // Close mobile menu when clicking outside
+  // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && !event.target.closest('.navbar')) {
@@ -38,7 +38,7 @@ const Navbar = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen, showProfileMenu]);
 
-  // Close mobile menu when clicking on a link
+  // Close mobile menu on link click
   const handleNavLinkClick = () => {
     setIsOpen(false);
   };
@@ -52,12 +52,11 @@ const Navbar = () => {
             <img src={logo} alt="Second Plate Logo" className="navbar-logo" />
           </a>
 
-          {/* 🟢 Hamburger Button for iPads & Mobile */}
+          {/* Hamburger Toggle */}
           <button className="navbar-toggler" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? "✖" : "☰"}
           </button>
 
-          {/* Navigation Links (Show dropdown on mobile, normal on desktop) */}
           <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`} id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
@@ -77,7 +76,7 @@ const Navbar = () => {
               </li>
             </ul>
 
-            {/* Mobile-only profile section */}
+            {/* Mobile-only section */}
             <div className="d-lg-none">
               {isLoggedIn ? (
                 <div className="profile-section">
@@ -90,40 +89,35 @@ const Navbar = () => {
                   </div>
                   {showProfileMenu && (
                     <div className="profile-menu">
-                      <button onClick={() => {
-                        navigate('/profile');
-                        setIsOpen(false);
-                      }}>Profile</button>
-                      <button onClick={() => {
-                        handleLogout();
-                        setIsOpen(false);
-                      }}>Logout</button>
+                      <button onClick={() => { navigate('/profile'); setIsOpen(false); }}>Profile</button>
+                      <button onClick={() => { handleLogout(); setIsOpen(false); }}>Logout</button>
                     </div>
                   )}
                 </div>
               ) : (
                 <>
-                  {!isRestaurantLoggedIn && (
-                    <Link to="/login" className="btn-outline-light" onClick={handleNavLinkClick}>Login</Link>
+                  {/* Regular user Login (hidden if restaurant logged in) */}
+                  {!isLoggedIn && !isRestaurantLoggedIn && (
+                    <Link to="/login" className="btn-outline-light" onClick={handleNavLinkClick}>
+                      Login
+                    </Link>
                   )}
-                  {isRestaurantLoggedIn ? (
-                    <button className="btn-outline-light restaurant-login" onClick={() => {
-                      handleRestaurantLogout();
-                      handleNavLinkClick();
-                    }}>
+
+                  {/* Restaurant Logout if logged in */}
+                  {isRestaurantLoggedIn && (
+                    <button
+                      className="btn-outline-light restaurant-login"
+                      onClick={() => { handleRestaurantLogout(); handleNavLinkClick(); }}
+                    >
                       Restaurant Logout
                     </button>
-                  ) : (
-                    <Link to="/restaurant-login" className="btn-outline-light restaurant-login" onClick={handleNavLinkClick}>
-                      Restaurant Login
-                    </Link>
                   )}
                 </>
               )}
             </div>
           </div>
 
-          {/* Desktop-only profile section */}
+          {/* Desktop-only section */}
           <div className="d-none d-lg-flex align-items-center">
             {isLoggedIn ? (
               <div className="profile-section">
@@ -143,17 +137,18 @@ const Navbar = () => {
               </div>
             ) : (
               <>
-                {!isRestaurantLoggedIn && (
-                  <Link to="/login" className="btn-outline-light">Login</Link>
+                {/* Regular user Login (hidden if restaurant logged in) */}
+                {!isLoggedIn && !isRestaurantLoggedIn && (
+                  <Link to="/login" className="btn-outline-light">
+                    Login
+                  </Link>
                 )}
-                {isRestaurantLoggedIn ? (
+
+                {/* Restaurant Logout if logged in */}
+                {isRestaurantLoggedIn && (
                   <button className="btn-outline-light restaurant-login" onClick={handleRestaurantLogout}>
                     Restaurant Logout
                   </button>
-                ) : (
-                  <Link to="/restaurant-login" className="btn-outline-light restaurant-login">
-                    Restaurant Login
-                  </Link>
                 )}
               </>
             )}

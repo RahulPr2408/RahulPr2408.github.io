@@ -87,7 +87,7 @@ const RestaurantLogin = () => {
 
               <div className="signup-option">
                 <span>Don't have an account? </span>
-                <Link to="/restaurant-signup" className="signup-link">Sign up for free!</Link>
+                <Link to="/restaurant-signup" className="signup-link">Partner up with us for free!</Link>
               </div>
             </form>
           </div>

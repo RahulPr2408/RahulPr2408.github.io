@@ -4,6 +4,8 @@ import logo from "../assets/second-plate-logo-title.png";
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
+  const isRestaurantLoggedIn = localStorage.getItem('restaurantToken');
+
   return (
     <footer className="footer">
       <div className="container">
@@ -55,6 +57,16 @@ const Footer = () => {
                 <li><Link to="/awards">Awards</Link></li>
                 <li><Link to="/faq">FAQ</Link></li>
                 <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+                {!isRestaurantLoggedIn && (
+                  <li>
+                  <Link 
+                    to="/restaurant-login" 
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
+                    Restaurant Login
+                  </Link>
+                </li>
+                )}
               </ul>
             </div>
           </div>

@@ -609,7 +609,7 @@ const RestaurantDashboard = () => {
             <h2>Combo Menu Management</h2>
             <div className="combo-menu-container">
               <div className="combo-options">
-                <h3>Combo Options</h3>
+                
                 {comboOptions.map(combo => (
                   <div key={combo._id} className="combo-card">
                     <h4>{combo.name} ({combo.description})</h4>
