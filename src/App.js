@@ -9,12 +9,12 @@ import AboutUs from './components/AboutUs';
 import PopularRestaurants from './components/PopularRestaurants';
 import AllTeamMembers from './components/AllTeamMembers';
 import Login from './components/login/Login';
-import SignUp from './components/login/SignUp'; // Import SignUp component
-import RestaurantLogin from './components/login/RestaurantLogin'; // Import RestaurantLogin component
+import SignUp from './components/login/SignUp';
+import RestaurantLogin from './components/login/RestaurantLogin';
 import { AuthProvider } from './context/AuthContext';
-import OAuthCallback from './components/login/OAuthCallback'; // Import OAuthCallback component
-import RestaurantSignUp from './components/login/RestaurantSignUp'; // Import RestaurantSignUp component
-import RestaurantDashboard from './components/dashboard/RestaurantDashboard'; // Import RestaurantDashboard component
+import OAuthCallback from './components/login/OAuthCallback';
+import RestaurantSignUp from './components/login/RestaurantSignUp';
+import RestaurantDashboard from './components/dashboard/RestaurantDashboard';
 import ProtectedRoute from './components/routes/ProtectedRoute';
 
 function App() {
@@ -26,29 +26,29 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
-                <Home />
+                <div id="home"><Home /></div>
                 <PopularRestaurants />
-                <AboutUs />
-                <Team />
-                <Testimonials />
+                <div id="about"><AboutUs /></div>
+                <div id="team"><Team /></div>
+                <div id="testimonial"><Testimonials /></div>
+                <div id="contact"><Footer /></div>
               </>
             } />
             <Route path="/team" element={<AllTeamMembers />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} /> 
-            <Route path="/restaurant-login" element={<RestaurantLogin />} /> {/* Add RestaurantLogin route */}
-            <Route path="/oauth-callback" element={<OAuthCallback />} /> {/* Add OAuthCallback route */}
-            <Route path="/restaurant-signup" element={<RestaurantSignUp />} /> {/* Add RestaurantSignUp route */}
-            <Route 
-              path="/restaurant-dashboard" 
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/restaurant-login" element={<RestaurantLogin />} />
+            <Route path="/oauth-callback" element={<OAuthCallback />} />
+            <Route path="/restaurant-signup" element={<RestaurantSignUp />} />
+            <Route
+              path="/restaurant-dashboard"
               element={
                 <ProtectedRoute type="restaurant">
                   <RestaurantDashboard />
                 </ProtectedRoute>
-              } 
+              }
             />
           </Routes>
-          <Footer />
         </Router>
       </div>
     </AuthProvider>

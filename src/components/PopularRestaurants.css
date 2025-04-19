@@ -194,6 +194,7 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 1vw;
+  margin-right: 10px;
 }
 
 .download-coupon-button:hover, 

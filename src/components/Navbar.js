@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import './Navbar.css';
 import logo from "../assets/second-plate-logo-title.png";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -48,9 +49,9 @@ const Navbar = () => {
       <nav className='navbar navbar-expand-lg navbar-dark custom-navbar'>
         <div className='container-fluid'>
           {/* Logo */}
-          <a className='navbar-brand' href='#home'>
+          <Link className='navbar-brand' to='/#home'>
             <img src={logo} alt="Second Plate Logo" className="navbar-logo" />
-          </a>
+          </Link>
 
           {/* Hamburger Toggle */}
           <button className="navbar-toggler" onClick={() => setIsOpen(!isOpen)}>
@@ -60,19 +61,22 @@ const Navbar = () => {
           <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`} id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="#home" onClick={handleNavLinkClick}>Home</a>
+                <Link className="nav-link" to="/#home" onClick={handleNavLinkClick}>Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#about" onClick={handleNavLinkClick}>Our Story</a>
+                <Link className="nav-link" to="/#about" onClick={handleNavLinkClick}>Our Story</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#team" onClick={handleNavLinkClick}>Our Team</a>
+                <Link className="nav-link" to="/#team" onClick={handleNavLinkClick}>Our Team</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#testimonial" onClick={handleNavLinkClick}>Testimonial</a>
+                <Link className="nav-link" to="/team" onClick={handleNavLinkClick}>All Team</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#contact" onClick={handleNavLinkClick}>Contact Us</a>
+                <Link className="nav-link" to="/#testimonial" onClick={handleNavLinkClick}>Testimonial</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/#contact" onClick={handleNavLinkClick}>Contact Us</Link>
               </li>
             </ul>
 
@@ -80,7 +84,7 @@ const Navbar = () => {
             <div className="d-lg-none">
               {isLoggedIn ? (
                 <div className="profile-section">
-                  <div 
+                  <div
                     className="profile-trigger"
                     onClick={() => setShowProfileMenu(!showProfileMenu)}
                   >
@@ -121,7 +125,7 @@ const Navbar = () => {
           <div className="d-none d-lg-flex align-items-center">
             {isLoggedIn ? (
               <div className="profile-section">
-                <div 
+                <div
                   className="profile-trigger"
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
                 >
