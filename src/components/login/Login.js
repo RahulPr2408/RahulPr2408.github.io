@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { toast, Bounce } from 'react-toastify';
 import './Login.css';
 import { useAuth } from '../../context/AuthContext';
 
@@ -8,7 +9,15 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
+
+  useEffect(() => {
+    // Set message if redirected from protected route
+    if (location.state?.message) {
+      setMessage(location.state.message);
+    }
+  }, [location]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,13 +41,43 @@ const Login = () => {
       
       if (response.ok) {
         login(data.jwtToken, data.name);
-        setMessage('Login successful!');
-        navigate('/'); // Redirect to home page
+        toast.success('Login successful! Welcome back!', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce
+        });
+        setTimeout(() => navigate('/'), 2000);
       } else {
-        setMessage(data.message || 'Login failed.');
+        toast.error(data.message || 'Login failed. Please check your credentials.', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce
+        });
       }
     } catch (error) {
-      setMessage('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
       console.error('Login error:', error);
     }
   };

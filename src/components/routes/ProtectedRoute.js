@@ -1,11 +1,10 @@
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const ProtectedRoute = ({ children, type = 'user' }) => {
-  const token = type === 'restaurant' 
-    ? localStorage.getItem('restaurantToken')
-    : localStorage.getItem('userToken');
+  const { isLoggedIn, userType } = useAuth();
 
-  if (!token) {
+  if (!isLoggedIn || (type !== userType)) {
     return <Navigate to={type === 'restaurant' ? '/restaurant-login' : '/login'} />;
   }
 

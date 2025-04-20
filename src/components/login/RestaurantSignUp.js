@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { toast, Bounce } from 'react-toastify';
 import './Login.css';
 
 const RestaurantSignUp = () => {
@@ -7,6 +8,7 @@ const RestaurantSignUp = () => {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
     address: '',
     phone: ''
   });
@@ -48,10 +50,27 @@ const RestaurantSignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not match!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
+      return;
+    }
+
     try {
       const data = new FormData();
-      for (const key in formData) {
-        data.append(key, formData[key]);
+      // Don't send confirmPassword to the server
+      const { confirmPassword, ...formDataWithoutConfirm } = formData;
+      for (const key in formDataWithoutConfirm) {
+        data.append(key, formDataWithoutConfirm[key]);
       }
       
       if (logoImage) {
@@ -78,10 +97,30 @@ const RestaurantSignUp = () => {
       
       const responseData = await response.json();
       
-      setMessage('Registration successful! Redirecting to login...');
+      toast.success('Registration successful! Redirecting to login...', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
       setTimeout(() => navigate('/restaurant-login'), 2000);
     } catch (error) {
-      setMessage(error.message || 'Registration failed. Please try again.');
+      toast.error(error.message || 'Registration failed. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
       console.error('Signup error:', error);
     }
   };
@@ -131,6 +170,19 @@ const RestaurantSignUp = () => {
                 placeholder="********"
                 className="form-input"
                 value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input 
+                type="password"
+                name="confirmPassword"
+                placeholder="********"
+                className="form-input"
+                value={formData.confirmPassword}
                 onChange={handleChange}
                 required
               />

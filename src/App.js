@@ -16,6 +16,8 @@ import OAuthCallback from './components/login/OAuthCallback';
 import RestaurantSignUp from './components/login/RestaurantSignUp';
 import RestaurantDashboard from './components/dashboard/RestaurantDashboard';
 import ProtectedRoute from './components/routes/ProtectedRoute';
+import { ToastContainer, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -50,6 +52,19 @@ function App() {
             />
           </Routes>
         </Router>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+          />  
       </div>
     </AuthProvider>
   );

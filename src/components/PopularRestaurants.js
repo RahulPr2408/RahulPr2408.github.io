@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { toast, Bounce } from 'react-toastify';
 import './PopularRestaurants.css';
 import CouponImage from '../assets/coupon_code.jpg'; // Import the coupon image
 
 const PopularRestaurants = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [isCouponPopupOpen, setIsCouponPopupOpen] = useState(false);
@@ -29,7 +34,7 @@ const PopularRestaurants = () => {
     fetchRestaurants();
   }, []);
 
-  // Add this new useEffect to refresh menu items periodically
+  // Added this new useEffect to refresh menu items periodically
   useEffect(() => {
     if (selectedRestaurant) {
       const interval = setInterval(() => {
@@ -55,6 +60,21 @@ const PopularRestaurants = () => {
   };
 
   const openCouponContent = () => {
+    if (!isLoggedIn) {
+      toast.error('Please login first to access and download coupons!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
+      navigate('/login');
+      return;
+    }
     setShowCouponContent(true);
   };
 

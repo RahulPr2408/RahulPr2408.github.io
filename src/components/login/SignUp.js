@@ -1,16 +1,34 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { toast, Bounce } from 'react-toastify';
 import './Login.css';
 
 const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
+      return;
+    }
+
     try {
       // Use relative path if frontend and backend are on same origin
       const sameOrigin = process.env.REACT_APP_SAME_ORIGIN === 'true';
@@ -30,13 +48,43 @@ const SignUp = () => {
       const data = await response.json();
       
       if (response.ok) {
-        setMessage('Signup successful! Redirecting to login...');
+        toast.success('Signup successful! Redirecting to login...', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce
+        });
         setTimeout(() => navigate('/login'), 2000);
       } else {
-        setMessage(data.message || 'Signup failed.');
+        toast.error(data.message || 'Signup failed.', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce
+        });
       }
     } catch (error) {
-      setMessage('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
       console.error('Signup error:', error);
     }
   };
@@ -96,6 +144,17 @@ const SignUp = () => {
                   className="form-input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="confirm-password">Confirm Password</label>
+                <input 
+                  type="password" 
+                  id="confirm-password" 
+                  placeholder="********" 
+                  className="form-input"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
               <div className="form-options">
