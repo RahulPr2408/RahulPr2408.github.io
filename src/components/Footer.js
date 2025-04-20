@@ -45,6 +45,16 @@ const Footer = () => {
                 <li><a href="#about">Our Story</a></li>
                 <li><a href="#team">Our Team</a></li>
                 <li><a href="#contact">Contact Us</a></li>
+                {!isRestaurantLoggedIn && (
+                  <li>
+                    <Link
+                      to="/restaurant-login"
+                      onClick={() => window.scrollTo(0, 0)}
+                    >
+                      Restaurant Login
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -53,11 +63,11 @@ const Footer = () => {
           <div className="col-md-3 middle-section-custom">
             <div className="footer-utility">
               <ul className="footer-links">
-                <li><Link to="/partners">Partners</Link></li>
+                {/* <li><Link to="/partners">Partners</Link></li>
                 <li><Link to="/awards">Awards</Link></li>
                 <li><Link to="/faq">FAQ</Link></li>
-                <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-                {!isRestaurantLoggedIn && (
+                <li><Link to="/privacy-policy">Privacy Policy</Link></li> */}
+                {/* {!isRestaurantLoggedIn && (
                   <li>
                   <Link 
                     to="/restaurant-login" 
@@ -66,13 +76,13 @@ const Footer = () => {
                     Restaurant Login
                   </Link>
                 </li>
-                )}
+                )} */}
               </ul>
             </div>
           </div>
 
           {/* Column 4: Newsletter Subscription */}
-          <div className="col-md-3 footer-images-section">
+          {/* <div className="col-md-3 footer-images-section">
             <div className="footer-section">
               <p className="footer-text">Want to stay in the loop? Subscribe to our newsletter!</p>
               <form className="footer-form">
@@ -80,7 +90,7 @@ const Footer = () => {
                 <button type="submit" className="btn-custom-secondary">Subscribe</button>
               </form>
             </div>
-          </div>
+          </div> */}
 
         </div>
 
@@ -88,9 +98,9 @@ const Footer = () => {
         <div className="row">
           <div className="col-12 text-center">
             <p className="copyright-text">
-              Copyright © 2024 Enactus Northeastern. All Rights Reserved |
-              <Link to="/terms" className="footer-link"> Terms of Use</Link> |
-              <Link to="/privacy-policy" className="footer-link"> Privacy Policy</Link>
+              Copyright © 2024 Enactus Northeastern. All Rights Reserved
+              {/* <Link to="/terms" className="footer-link"> Terms of Use</Link> |
+              <Link to="/privacy-policy" className="footer-link"> Privacy Policy</Link> */}
             </p>
           </div>
         </div>
