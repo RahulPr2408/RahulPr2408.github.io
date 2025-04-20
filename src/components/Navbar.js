@@ -93,7 +93,7 @@ const Navbar = () => {
                   </div>
                   {showProfileMenu && (
                     <div className="profile-menu">
-                      <button onClick={() => { navigate('/profile'); setIsOpen(false); }}>Profile</button>
+                      {/* <button onClick={() => { navigate('/profile'); setIsOpen(false); }}>Profile</button> */}
                       <button onClick={() => { handleLogout(); setIsOpen(false); }}>Logout</button>
                     </div>
                   )}
@@ -134,7 +134,7 @@ const Navbar = () => {
                 </div>
                 {showProfileMenu && (
                   <div className="profile-menu">
-                    <button onClick={() => navigate('/profile')}>Profile</button>
+                    {/* <button onClick={() => navigate('/profile')}>Profile</button> */}
                     <button onClick={handleLogout}>Logout</button>
                   </div>
                 )}
