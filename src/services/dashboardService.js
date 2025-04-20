@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'https://rahulpr2408-github-io.onrender.com';
 const API_URL = `${API_BASE_URL}/api/dashboard`;
 
 const authHeader = () => {
