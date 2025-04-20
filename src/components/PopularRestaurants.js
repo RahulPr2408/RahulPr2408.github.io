@@ -94,7 +94,7 @@ const PopularRestaurants = () => {
 
   const fetchMenuItems = async (restaurantId) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/restaurants/${restaurantId}/menu`);
+      const response = await fetch(`https://rahulpr2408-github-io.onrender.com/api/restaurants/${restaurantId}/menu`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
