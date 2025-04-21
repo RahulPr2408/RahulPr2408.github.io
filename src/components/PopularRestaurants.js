@@ -100,7 +100,13 @@ const PopularRestaurants = () => {
 
   const fetchMenuItems = async (restaurantId) => {
     try {
-      const response = await fetch(`https://rahulpr2408-github-io.onrender.com/api/restaurants/${restaurantId}/menu`);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants/${restaurantId}/menu`, {
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -121,11 +127,11 @@ const PopularRestaurants = () => {
 
   // Helper function to get default image if restaurant image is not available
   const getDefaultImage = (type) => {
-    // if (type === 'logo') {
-    //   return Math.random() > 0.5 ? require('../assets/pantry-logo.png') : require('../assets/amaya-logo.png');
-    // } else {
-    //   return Math.random() > 0.5 ? require('../assets/Amaya_map.png') : require('../assets/map-pantry.jpg');
-    // }
+    if (type === 'logo') {
+      return `${process.env.REACT_APP_BACKEND_URL}/uploads/restaurants/default-logo.png`;
+    } else {
+      return `${process.env.REACT_APP_BACKEND_URL}/uploads/restaurants/default-map.png`;
+    }
   };
 
   // Function to render standard menu
