@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.77a8837e.css",
-    "main.js": "/static/js/main.dd8424a3.js",
+    "main.css": "/static/css/main.1ffbc8e8.css",
+    "main.js": "/static/js/main.7e0826b0.js",
     "static/media/Rahul.png": "/static/media/Rahul.525c70b97c0d6e526204.png",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
@@ -23,12 +23,14 @@
     "static/media/Areeb.jpg": "/static/media/Areeb.a9fb1338ad6a62f1b746.jpg",
     "static/media/Leo.jpg": "/static/media/Leo.b76f736ac427c89c3b9a.jpg",
     "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.a7abbc318b6ac85c87f7.png",
+    "static/media/map-default.png": "/static/media/map-default.5b6563867d4dd8628ec3.png",
+    "static/media/restaurant-default.jpg": "/static/media/restaurant-default.7b60afe83d420fcb5332.jpg",
     "index.html": "/index.html",
-    "main.77a8837e.css.map": "/static/css/main.77a8837e.css.map",
-    "main.dd8424a3.js.map": "/static/js/main.dd8424a3.js.map"
+    "main.1ffbc8e8.css.map": "/static/css/main.1ffbc8e8.css.map",
+    "main.7e0826b0.js.map": "/static/js/main.7e0826b0.js.map"
   },
   "entrypoints": [
-    "static/css/main.77a8837e.css",
-    "static/js/main.dd8424a3.js"
+    "static/css/main.1ffbc8e8.css",
+    "static/js/main.7e0826b0.js"
   ]
 }
