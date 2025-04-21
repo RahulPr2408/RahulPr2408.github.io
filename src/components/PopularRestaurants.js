@@ -127,11 +127,37 @@ const PopularRestaurants = () => {
 
   // Helper function to get default image if restaurant image is not available
   const getDefaultImage = (type) => {
-    if (type === 'logo') {
-      return `${process.env.REACT_APP_BACKEND_URL}/uploads/restaurants/default-logo.png`;
-    } else {
-      return `${process.env.REACT_APP_BACKEND_URL}/uploads/restaurants/default-map.png`;
-    }
+    const defaultImages = {
+      logo: process.env.REACT_APP_DEFAULT_LOGO_URL,
+      map: process.env.REACT_APP_DEFAULT_MAP_URL
+    };
+    return {
+      mobile: defaultImages[type],
+      tablet: defaultImages[type],
+      desktop: defaultImages[type],
+      default: defaultImages[type]
+    };
+  };
+
+  const getImageUrl = (imageData, type) => {
+    if (!imageData) return getDefaultImage(type);
+
+    // Handle new structure where imageData might be an object with url property
+    const imageUrl = typeof imageData === 'object' ? imageData.url : imageData;
+    if (!imageUrl) return getDefaultImage(type);
+
+    return {
+      mobile: imageUrl,
+      tablet: imageUrl.replace('/upload/', '/upload/w_768,c_scale/'),
+      desktop: imageUrl.replace('/upload/', '/upload/w_1024,c_scale/'),
+      default: imageUrl
+    };
+  };
+
+  const handleImageError = (e, type) => {
+    e.target.onerror = null; // Prevent infinite loop
+    const defaultImage = getDefaultImage(type);
+    e.target.src = defaultImage.default;
   };
 
   // Function to render standard menu
@@ -228,12 +254,23 @@ const PopularRestaurants = () => {
           {restaurants.map((restaurant) => (
             <div className="col-md-3 mb-4" key={restaurant._id}>
               <div className="restaurant-card" onClick={() => openPopup(restaurant)}>
-                <img
-                  src={restaurant.logoImage || getDefaultImage('logo')}
-                  alt={restaurant.name}
-                  className="restaurant-image"
-                  onError={(e) => { e.target.src = getDefaultImage('logo'); }}
-                />
+                <picture>
+                  <source
+                    media="(min-width: 1024px)"
+                    srcSet={getImageUrl(restaurant.logoImage, 'logo').desktop}
+                  />
+                  <source
+                    media="(min-width: 768px)"
+                    srcSet={getImageUrl(restaurant.logoImage, 'logo').tablet}
+                  />
+                  <img
+                    src={getImageUrl(restaurant.logoImage, 'logo').mobile}
+                    alt={restaurant.name}
+                    className="restaurant-image"
+                    onError={(e) => handleImageError(e, 'logo')}
+                    loading="lazy"
+                  />
+                </picture>
                 <div className="restaurant-info">
                   <h3 className="restaurant-name">{restaurant.name}</h3>
                   <p className="restaurant-location">{restaurant.location}</p>
@@ -258,12 +295,23 @@ const PopularRestaurants = () => {
                   {/* Left Side */}
                   <div className="popup-left">
                     <div className="restaurant-logo-info">
-                      <img
-                        src={selectedRestaurant.logoImage || getDefaultImage('logo')}
-                        alt={selectedRestaurant.name}
-                        className="partner-image"
-                        onError={(e) => { e.target.src = getDefaultImage('logo'); }}
-                      />
+                      <picture>
+                        <source
+                          media="(min-width: 1024px)"
+                          srcSet={getImageUrl(selectedRestaurant.logoImage, 'logo').desktop}
+                        />
+                        <source
+                          media="(min-width: 768px)"
+                          srcSet={getImageUrl(selectedRestaurant.logoImage, 'logo').tablet}
+                        />
+                        <img
+                          src={getImageUrl(selectedRestaurant.logoImage, 'logo').mobile}
+                          alt={selectedRestaurant.name}
+                          className="partner-image"
+                          onError={(e) => handleImageError(e, 'logo')}
+                          loading="lazy"
+                        />
+                      </picture>
                       <h3 className="partner-name">{selectedRestaurant.name}</h3>
                       {selectedRestaurant.menuType === 'combo' && (
                         <span className="combo-badge">Combo Menu</span>
@@ -277,12 +325,23 @@ const PopularRestaurants = () => {
                       </p>
                     </div>
                     <div className="map-image">
-                      <img
-                        src={selectedRestaurant.mapImage || getDefaultImage('map')}
-                        alt="Map"
-                        className="map-img"
-                        onError={(e) => { e.target.src = getDefaultImage('map'); }}
-                      />
+                      <picture>
+                        <source
+                          media="(min-width: 1024px)"
+                          srcSet={getImageUrl(selectedRestaurant.mapImage, 'map').desktop}
+                        />
+                        <source
+                          media="(min-width: 768px)"
+                          srcSet={getImageUrl(selectedRestaurant.mapImage, 'map').tablet}
+                        />
+                        <img
+                          src={getImageUrl(selectedRestaurant.mapImage, 'map').mobile}
+                          alt="Map"
+                          className="map-img"
+                          onError={(e) => handleImageError(e, 'map')}
+                          loading="lazy"
+                        />
+                      </picture>
                     </div>
                   </div>
 

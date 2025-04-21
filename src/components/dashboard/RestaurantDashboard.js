@@ -40,6 +40,17 @@ const RestaurantDashboard = () => {
   const [isAddingSide, setIsAddingSide] = useState(false);
   const [editingCombo, setEditingCombo] = useState(null);
 
+  const getImageUrl = (imageData, type) => {
+    if (!imageData) return '';
+
+    // Handle new structure where imageData might be an object with url property
+    const imageUrl = typeof imageData === 'object' ? imageData.url : imageData;
+    if (!imageUrl) return '';
+
+    // Add Cloudinary transformations for preview
+    return imageUrl.replace('/upload/', '/upload/w_400,c_scale,q_auto/');
+  };
+
   useEffect(() => {
     fetchMenuItems();
     fetchRestaurantInfo();
@@ -60,10 +71,18 @@ const RestaurantDashboard = () => {
           openTime: restaurant.openTime,
           closeTime: restaurant.closeTime,
           isOpen: restaurant.isOpen,
-          logoImage: restaurant.logoImage,
-          mapImage: restaurant.mapImage,
+          logoImage: restaurant.logoImage?.url || restaurant.logoImage,
+          mapImage: restaurant.mapImage?.url || restaurant.mapImage,
           menuType: restaurant.menuType || 'standard'
         });
+
+        // Set image previews using Cloudinary URLs
+        if (restaurant.logoImage) {
+          setLogoPreview(getImageUrl(restaurant.logoImage, 'logo'));
+        }
+        if (restaurant.mapImage) {
+          setMapPreview(getImageUrl(restaurant.mapImage, 'map'));
+        }
 
         // Also update localStorage
         localStorage.setItem('restaurantName', restaurant.name);
@@ -246,9 +265,13 @@ const RestaurantDashboard = () => {
   const handleLogoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast.error('Image size should be less than 5MB');
+        return;
+      }
       setRestaurantInfo(prev => ({ ...prev, logoImage: file }));
       
-      // Create preview
+      // Create optimized preview
       const reader = new FileReader();
       reader.onloadend = () => {
         setLogoPreview(reader.result);
@@ -260,9 +283,13 @@ const RestaurantDashboard = () => {
   const handleMapChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        toast.error('Image size should be less than 5MB');
+        return;
+      }
       setRestaurantInfo(prev => ({ ...prev, mapImage: file }));
       
-      // Create preview
+      // Create optimized preview
       const reader = new FileReader();
       reader.onloadend = () => {
         setMapPreview(reader.result);
@@ -484,7 +511,11 @@ const RestaurantDashboard = () => {
                   />
                   {logoPreview && (
                     <div className="image-preview">
-                      <img src={logoPreview} alt="Logo Preview" />
+                      <img 
+                        src={logoPreview} 
+                        alt="Logo Preview"
+                        className="preview-image"
+                      />
                     </div>
                   )}
                 </div>
@@ -497,7 +528,11 @@ const RestaurantDashboard = () => {
                   />
                   {mapPreview && (
                     <div className="image-preview">
-                      <img src={mapPreview} alt="Map Preview" />
+                      <img 
+                        src={mapPreview} 
+                        alt="Map Preview"
+                        className="preview-image"
+                      />
                     </div>
                   )}
                 </div>

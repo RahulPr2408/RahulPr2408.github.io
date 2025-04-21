@@ -90,10 +90,23 @@ export const updateRestaurantProfile = async (profileData) => {
   if (profileData.menuType) formData.append('menuType', profileData.menuType);
   
   // Add files if present
-  if (profileData.logoImage) formData.append('logoImage', profileData.logoImage);
-  if (profileData.mapImage) formData.append('mapImage', profileData.mapImage);
+  if (profileData.logoImage instanceof File) {
+    formData.append('logoImage', profileData.logoImage);
+  }
+  if (profileData.mapImage instanceof File) {
+    formData.append('mapImage', profileData.mapImage);
+  }
   
-  const response = await axiosInstance.post('/api/dashboard/restaurant/profile', formData);
+  const response = await axiosInstance.post(
+    '/api/dashboard/restaurant/profile', 
+    formData,
+    {
+      headers: {
+        ...authHeader().headers,
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+  );
   return response.data;
 };
 
