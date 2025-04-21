@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://rahulpr2408-github-io.onrender.com';
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://rahulpr2408-github-io-server.onrender.com';
 const API_URL = `${API_BASE_URL}/api/dashboard`;
 
 // Create axios instance
