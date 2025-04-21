@@ -1,16 +1,16 @@
 const { cloudinary, uploadToCloudinary, deleteFromCloudinary } = require('../config/cloudinary');
 
 const validateImageFile = (file) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
   if (!allowedTypes.includes(file.mimetype)) {
-    const error = new Error('Invalid file type. Only JPEG, PNG, WebP, and GIF images are allowed.');
+    const error = new Error('Invalid file type');
     error.code = 'INVALID_FILE_TYPE';
     throw error;
   }
   
   const maxSize = 5 * 1024 * 1024; // 5MB
   if (file.size > maxSize) {
-    const error = new Error('File too large. Maximum size is 5MB.');
+    const error = new Error('File too large');
     error.code = 'LIMIT_FILE_SIZE';
     throw error;
   }
@@ -26,9 +26,9 @@ const uploadImages = async (req, res, next) => {
       validateImageFile(req.files.logoImage);
       const logoResult = await uploadToCloudinary(req.files.logoImage, { 
         type: 'logo',
-        folder: `${process.env.CLOUDINARY_FOLDER || 'restaurants'}/${req.body.email || 'temp'}`
+        folder: `${process.env.CLOUDINARY_FOLDER}/${req.restaurant?.email || 'temp'}`
       });
-      uploadedImages.push({ type: 'logo', ...logoResult });
+      uploadedImages.push({ type: 'logo', url: logoResult.default });
       req.logoUrl = logoResult;
     }
 
@@ -37,26 +37,17 @@ const uploadImages = async (req, res, next) => {
       validateImageFile(req.files.mapImage);
       const mapResult = await uploadToCloudinary(req.files.mapImage, { 
         type: 'map',
-        folder: `${process.env.CLOUDINARY_FOLDER || 'restaurants'}/${req.body.email || 'temp'}`
+        folder: `${process.env.CLOUDINARY_FOLDER}/${req.restaurant?.email || 'temp'}`
       });
-      uploadedImages.push({ type: 'map', ...mapResult });
+      uploadedImages.push({ type: 'map', url: mapResult.default });
       req.mapUrl = mapResult;
     }
 
     next();
   } catch (error) {
     // Cleanup any uploaded images if there's an error
-    await Promise.all(uploadedImages.map(img => deleteFromCloudinary(img.default)));
-    
-    // Format error message for client
-    const errorMessage = error.message.includes('Cloudinary') 
-      ? 'Image upload failed. Please try again.'
-      : error.message;
-    
-    return res.status(error.code === 'LIMIT_FILE_SIZE' ? 413 : 400).json({
-      success: false,
-      message: errorMessage
-    });
+    await Promise.all(uploadedImages.map(img => deleteFromCloudinary(img.url)));
+    next(error);
   }
 };
 

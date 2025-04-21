@@ -31,7 +31,6 @@ const Login = () => {
           'Accept': 'application/json'
         },
         credentials: 'include',
-        mode: 'cors',
         body: JSON.stringify({ email, password }),
       });
       

@@ -125,11 +125,11 @@ const PopularRestaurants = () => {
     }
   };
 
-  // Updated getDefaultImage function with better fallbacks
+  // Helper function to get default image if restaurant image is not available
   const getDefaultImage = (type) => {
     const defaultImages = {
-      logo: 'https://res.cloudinary.com/secondplate/image/upload/v1/defaults/restaurant-default.jpg',
-      map: 'https://res.cloudinary.com/secondplate/image/upload/v1/defaults/map-default.png'
+      logo: process.env.REACT_APP_DEFAULT_LOGO_URL,
+      map: process.env.REACT_APP_DEFAULT_MAP_URL
     };
     return {
       mobile: defaultImages[type],
@@ -139,40 +139,25 @@ const PopularRestaurants = () => {
     };
   };
 
-  // Improved image URL handling with proper Cloudinary transformations
   const getImageUrl = (imageData, type) => {
     if (!imageData) return getDefaultImage(type);
 
+    // Handle new structure where imageData might be an object with url property
     const imageUrl = typeof imageData === 'object' ? imageData.url : imageData;
     if (!imageUrl) return getDefaultImage(type);
 
-    // Add quality and format optimizations
-    const baseTransformation = 'q_auto,f_auto,c_limit';
-    
     return {
-      mobile: imageUrl.replace('/upload/', `/upload/${baseTransformation},w_400/`),
-      tablet: imageUrl.replace('/upload/', `/upload/${baseTransformation},w_768/`),
-      desktop: imageUrl.replace('/upload/', `/upload/${baseTransformation},w_1024/`),
-      default: imageUrl.replace('/upload/', `/upload/${baseTransformation}/`)
+      mobile: imageUrl,
+      tablet: imageUrl.replace('/upload/', '/upload/w_768,c_scale/'),
+      desktop: imageUrl.replace('/upload/', '/upload/w_1024,c_scale/'),
+      default: imageUrl
     };
   };
 
-  // Enhanced error handling for image loading failures
   const handleImageError = (e, type) => {
     e.target.onerror = null; // Prevent infinite loop
     const defaultImage = getDefaultImage(type);
-    
-    // Log error for monitoring
-    console.warn(`Image load failed for type: ${type}. Using default.`);
-    
-    // Apply default image with proper sizing
-    if (e.target.classList.contains('restaurant-image')) {
-      e.target.src = defaultImage.mobile;
-    } else if (e.target.classList.contains('partner-image')) {
-      e.target.src = defaultImage.desktop;
-    } else {
-      e.target.src = defaultImage.default;
-    }
+    e.target.src = defaultImage.default;
   };
 
   // Function to render standard menu
