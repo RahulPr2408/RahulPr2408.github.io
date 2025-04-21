@@ -121,11 +121,11 @@ const PopularRestaurants = () => {
 
   // Helper function to get default image if restaurant image is not available
   const getDefaultImage = (type) => {
-    if (type === 'logo') {
-      return Math.random() > 0.5 ? require('../assets/pantry-logo.png') : require('../assets/amaya-logo.png');
-    } else {
-      return Math.random() > 0.5 ? require('../assets/Amaya_map.png') : require('../assets/map-pantry.jpg');
-    }
+    // if (type === 'logo') {
+    //   return Math.random() > 0.5 ? require('../assets/pantry-logo.png') : require('../assets/amaya-logo.png');
+    // } else {
+    //   return Math.random() > 0.5 ? require('../assets/Amaya_map.png') : require('../assets/map-pantry.jpg');
+    // }
   };
 
   // Function to render standard menu
