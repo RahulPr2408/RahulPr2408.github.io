@@ -98,17 +98,27 @@ export const updateRestaurantProfile = async (profileData) => {
 };
 
 export const updateRestaurantStatus = async (statusData) => {
-  const response = await axiosInstance.put(
-    `${API_URL}/restaurant/status`,
-    statusData,
-    authHeader()
-  );
-  return response.data;
+  try {
+    const response = await axiosInstance.put(
+      `${API_URL}/restaurant/status`,
+      statusData,
+      authHeader()
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error updating restaurant status:', error);
+    throw error;
+  }
 };
 
 export const getMenuItems = async () => {
-  const response = await axiosInstance.get(`${API_URL}/menu-items`, authHeader());
-  return response.data;
+  try {
+    const response = await axiosInstance.get(`${API_URL}/menu-items`, authHeader());
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching menu items:', error);
+    throw error;
+  }
 };
 
 export const addMenuItem = async (menuItem) => {
@@ -240,6 +250,16 @@ export const deleteSideOption = async (id) => {
     return response.data;
   } catch (error) {
     console.error('Error deleting side option:', error);
+    throw error;
+  }
+};
+
+export const getRestaurantProfile = async () => {
+  try {
+    const response = await axiosInstance.get(`${API_URL}/restaurant/profile`, authHeader());
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching restaurant profile:', error);
     throw error;
   }
 };

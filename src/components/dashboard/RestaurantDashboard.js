@@ -49,27 +49,61 @@ const RestaurantDashboard = () => {
 
   const fetchRestaurantInfo = async () => {
     try {
-      // Get restaurant info from localStorage for now
-      const restaurantName = localStorage.getItem('restaurantName');
-      const menuType = localStorage.getItem('menuType') || 'standard';
-      if (restaurantName) {
-        setRestaurantInfo(prevInfo => ({
-          ...prevInfo,
-          name: restaurantName,
-          menuType: menuType
-        }));
+      const response = await dashboardService.getRestaurantProfile();
+      if (response.success && response.data) {
+        const restaurant = response.data;
+        setRestaurantInfo({
+          name: restaurant.name,
+          address: restaurant.address,
+          phone: restaurant.phone,
+          openTime: restaurant.openTime,
+          closeTime: restaurant.closeTime,
+          isOpen: restaurant.isOpen,
+          logoImage: restaurant.logoImage,
+          mapImage: restaurant.mapImage,
+          menuType: restaurant.menuType || 'standard'
+        });
+
+        // Also update localStorage
+        localStorage.setItem('restaurantName', restaurant.name);
+        localStorage.setItem('menuType', restaurant.menuType);
+
+        // If it's a combo menu restaurant, fetch combo data
+        if (restaurant.menuType === 'combo') {
+          fetchComboMenuData();
+        }
       }
     } catch (error) {
       console.error('Error fetching restaurant info:', error);
+      toast.error('Failed to fetch restaurant information. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
   const fetchMenuItems = async () => {
     try {
       const response = await dashboardService.getMenuItems();
-      setFoodItems(response.data);
+      if (response.success && response.data) {
+        setFoodItems(response.data);
+      }
     } catch (error) {
       console.error('Error fetching menu items:', error);
+      toast.error('Failed to fetch menu items. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
@@ -150,9 +184,31 @@ const RestaurantDashboard = () => {
   const updateRestaurantStatus = async () => {
     try {
       const { openTime, closeTime, isOpen } = restaurantInfo;
-      await dashboardService.updateRestaurantStatus({ openTime, closeTime, isOpen });
+      const response = await dashboardService.updateRestaurantStatus({ 
+        openTime, 
+        closeTime, 
+        isOpen 
+      });
+      
+      if (response.success && response.data) {
+        setRestaurantInfo(prev => ({
+          ...prev,
+          isOpen: response.data.isOpen,
+          openTime: response.data.openTime,
+          closeTime: response.data.closeTime
+        }));
+      }
     } catch (error) {
       console.error('Error updating restaurant status:', error);
+      toast.error('Failed to update restaurant status. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
