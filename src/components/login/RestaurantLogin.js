@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { toast, Bounce } from 'react-toastify';
 import './Login.css';
 
 const RestaurantLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -29,20 +29,43 @@ const RestaurantLogin = () => {
         localStorage.setItem('restaurantToken', data.jwtToken);
         localStorage.setItem('restaurantName', data.name);
         localStorage.setItem('restaurantId', data._id);
-        setMessage('Login successful!');
-        navigate('/restaurant-dashboard');
+        
+        toast.success('Login successful! Redirecting to dashboard...', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce
+        });
+        
+        setTimeout(() => {
+          navigate('/restaurant-dashboard');
+        }, 2000);
       } else {
         throw new Error(data.message || 'Login failed');
       }
     } catch (error) {
-      setMessage(error.message || 'Login failed. Please check your credentials.');
+      toast.error(error.message || 'Login failed. Please check your credentials.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
+      });
       console.error('Login error:', error);
     }
   };
 
   return (
     <>
-      {/* Top Section with Background Image */}
       <main className="main-content">
         <div className="login-section">
           <h1 className="login-title">Partner Login</h1>
@@ -64,6 +87,7 @@ const RestaurantLogin = () => {
                   className="form-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -75,6 +99,7 @@ const RestaurantLogin = () => {
                   className="form-input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-options">
@@ -85,7 +110,6 @@ const RestaurantLogin = () => {
                 <a href="#" className="forgot-link">Forgot password</a>
               </div>
               <button type="submit" className="sign-in-btn">Sign In</button>
-              {message && <p className="message">{message}</p>}
 
               <div className="signup-option">
                 <span>Don't have an account? </span>
@@ -96,7 +120,6 @@ const RestaurantLogin = () => {
         </div>
       </main>
 
-      {/* Bottom Section with Solid Background */}
       <section className="contact-section">
         <div className="contact-container">
           <div className="contact-item">
