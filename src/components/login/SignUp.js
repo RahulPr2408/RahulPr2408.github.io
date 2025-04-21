@@ -30,20 +30,22 @@ const SignUp = () => {
     }
 
     try {
-      // Use relative path if frontend and backend are on same origin
-      const sameOrigin = process.env.REACT_APP_SAME_ORIGIN === 'true';
-      const apiUrl = sameOrigin 
-        ? '/api/auth/signup' 
-        : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'}/api/auth/signup`;
-        
+      const apiUrl = `${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`;
+      
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         credentials: 'include',
         body: JSON.stringify({ name, email, password }),
       });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Error: ${response.status}`);
+      }
       
       const data = await response.json();
       
@@ -60,21 +62,9 @@ const SignUp = () => {
           transition: Bounce
         });
         setTimeout(() => navigate('/login'), 2000);
-      } else {
-        toast.error(data.message || 'Signup failed.', {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce
-        });
       }
     } catch (error) {
-      toast.error('An error occurred. Please try again.', {
+      toast.error(error.message || 'Signup failed. Please try again.', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -90,13 +80,7 @@ const SignUp = () => {
   };
 
   const handleGoogleSignUp = () => {
-    // Use relative path if frontend and backend are on same origin
-    const sameOrigin = process.env.REACT_APP_SAME_ORIGIN === 'true';
-    const authUrl = sameOrigin
-      ? '/auth/google'
-      : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'}/auth/google`;
-      
-    window.location.href = authUrl;
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`;
   };
 
   return (

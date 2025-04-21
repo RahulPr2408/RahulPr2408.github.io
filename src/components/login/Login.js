@@ -22,20 +22,22 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Use relative path if frontend and backend are on same origin
-      const sameOrigin = process.env.REACT_APP_SAME_ORIGIN === 'true';
-      const apiUrl = sameOrigin 
-        ? '/api/auth/login' 
-        : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'}/api/auth/login`;
-        
+      const apiUrl = `${process.env.REACT_APP_BACKEND_URL}/api/auth/login`;
+      
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
+      }
       
       const data = await response.json();
       
@@ -53,21 +55,9 @@ const Login = () => {
           transition: Bounce
         });
         setTimeout(() => navigate('/'), 2000);
-      } else {
-        toast.error(data.message || 'Login failed. Please check your credentials.', {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce
-        });
       }
     } catch (error) {
-      toast.error('An error occurred. Please try again.', {
+      toast.error(error.message || 'Login failed. Please check your credentials.', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -83,13 +73,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    // Use relative path if frontend and backend are on same origin
-    const sameOrigin = process.env.REACT_APP_SAME_ORIGIN === 'true';
-    const authUrl = sameOrigin
-      ? '/auth/google'
-      : `${process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000'}/auth/google`;
-      
-    window.location.href = authUrl;
+    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`;
   };
 
   return (

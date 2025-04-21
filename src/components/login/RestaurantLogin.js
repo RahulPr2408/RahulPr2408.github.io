@@ -11,7 +11,9 @@ const RestaurantLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/auth/restaurant/login', {
+      const apiUrl = `${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/login`;
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -28,13 +30,13 @@ const RestaurantLogin = () => {
         localStorage.setItem('restaurantName', data.name);
         localStorage.setItem('restaurantId', data._id);
         setMessage('Login successful!');
-        navigate('/restaurant-dashboard'); // You'll need to create this route
+        navigate('/restaurant-dashboard');
       } else {
-        setMessage(data.message || 'Login failed.');
+        throw new Error(data.message || 'Login failed');
       }
     } catch (error) {
-      setMessage('An error occurred. Please try again.');
-      console.error('Restaurant login error:', error);
+      setMessage(error.message || 'Login failed. Please check your credentials.');
+      console.error('Login error:', error);
     }
   };
 

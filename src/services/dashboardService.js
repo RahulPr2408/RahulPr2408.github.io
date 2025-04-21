@@ -1,19 +1,83 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const API_BASE_URL = 'https://rahulpr2408-github-io.onrender.com';
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://rahulpr2408-github-io.onrender.com';
 const API_URL = `${API_BASE_URL}/api/dashboard`;
 
-const authHeader = () => {
-  const token = localStorage.getItem('restaurantToken') || localStorage.getItem('token');
-  return token ? {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  } : {};
-};
+// Create axios instance
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 
+// Add request interceptor
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('restaurantToken') || localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add response interceptor
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // Server responded with error
+      const message = error.response.data?.message || 'An error occurred';
+      toast.error(message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+      });
+
+      // Handle 401 Unauthorized
+      if (error.response.status === 401) {
+        localStorage.removeItem('restaurantToken');
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
+    } else if (error.request) {
+      // Request made but no response
+      toast.error('Network error. Please check your connection.', {
+        position: "top-center"
+      });
+    } else {
+      // Request setup error
+      toast.error('Error setting up request', {
+        position: "top-center"
+      });
+    }
+    return Promise.reject(error);
+  }
+);
+
+// Use axiosInstance for all API calls
+const authHeader = () => ({
+  headers: {
+    'Authorization': `Bearer ${localStorage.getItem('restaurantToken') || localStorage.getItem('token')}`
+  }
+});
+
+// Export the configured axios instance
+export { axiosInstance };
+
+// Rest of your API functions using axiosInstance
 export const updateRestaurantProfile = async (profileData) => {
-  // Use FormData for file uploads
   const formData = new FormData();
   
   // Add regular fields
@@ -29,25 +93,12 @@ export const updateRestaurantProfile = async (profileData) => {
   if (profileData.logoImage) formData.append('logoImage', profileData.logoImage);
   if (profileData.mapImage) formData.append('mapImage', profileData.mapImage);
   
-  // Get the auth token
-  const token = localStorage.getItem('restaurantToken') || localStorage.getItem('token');
-  
-  // Send request with auth headers and form data
-  const response = await axios.post(
-    `${API_URL}/restaurant/profile`,
-    formData,
-    {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        // Don't set Content-Type when sending FormData - axios sets it automatically with the boundary
-      }
-    }
-  );
+  const response = await axiosInstance.post('/api/dashboard/restaurant/profile', formData);
   return response.data;
 };
 
 export const updateRestaurantStatus = async (statusData) => {
-  const response = await axios.put(
+  const response = await axiosInstance.put(
     `${API_URL}/restaurant/status`,
     statusData,
     authHeader()
@@ -56,12 +107,12 @@ export const updateRestaurantStatus = async (statusData) => {
 };
 
 export const getMenuItems = async () => {
-  const response = await axios.get(`${API_URL}/menu-items`, authHeader());
+  const response = await axiosInstance.get(`${API_URL}/menu-items`, authHeader());
   return response.data;
 };
 
 export const addMenuItem = async (menuItem) => {
-  const response = await axios.post(
+  const response = await axiosInstance.post(
     `${API_URL}/menu-items`,
     menuItem,
     authHeader()
@@ -70,7 +121,7 @@ export const addMenuItem = async (menuItem) => {
 };
 
 export const updateMenuItem = async (id, menuItem) => {
-  const response = await axios.put(
+  const response = await axiosInstance.put(
     `${API_URL}/menu-items/${id}`,
     menuItem,
     authHeader()
@@ -79,7 +130,7 @@ export const updateMenuItem = async (id, menuItem) => {
 };
 
 export const deleteMenuItem = async (id) => {
-  const response = await axios.delete(
+  const response = await axiosInstance.delete(
     `${API_URL}/menu-items/${id}`,
     authHeader()
   );
@@ -94,13 +145,13 @@ export const API_URLS = {
 
 // Combo menu related functions
 export const getComboMenuItems = async () => {
-  const response = await axios.get(`${API_URL}/combo-menu`, authHeader());
+  const response = await axiosInstance.get(`${API_URL}/combo-menu`, authHeader());
   return response.data;
 };
 
 export const addCombo = async (comboData) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `${API_URL}/combo-menu/combo`,
       comboData,
       authHeader()
@@ -114,7 +165,7 @@ export const addCombo = async (comboData) => {
 
 export const updateCombo = async (id, comboData) => {
   try {
-    const response = await axios.put(
+    const response = await axiosInstance.put(
       `${API_URL}/combo-menu/combo/${id}`,
       comboData,
       authHeader()
@@ -128,7 +179,7 @@ export const updateCombo = async (id, comboData) => {
 
 export const deleteCombo = async (id) => {
   try {
-    const response = await axios.delete(
+    const response = await axiosInstance.delete(
       `${API_URL}/combo-menu/combo/${id}`,
       authHeader()
     );
@@ -141,7 +192,7 @@ export const deleteCombo = async (id) => {
 
 export const addProteinOption = async (proteinData) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `${API_URL}/combo-menu/protein`,
       proteinData,
       authHeader()
@@ -155,7 +206,7 @@ export const addProteinOption = async (proteinData) => {
 
 export const deleteProteinOption = async (id) => {
   try {
-    const response = await axios.delete(
+    const response = await axiosInstance.delete(
       `${API_URL}/combo-menu/protein/${id}`,
       authHeader()
     );
@@ -168,7 +219,7 @@ export const deleteProteinOption = async (id) => {
 
 export const addSideOption = async (sideData) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       `${API_URL}/combo-menu/side`,
       sideData,
       authHeader()
@@ -182,7 +233,7 @@ export const addSideOption = async (sideData) => {
 
 export const deleteSideOption = async (id) => {
   try {
-    const response = await axios.delete(
+    const response = await axiosInstance.delete(
       `${API_URL}/combo-menu/side/${id}`,
       authHeader()
     );

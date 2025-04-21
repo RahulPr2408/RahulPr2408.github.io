@@ -2,6 +2,7 @@ const { signup, login, restaurantSignup, restaurantLogin } = require('../Control
 const { signupValidation, loginValidation, restaurantValidation } = require('../Middlewares/AuthValidation');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const authMiddleware = require('../Middlewares/authMiddleware');
 
 const router = require('express').Router();
 
@@ -12,6 +13,18 @@ router.post('/signup', signupValidation, signup);
 // Restaurant routes - using loginValidation for login since it only checks email and password
 router.post('/restaurant/login', loginValidation, restaurantLogin);
 router.post('/restaurant/signup', restaurantValidation, restaurantSignup);
+
+// Token verification route
+router.get('/verify', authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    valid: true, 
+    user: {
+      email: req.user.email,
+      name: req.user.name,
+      type: req.user.type || 'user'
+    }
+  });
+});
 
 // Google OAuth routes
 router.get('/google',
@@ -27,12 +40,7 @@ router.get('/google/callback',
       { expiresIn: '24h' }
     );
     
-    // Use relative path when frontend and backend are on same origin
-    const sameOrigin = process.env.SAME_ORIGIN === 'true' || process.env.NODE_ENV === 'production';
-    const redirectUrl = sameOrigin
-      ? `/oauth-callback?token=${token}&name=${req.user.name}`
-      : `${process.env.FRONTEND_URL || 'http://localhost:3001'}/oauth-callback?token=${token}&name=${req.user.name}`;
-    
+    const redirectUrl = `${process.env.FRONTEND_URL}/oauth-callback?token=${token}&name=${encodeURIComponent(req.user.name)}`;
     res.redirect(redirectUrl);
   }
 );
@@ -54,12 +62,7 @@ router.get('/restaurant/google/callback',
       { expiresIn: '24h' }
     );
     
-    // Use relative path when frontend and backend are on same origin
-    const sameOrigin = process.env.SAME_ORIGIN === 'true' || process.env.NODE_ENV === 'production';
-    const redirectUrl = sameOrigin
-      ? `/oauth-callback?token=${token}&name=${req.user.name}&type=restaurant`
-      : `${process.env.FRONTEND_URL || 'http://localhost:3001'}/oauth-callback?token=${token}&name=${req.user.name}&type=restaurant}`;
-    
+    const redirectUrl = `${process.env.FRONTEND_URL}/oauth-callback?token=${token}&name=${encodeURIComponent(req.user.name)}&isRestaurant=true&id=${req.user._id}`;
     res.redirect(redirectUrl);
   }
 );

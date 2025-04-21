@@ -2,8 +2,17 @@ const router = require('express').Router();
 const Restaurant = require('../Models/Restaurant');
 const MenuItem = require('../Models/MenuItem'); // Import MenuItem model
 const { Combo, ProteinOption, SideOption } = require('../Models/ComboMenu'); // Import Combo Menu models
+const cors = require('cors');
 
-router.get('/', async (req, res) => {
+// Apply CORS middleware for specific routes if needed
+const corsOptions = {
+  origin: ['https://secondplate.org', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With']
+};
+
+router.get('/', cors(corsOptions), async (req, res) => {
   try {
     const restaurants = await Restaurant.find();
     res.status(200).json(restaurants);
@@ -14,7 +23,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET route to fetch menu items for a specific restaurant
-router.get('/:restaurantId/menu', async (req, res) => {
+router.get('/:restaurantId/menu', cors(corsOptions), async (req, res) => {
   try {
     const restaurantId = req.params.restaurantId;
     const restaurant = await Restaurant.findById(restaurantId);

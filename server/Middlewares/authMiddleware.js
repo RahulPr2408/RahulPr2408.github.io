@@ -17,28 +17,39 @@ const authMiddleware = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    let restaurant;
+    let user;
     if (decoded.type === 'restaurant') {
-      restaurant = await Restaurant.findOne({ _id: decoded._id, email: decoded.email });
+      user = await Restaurant.findOne({ _id: decoded._id, email: decoded.email });
     } else {
-      restaurant = await User.findOne({ _id: decoded._id, email: decoded.email });
+      user = await User.findOne({ _id: decoded._id, email: decoded.email });
     }
 
-    if (!restaurant) {
+    if (!user) {
       return res.status(401)
-        .json({ success: false, message: 'Restaurant not found' });
+        .json({ success: false, message: 'User not found' });
     }
 
-    req.restaurant = restaurant;
+    req.user = user;
+    req.user.type = decoded.type || 'user';
     next();
   } catch (error) {
-    console.error('Auth Middleware Error:', error);
-    return res.status(401)
-      .header('Content-Type', 'application/json')
-      .json({ 
-        success: false, 
-        message: error.name === 'JsonWebTokenError' ? 'Invalid token' : 'Authentication failed'
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid token'
       });
+    }
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        message: 'Token expired'
+      });
+    }
+    console.error('Auth middleware error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error during authentication'
+    });
   }
 };
 
