@@ -60,9 +60,11 @@ export const AuthProvider = ({ children }) => {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/verify`, {
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        credentials: 'include'
+        credentials: 'include',
+        mode: 'cors'
       });
 
       if (!response.ok) {

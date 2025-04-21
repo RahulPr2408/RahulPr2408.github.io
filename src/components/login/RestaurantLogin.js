@@ -19,9 +19,11 @@ const RestaurantLogin = () => {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': 'https://secondplate.org'
         },
         credentials: 'include',
+        mode: 'cors',
         body: JSON.stringify({ email, password }),
       });
       

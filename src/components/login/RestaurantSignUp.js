@@ -86,6 +86,7 @@ const RestaurantSignUp = () => {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/signup`, {
         method: 'POST',
         credentials: 'include',
+        mode: 'cors',
         body: data,
       });
       

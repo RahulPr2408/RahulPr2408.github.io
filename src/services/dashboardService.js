@@ -4,21 +4,22 @@ import { toast } from 'react-toastify';
 const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://rahulpr2408-github-io-server.onrender.com';
 const API_URL = `${API_BASE_URL}/api/dashboard`;
 
-// Create axios instance
+// Create axios instance with default config
 const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: process.env.REACT_APP_BACKEND_URL,
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
   }
 });
 
-// Add request interceptor
+// Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('restaurantToken') || localStorage.getItem('token');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
@@ -27,14 +28,13 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Add response interceptor
+// Response interceptor
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      // Server responded with error
-      const message = error.response.data?.message || 'An error occurred';
-      toast.error(message, {
+      // Server returned an error response
+      toast.error(error.response.data.message || 'An error occurred', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -66,15 +66,15 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+// Export the configured axios instance
+export { axiosInstance };
+
 // Use axiosInstance for all API calls
 const authHeader = () => ({
   headers: {
     'Authorization': `Bearer ${localStorage.getItem('restaurantToken') || localStorage.getItem('token')}`
   }
 });
-
-// Export the configured axios instance
-export { axiosInstance };
 
 // Rest of your API functions using axiosInstance
 export const updateRestaurantProfile = async (profileData) => {

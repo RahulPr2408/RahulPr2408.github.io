@@ -39,6 +39,7 @@ const SignUp = () => {
           'Accept': 'application/json'
         },
         credentials: 'include',
+        mode: 'cors',
         body: JSON.stringify({ name, email, password }),
       });
       
