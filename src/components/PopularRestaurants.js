@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { toast, Bounce } from 'react-toastify';
 import './PopularRestaurants.css';
 import CouponImage from '../assets/coupon_code.jpg'; // Import the coupon image
+import DefaultLogoImage from '../assets/restaurant-default.jpg';
+import DefaultMapImage from '../assets/map-default.png';
 
 const PopularRestaurants = () => {
   const navigate = useNavigate();
@@ -128,8 +130,8 @@ const PopularRestaurants = () => {
   // Helper function to get default image if restaurant image is not available
   const getDefaultImage = (type) => {
     const defaultImages = {
-      logo: process.env.REACT_APP_DEFAULT_LOGO_URL,
-      map: process.env.REACT_APP_DEFAULT_MAP_URL
+      logo: DefaultLogoImage,
+      map: DefaultMapImage
     };
     return {
       mobile: defaultImages[type],
