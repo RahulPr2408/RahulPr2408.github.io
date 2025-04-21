@@ -83,7 +83,7 @@ const RestaurantSignUp = () => {
 
       console.log('Sending restaurant signup data:', Object.fromEntries(data.entries()));
 
-      const response = await fetch('http://localhost:3000/api/auth/restaurant/signup', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/signup`, {
         method: 'POST',
         credentials: 'include',
         body: data,
