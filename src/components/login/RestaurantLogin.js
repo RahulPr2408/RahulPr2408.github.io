@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext';
 import './Login.css';
 
 const RestaurantLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,8 +28,8 @@ const RestaurantLogin = () => {
       const data = await response.json();
       
       if (response.ok) {
-        localStorage.setItem('restaurantToken', data.jwtToken);
-        localStorage.setItem('restaurantName', data.name);
+        // Use the auth context's login function
+        login(data.jwtToken, data.name, 'restaurant');
         localStorage.setItem('restaurantId', data._id);
         
         toast.success('Login successful! Redirecting to dashboard...', {
@@ -42,6 +44,7 @@ const RestaurantLogin = () => {
           transition: Bounce
         });
         
+        // Add a small delay before navigation
         setTimeout(() => {
           navigate('/restaurant-dashboard');
         }, 2000);
