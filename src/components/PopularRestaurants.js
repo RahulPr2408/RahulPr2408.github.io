@@ -26,8 +26,8 @@ const PopularRestaurants = () => {
           credentials: 'include',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
