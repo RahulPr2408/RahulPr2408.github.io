@@ -49,79 +49,64 @@ const RestaurantSignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match!', {
         position: "top-center",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
-        transition: Bounce
       });
       return;
     }
 
     try {
       const data = new FormData();
-      // Don't send confirmPassword to the server
-      const { confirmPassword, ...formDataWithoutConfirm } = formData;
-      for (const key in formDataWithoutConfirm) {
-        data.append(key, formDataWithoutConfirm[key]);
-      }
       
+      // Append regular form fields
+      Object.keys(formData).forEach(key => {
+        if (key !== 'confirmPassword') {
+          data.append(key, formData[key]);
+        }
+      });
+
+      // Append files if they exist
       if (logoImage) {
+        console.log('Appending logo image:', logoImage.name);
         data.append('logoImage', logoImage);
       }
-      
+
       if (mapImage) {
+        console.log('Appending map image:', mapImage.name);
         data.append('mapImage', mapImage);
       }
 
-      console.log('Sending restaurant signup data:', Object.fromEntries(data.entries()));
-
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/signup`, {
         method: 'POST',
-        credentials: 'include',
         body: data,
+        credentials: 'include',
       });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Server error response:', errorData);
-        throw new Error(errorData.message || `Error: ${response.status} ${response.statusText}`);
-      }
-      
+
       const responseData = await response.json();
       
+      if (!response.ok) {
+        console.error('Server error response:', responseData);
+        throw new Error(responseData.message || `Error: ${response.status}`);
+      }
+
       toast.success('Registration successful! Redirecting to login...', {
         position: "top-center",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
-        transition: Bounce
       });
+      
       setTimeout(() => navigate('/restaurant-login'), 2000);
     } catch (error) {
+      console.error('Signup error:', error);
       toast.error(error.message || 'Registration failed. Please try again.', {
         position: "top-center",
         autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
-        transition: Bounce
       });
-      console.error('Signup error:', error);
     }
   };
 
