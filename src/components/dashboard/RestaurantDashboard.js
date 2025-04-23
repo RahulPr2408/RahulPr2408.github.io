@@ -40,40 +40,40 @@ const RestaurantDashboard = () => {
   const [isAddingSide, setIsAddingSide] = useState(false);
   const [editingCombo, setEditingCombo] = useState(null);
 
-  // Function to get image URL from Cloudinary image object
-  const getImageUrl = (imageData, type) => {
-    if (!imageData) return '';
-    
-    // Handle different image data formats
-    let imageUrl = '';
-    
-    if (typeof imageData === 'string') {
-      // Legacy format: Direct URL string
-      imageUrl = imageData;
-    } else if (typeof imageData === 'object' && imageData !== null) {
-      // New Cloudinary format: Object with url property
-      imageUrl = imageData.url || '';
-    }
-    
-    if (!imageUrl) return '';
+// Add this helper function in components that display restaurant images
+const getImageUrl = (imageData, type) => {
+  if (!imageData) return '';
 
-    // Apply Cloudinary transformations for optimization
-    if (imageUrl.includes('cloudinary.com')) {
-      // Extract base URL and transformation path
-      const parts = imageUrl.split('/upload/');
-      if (parts.length === 2) {
-        if (type === 'logo') {
-          // For logos: crop and resize to maintain aspect ratio
-          return `${parts[0]}/upload/w_400,h_400,c_fill,q_auto/${parts[1]}`;
-        } else if (type === 'map') {
-          // For maps: scale down with better quality
-          return `${parts[0]}/upload/w_800,c_scale,q_auto:good/${parts[1]}`;
-        }
+  // Handle different image data formats
+  let imageUrl = '';
+  
+  if (typeof imageData === 'string') {
+    // Legacy format: Direct URL string
+    imageUrl = imageData;
+  } else if (typeof imageData === 'object' && imageData !== null) {
+    // New Cloudinary format: Object with url property
+    imageUrl = imageData.url || '';
+  }
+  
+  if (!imageUrl) return '';
+
+  // For Cloudinary URLs, you can apply transformations
+  if (imageUrl.includes('cloudinary.com')) {
+    // Extract base URL and transformation path
+    const parts = imageUrl.split('/upload/');
+    if (parts.length === 2) {
+      if (type === 'logo') {
+        // For logos: crop and resize to maintain aspect ratio
+        return `${parts[0]}/upload/w_400,h_400,c_fill,q_auto/${parts[1]}`;
+      } else if (type === 'map') {
+        // For maps: scale down with better quality
+        return `${parts[0]}/upload/w_800,c_scale,q_auto:good/${parts[1]}`;
       }
     }
-    
-    return imageUrl;
-  };
+  }
+  
+  return imageUrl;
+};
 
   // Display logic for different image types
   const renderImage = (imageData, type, altText) => {

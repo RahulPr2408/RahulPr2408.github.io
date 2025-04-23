@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const path = require('path');
-const fs = require('fs');
 const UserModel = require("../Models/User");
 const RestaurantModel = require("../Models/Restaurant");
 const { uploadToCloudinary } = require('../config/cloudinary');
@@ -70,9 +68,16 @@ const login = async (req, res) => {
 
 const restaurantSignup = async (req, res) => {
   try {
+    console.log('Restaurant signup request received');
+    console.log('Request body:', req.body);
+    console.log('Files present:', req.files ? 'Yes' : 'No');
+    if (req.files) {
+      console.log('Files:', Object.keys(req.files));
+    }
+    
     const { name, email, password, address, phone } = req.body;
     
-    // Check if restaurant already exists
+    // Check if email already exists
     const existingRestaurant = await RestaurantModel.findOne({ email });
     if (existingRestaurant) {
       return res.status(409).json({ 
@@ -80,19 +85,31 @@ const restaurantSignup = async (req, res) => {
         success: false 
       });
     }
-    
+
     // Upload images to Cloudinary if present
     let logoImage = null;
     let mapImage = null;
     
     if (req.files && req.files.logoImage) {
-      const logoResult = await uploadToCloudinary(req.files.logoImage, 'restaurants/logos');
-      logoImage = logoResult;
+      console.log('Uploading logo image to Cloudinary...');
+      try {
+        logoImage = await uploadToCloudinary(req.files.logoImage, 'restaurants/logos');
+        console.log('Logo upload successful:', logoImage.url);
+      } catch (error) {
+        console.error('Logo upload error:', error);
+        // Continue without failing the whole process
+      }
     }
     
     if (req.files && req.files.mapImage) {
-      const mapResult = await uploadToCloudinary(req.files.mapImage, 'restaurants/maps');
-      mapImage = mapResult;
+      console.log('Uploading map image to Cloudinary...');
+      try {
+        mapImage = await uploadToCloudinary(req.files.mapImage, 'restaurants/maps');
+        console.log('Map upload successful:', mapImage.url);
+      } catch (error) {
+        console.error('Map upload error:', error);
+        // Continue without failing the whole process
+      }
     }
     
     // Hash password
@@ -105,11 +122,12 @@ const restaurantSignup = async (req, res) => {
       password: hashedPassword,
       address,
       phone,
-      logoImage: logoImage,
-      mapImage: mapImage
+      logoImage,
+      mapImage
     });
     
     await newRestaurant.save();
+    console.log('Restaurant registered successfully');
     
     res.status(201).json({
       message: 'Restaurant registered successfully!',
@@ -118,8 +136,9 @@ const restaurantSignup = async (req, res) => {
   } catch (error) {
     console.error('Error during restaurant signup:', error);
     res.status(500).json({ 
-      message: error.message || 'Internal server error', 
-      success: false 
+      message: 'Internal server error', 
+      success: false,
+      error: error.message 
     });
   }
 };
