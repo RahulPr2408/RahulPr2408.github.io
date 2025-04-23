@@ -150,14 +150,14 @@ const SignUp = () => {
               </div>
               <button type="submit" className="sign-in-btn">Create Account</button>
               {message && <p className="message">{message}</p>}
-              <button 
+              {/* <button 
                 type="button" 
                 className="google-sign-in"
                 onClick={handleGoogleSignUp}
               >
                 <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Icon" className="google-icon" />
                 Sign up with Google
-              </button>
+              </button> */}
               <div className="signup-option">
                 <span>Already have an account? </span>
                 <Link to="/login" className="signup-link">Log in</Link>

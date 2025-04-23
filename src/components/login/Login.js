@@ -122,7 +122,7 @@ const Login = () => {
               </div>
               <button type="submit" className="sign-in-btn">Sign In</button>
               {message && <p className="message">{message}</p>}
-              <button 
+              {/* <button 
                 type="button" 
                 className="google-sign-in"
                 onClick={handleGoogleLogin}
@@ -133,7 +133,7 @@ const Login = () => {
                   className="google-icon" 
                 />
                 Sign in with Google
-              </button>
+              </button> */}
               <div className="signup-option">
                 <span>Don't have an account? </span>
                 <Link to="/signup" className="signup-link">Sign up for free!</Link>
