@@ -1,7 +1,5 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const path = require('path');
-const fs = require('fs');
 const UserModel = require("../Models/User");
 const RestaurantModel = require("../Models/Restaurant");
 const { uploadToCloudinary } = require('../config/cloudinary');
@@ -70,33 +68,78 @@ const login = async (req, res) => {
 
 const restaurantSignup = async (req, res) => {
   try {
+    console.log('Restaurant signup request received');
+    console.log('Request body:', req.body);
+    console.log('Files present:', req.files ? 'Yes' : 'No');
+    if (req.files) {
+      console.log('Files:', Object.keys(req.files));
+    }
+    
     const { name, email, password, address, phone } = req.body;
-    let logoImageUrl = null;
-    let mapImageUrl = null;
+    
+    // Check if email already exists
+    const existingRestaurant = await RestaurantModel.findOne({ email });
+    if (existingRestaurant) {
+      return res.status(409).json({ 
+        message: 'Restaurant with this email already exists', 
+        success: false 
+      });
+    }
 
+    // Upload images to Cloudinary if present
+    let logoImage = null;
+    let mapImage = null;
+    
     if (req.files && req.files.logoImage) {
-      logoImageUrl = await uploadToCloudinary(req.files.logoImage, 'restaurants/logos');
+      console.log('Uploading logo image to Cloudinary...');
+      try {
+        logoImage = await uploadToCloudinary(req.files.logoImage, 'restaurants/logos');
+        console.log('Logo upload successful:', logoImage.url);
+      } catch (error) {
+        console.error('Logo upload error:', error);
+        // Continue without failing the whole process
+      }
     }
-
+    
     if (req.files && req.files.mapImage) {
-      mapImageUrl = await uploadToCloudinary(req.files.mapImage, 'restaurants/maps');
+      console.log('Uploading map image to Cloudinary...');
+      try {
+        mapImage = await uploadToCloudinary(req.files.mapImage, 'restaurants/maps');
+        console.log('Map upload successful:', mapImage.url);
+      } catch (error) {
+        console.error('Map upload error:', error);
+        // Continue without failing the whole process
+      }
     }
-
+    
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    // Create new restaurant
     const newRestaurant = new RestaurantModel({
       name,
       email,
-      password,
+      password: hashedPassword,
       address,
       phone,
-      logoImage: logoImageUrl,
-      mapImage: mapImageUrl,
+      logoImage,
+      mapImage
     });
-
+    
     await newRestaurant.save();
-    res.status(201).json({ message: 'Restaurant registered successfully!' });
+    console.log('Restaurant registered successfully');
+    
+    res.status(201).json({
+      message: 'Restaurant registered successfully!',
+      success: true
+    });
   } catch (error) {
     console.error('Error during restaurant signup:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ 
+      message: 'Internal server error', 
+      success: false,
+      error: error.message 
+    });
   }
 };
 

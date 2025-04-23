@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Create a schema for Cloudinary image data
+const CloudinaryImageSchema = new Schema({
+  url: {
+    type: String,
+    required: true
+  },
+  public_id: {
+    type: String,
+    required: true
+  }
+}, { _id: false });
+
 const RestaurantSchema = new Schema({
   name: {
     type: String,
@@ -24,12 +36,12 @@ const RestaurantSchema = new Schema({
     required: true,
   },
   logoImage: {
-    type: String,
-    default: ''
+    type: CloudinaryImageSchema,
+    default: null
   },
   mapImage: {
-    type: String,
-    default: ''
+    type: CloudinaryImageSchema,
+    default: null
   },
   openTime: {
     type: String,

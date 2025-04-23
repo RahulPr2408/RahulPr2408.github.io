@@ -40,15 +40,59 @@ const RestaurantDashboard = () => {
   const [isAddingSide, setIsAddingSide] = useState(false);
   const [editingCombo, setEditingCombo] = useState(null);
 
-  const getImageUrl = (imageData, type) => {
-    if (!imageData) return '';
+// Add this helper function in components that display restaurant images
+const getImageUrl = (imageData, type) => {
+  if (!imageData) return '';
 
-    // Handle new structure where imageData might be an object with url property
-    const imageUrl = typeof imageData === 'object' ? imageData.url : imageData;
-    if (!imageUrl) return '';
+  // Handle different image data formats
+  let imageUrl = '';
+  
+  if (typeof imageData === 'string') {
+    // Legacy format: Direct URL string
+    imageUrl = imageData;
+  } else if (typeof imageData === 'object' && imageData !== null) {
+    // New Cloudinary format: Object with url property
+    imageUrl = imageData.url || '';
+  }
+  
+  if (!imageUrl) return '';
 
-    // Add Cloudinary transformations for preview
-    return imageUrl.replace('/upload/', '/upload/w_400,c_scale,q_auto/');
+  // For Cloudinary URLs, you can apply transformations
+  if (imageUrl.includes('cloudinary.com')) {
+    // Extract base URL and transformation path
+    const parts = imageUrl.split('/upload/');
+    if (parts.length === 2) {
+      if (type === 'logo') {
+        // For logos: crop and resize to maintain aspect ratio
+        return `${parts[0]}/upload/w_400,h_400,c_fill,q_auto/${parts[1]}`;
+      } else if (type === 'map') {
+        // For maps: scale down with better quality
+        return `${parts[0]}/upload/w_800,c_scale,q_auto:good/${parts[1]}`;
+      }
+    }
+  }
+  
+  return imageUrl;
+};
+
+  // Display logic for different image types
+  const renderImage = (imageData, type, altText) => {
+    const imageUrl = getImageUrl(imageData, type);
+    const fallbackImage = type === 'logo' 
+      ? '/assets/restaurant-default.jpg' 
+      : '/assets/map-default.png';
+    
+    return (
+      <img
+        src={imageUrl || fallbackImage}
+        alt={altText || `Restaurant ${type}`}
+        className={`preview-image ${type}-image`}
+        onError={(e) => {
+          e.target.onerror = null; // Prevent infinite loop
+          e.target.src = fallbackImage;
+        }}
+      />
+    );
   };
 
   useEffect(() => {

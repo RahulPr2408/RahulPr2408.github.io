@@ -86,16 +86,25 @@ export const updateRestaurantProfile = async (profileData) => {
   if (profileData.phone) formData.append('phone', profileData.phone);
   if (profileData.openTime) formData.append('openTime', profileData.openTime);
   if (profileData.closeTime) formData.append('closeTime', profileData.closeTime);
-  if (profileData.isOpen !== undefined) formData.append('isOpen', profileData.isOpen);
+  if (profileData.isOpen !== undefined) formData.append('isOpen', profileData.isOpen.toString()); // Convert boolean to string
   if (profileData.menuType) formData.append('menuType', profileData.menuType);
   
   // Add files if present
   if (profileData.logoImage instanceof File) {
-    formData.append('logoImage', profileData.logoImage);
+    formData.append('logoImage', profileData.logoImage, `logo_${Date.now()}.${profileData.logoImage.name.split('.').pop()}`);
+  } else if (profileData.logoImage && typeof profileData.logoImage === 'object') {
+    // If it's already a Cloudinary object, pass it as JSON
+    formData.append('existingLogoImage', JSON.stringify(profileData.logoImage));
   }
+  
   if (profileData.mapImage instanceof File) {
-    formData.append('mapImage', profileData.mapImage);
+    formData.append('mapImage', profileData.mapImage, `map_${Date.now()}.${profileData.mapImage.name.split('.').pop()}`);
+  } else if (profileData.mapImage && typeof profileData.mapImage === 'object') {
+    // If it's already a Cloudinary object, pass it as JSON
+    formData.append('existingMapImage', JSON.stringify(profileData.mapImage));
   }
+  
+  console.log('Sending profile update data...');
   
   const response = await axiosInstance.post(
     '/api/dashboard/restaurant/profile', 
@@ -103,7 +112,7 @@ export const updateRestaurantProfile = async (profileData) => {
     {
       headers: {
         ...authHeader().headers,
-        'Content-Type': 'multipart/form-data'
+        // Let axios set the Content-Type automatically for FormData
       }
     }
   );
