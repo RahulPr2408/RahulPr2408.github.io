@@ -83,10 +83,11 @@ const RestaurantSignUp = () => {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/signup`, {
         method: 'POST',
         body: data,
-        credentials: 'include',
+        // Remove Content-Type header to let the browser set it with boundary
       });
 
       const responseData = await response.json();
+      console.log('Server response:', responseData);
       
       if (!response.ok) {
         console.error('Server error response:', responseData);
