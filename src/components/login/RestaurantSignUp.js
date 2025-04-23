@@ -60,38 +60,37 @@ const RestaurantSignUp = () => {
     }
 
     try {
-      const data = new FormData();
+      const formDataToSend = new FormData();
       
-      // Append regular form fields
+      // Append regular fields
       Object.keys(formData).forEach(key => {
         if (key !== 'confirmPassword') {
-          data.append(key, formData[key]);
+          formDataToSend.append(key, formData[key]);
         }
       });
 
-      // Append files if they exist
+      // Log sizes before upload
       if (logoImage) {
-        console.log('Appending logo image:', logoImage.name);
-        data.append('logoImage', logoImage);
+        console.log('Logo image size:', logoImage.size);
+        formDataToSend.append('logoImage', logoImage);
       }
 
       if (mapImage) {
-        console.log('Appending map image:', mapImage.name);
-        data.append('mapImage', mapImage);
+        console.log('Map image size:', mapImage.size);
+        formDataToSend.append('mapImage', mapImage);
       }
 
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/signup`, {
         method: 'POST',
-        body: data,
-        // Remove Content-Type header to let the browser set it with boundary
+        body: formDataToSend,
+        // Do not set Content-Type header, let the browser handle it
       });
 
       const responseData = await response.json();
       console.log('Server response:', responseData);
       
       if (!response.ok) {
-        console.error('Server error response:', responseData);
-        throw new Error(responseData.message || `Error: ${response.status}`);
+        throw new Error(responseData.message || `HTTP error! status: ${response.status}`);
       }
 
       toast.success('Registration successful! Redirecting to login...', {
