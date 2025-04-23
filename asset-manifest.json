@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.1ffbc8e8.css",
-    "main.js": "/static/js/main.05bd3f93.js",
+    "main.js": "/static/js/main.ca0ec8ac.js",
     "static/media/Rahul.png": "/static/media/Rahul.525c70b97c0d6e526204.png",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
@@ -27,10 +27,10 @@
     "static/media/restaurant-default.jpg": "/static/media/restaurant-default.7b60afe83d420fcb5332.jpg",
     "index.html": "/index.html",
     "main.1ffbc8e8.css.map": "/static/css/main.1ffbc8e8.css.map",
-    "main.05bd3f93.js.map": "/static/js/main.05bd3f93.js.map"
+    "main.ca0ec8ac.js.map": "/static/js/main.ca0ec8ac.js.map"
   },
   "entrypoints": [
     "static/css/main.1ffbc8e8.css",
-    "static/js/main.05bd3f93.js"
+    "static/js/main.ca0ec8ac.js"
   ]
 }
