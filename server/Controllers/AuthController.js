@@ -97,15 +97,55 @@ const restaurantSignup = async (req, res) => {
     if (req.files) {
       try {
         if (req.files.logoImage) {
-          console.log('Uploading logo image');
+          console.log('Preparing to upload logo image', {
+            size: req.files.logoImage.size, 
+            mimetype: req.files.logoImage.mimetype
+          });
+          
+          // Validate file type
+          const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+          if (!allowedMimeTypes.includes(req.files.logoImage.mimetype)) {
+            return res.status(400).json({
+              success: false,
+              message: 'Logo image must be JPEG, PNG, or GIF'
+            });
+          }
+          
+          // Upload the image
           logoImageUrl = await uploadToCloudinary(req.files.logoImage.tempFilePath, 'restaurants/logos');
-          fs.unlinkSync(req.files.logoImage.tempFilePath);
+          
+          // Clean up temp file after successful upload
+          if (fs.existsSync(req.files.logoImage.tempFilePath)) {
+            fs.unlinkSync(req.files.logoImage.tempFilePath);
+          }
+          
+          console.log('Logo upload successful');
         }
 
         if (req.files.mapImage) {
-          console.log('Uploading map image');
+          console.log('Preparing to upload map image', {
+            size: req.files.mapImage.size, 
+            mimetype: req.files.mapImage.mimetype
+          });
+          
+          // Validate file type
+          const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+          if (!allowedMimeTypes.includes(req.files.mapImage.mimetype)) {
+            return res.status(400).json({
+              success: false,
+              message: 'Map image must be JPEG, PNG, or GIF'
+            });
+          }
+          
+          // Upload the image
           mapImageUrl = await uploadToCloudinary(req.files.mapImage.tempFilePath, 'restaurants/maps');
-          fs.unlinkSync(req.files.mapImage.tempFilePath);
+          
+          // Clean up temp file after successful upload
+          if (fs.existsSync(req.files.mapImage.tempFilePath)) {
+            fs.unlinkSync(req.files.mapImage.tempFilePath);
+          }
+          
+          console.log('Map upload successful');
         }
       } catch (uploadError) {
         console.error('Error uploading to Cloudinary:', uploadError);
