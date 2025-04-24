@@ -38,6 +38,7 @@ export const uploadToCloudinary = async (file) => {
 
 // AUTH
 export const signUp = async (email, password, name) => {
+  // Create user in Firebase
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(userCredential.user, { displayName: name });
   return userCredential.user;
@@ -54,7 +55,10 @@ export const signInWithGoogle = async () => {
   return result.user;
 };
 
-export const logout = () => signOut(auth);
+export const logout = async () => {
+  await signOut(auth);
+  localStorage.removeItem('userName');
+};
 
 // RESTAURANT PROFILE
 export const updateRestaurantProfile = async (profileData) => {

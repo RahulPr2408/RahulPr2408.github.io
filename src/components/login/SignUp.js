@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
+import { signUp } from '../../services/dashboardService';
 import './Login.css';
 
 const SignUp = () => {
@@ -30,39 +31,20 @@ const SignUp = () => {
     }
 
     try {
-      const apiUrl = `${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`;
+      await signUp(email, password, name);
       
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify({ name, email, password }),
+      toast.success('Account created successfully! Redirecting to login...', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
       });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Error: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        toast.success('Signup successful! Redirecting to login...', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce
-        });
-        setTimeout(() => navigate('/login'), 2000);
-      }
+      setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
       toast.error(error.message || 'Signup failed. Please try again.', {
         position: "top-center",
@@ -77,10 +59,6 @@ const SignUp = () => {
       });
       console.error('Signup error:', error);
     }
-  };
-
-  const handleGoogleSignUp = () => {
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`;
   };
 
   return (
@@ -106,6 +84,7 @@ const SignUp = () => {
                   className="form-input"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -117,6 +96,7 @@ const SignUp = () => {
                   className="form-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -128,6 +108,7 @@ const SignUp = () => {
                   className="form-input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -139,14 +120,8 @@ const SignUp = () => {
                   className="form-input"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
                 />
-              </div>
-              <div className="form-options">
-                <div className="remember-me">
-                  <input type="checkbox" id="remember" />
-                  <label htmlFor="remember">Remember me</label>
-                </div>
-                <a href="#" className="forgot-link">Forgot password</a>
               </div>
               <button type="submit" className="sign-in-btn">Create Account</button>
               {message && <p className="message">{message}</p>}

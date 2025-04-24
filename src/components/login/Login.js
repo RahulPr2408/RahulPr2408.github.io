@@ -3,6 +3,7 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
 import './Login.css';
 import { useAuth } from '../../context/AuthContext';
+import { signIn } from '../../services/dashboardService';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,6 @@ const Login = () => {
   const { login } = useAuth();
 
   useEffect(() => {
-    // Set message if redirected from protected route
     if (location.state?.message) {
       setMessage(location.state.message);
     }
@@ -22,40 +22,22 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = `${process.env.REACT_APP_BACKEND_URL}/api/auth/login`;
+      const user = await signIn(email, password);
+      login(user);
       
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
+      toast.success('Login successful! Welcome back!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
       });
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
-      }
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        login(data.jwtToken, data.name);
-        toast.success('Login successful! Welcome back!', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce
-        });
-        setTimeout(() => navigate('/'), 2000);
-      }
+      setTimeout(() => navigate('/'), 2000);
     } catch (error) {
       toast.error(error.message || 'Login failed. Please check your credentials.', {
         position: "top-center",
@@ -72,13 +54,8 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`;
-  };
-
   return (
     <>
-      {/* Top Section with Background Image */}
       <main className="main-content">
         <div className="login-section">
           <h1 className="login-title">Login</h1>
@@ -100,6 +77,7 @@ const Login = () => {
                   className="form-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -111,6 +89,7 @@ const Login = () => {
                   className="form-input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-options">
@@ -143,7 +122,6 @@ const Login = () => {
         </div>
       </main>
 
-      {/* Bottom Section with Solid Background */}
       <section className="contact-section">
         <div className="contact-container">
           <div className="contact-item">
