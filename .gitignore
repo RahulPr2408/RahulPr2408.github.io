@@ -31,3 +31,21 @@ yarn-error.log*
 .env.local
 .env.development
 .env.production
+
+# Firebase & build artifacts
+firebase-debug.log
+.firebase/
+.firebaserc
+functions/node_modules/
+functions/lib/
+functions/.env
+functions/.env.local
+functions/.env.*.local
+build/
+uploads/
+.env
+.env.local
+.env.*.local
+
+# Ignore server folder if backend is removed
+server/

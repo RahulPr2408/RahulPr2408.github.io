@@ -1,287 +1,204 @@
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { auth, db, storage } from '../firebase/config';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  updateProfile
+} from 'firebase/auth';
+import {
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc
+} from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'https://rahulpr2408-github-io-server.onrender.com';
-const API_URL = `${API_BASE_URL}/api/dashboard`;
+// AUTH
+export const signUp = async (email, password, name) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  await updateProfile(userCredential.user, { displayName: name });
+  return userCredential.user;
+};
 
-// Create axios instance
-const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+export const signIn = async (email, password) => {
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  return userCredential.user;
+};
 
-// Add request interceptor
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('restaurantToken') || localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+export const signInWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  const result = await signInWithPopup(auth, provider);
+  return result.user;
+};
 
-// Add response interceptor
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response) {
-      // Server responded with error
-      const message = error.response.data?.message || 'An error occurred';
-      toast.error(message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark"
-      });
+export const logout = () => signOut(auth);
 
-      // Handle 401 Unauthorized
-      if (error.response.status === 401) {
-        localStorage.removeItem('restaurantToken');
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-      }
-    } else if (error.request) {
-      // Request made but no response
-      toast.error('Network error. Please check your connection.', {
-        position: "top-center"
-      });
-    } else {
-      // Request setup error
-      toast.error('Error setting up request', {
-        position: "top-center"
-      });
-    }
-    return Promise.reject(error);
-  }
-);
-
-// Use axiosInstance for all API calls
-const authHeader = () => ({
-  headers: {
-    'Authorization': `Bearer ${localStorage.getItem('restaurantToken') || localStorage.getItem('token')}`
-  }
-});
-
-// Export the configured axios instance
-export { axiosInstance };
-
-// Rest of your API functions using axiosInstance
+// RESTAURANT PROFILE
 export const updateRestaurantProfile = async (profileData) => {
-  const formData = new FormData();
-  
-  // Add regular fields
-  if (profileData.name) formData.append('name', profileData.name);
-  if (profileData.address) formData.append('address', profileData.address);
-  if (profileData.phone) formData.append('phone', profileData.phone);
-  if (profileData.openTime) formData.append('openTime', profileData.openTime);
-  if (profileData.closeTime) formData.append('closeTime', profileData.closeTime);
-  if (profileData.isOpen !== undefined) formData.append('isOpen', profileData.isOpen.toString()); // Convert boolean to string
-  if (profileData.menuType) formData.append('menuType', profileData.menuType);
-  
-  // Add files if present
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const docRef = doc(db, 'restaurants', user.uid);
+  let updates = { ...profileData };
+
+  // Handle logo image
   if (profileData.logoImage instanceof File) {
-    formData.append('logoImage', profileData.logoImage, `logo_${Date.now()}.${profileData.logoImage.name.split('.').pop()}`);
-  } else if (profileData.logoImage && typeof profileData.logoImage === 'object') {
-    // If it's already a Cloudinary object, pass it as JSON
-    formData.append('existingLogoImage', JSON.stringify(profileData.logoImage));
+    const logoRef = ref(storage, `restaurants/${user.uid}/logo_${Date.now()}.${profileData.logoImage.name.split('.').pop()}`);
+    await uploadBytes(logoRef, profileData.logoImage);
+    updates.logoImage = await getDownloadURL(logoRef);
   }
-  
+  // Handle map image
   if (profileData.mapImage instanceof File) {
-    formData.append('mapImage', profileData.mapImage, `map_${Date.now()}.${profileData.mapImage.name.split('.').pop()}`);
-  } else if (profileData.mapImage && typeof profileData.mapImage === 'object') {
-    // If it's already a Cloudinary object, pass it as JSON
-    formData.append('existingMapImage', JSON.stringify(profileData.mapImage));
+    const mapRef = ref(storage, `restaurants/${user.uid}/map_${Date.now()}.${profileData.mapImage.name.split('.').pop()}`);
+    await uploadBytes(mapRef, profileData.mapImage);
+    updates.mapImage = await getDownloadURL(mapRef);
   }
-  
-  console.log('Sending profile update data...');
-  
-  const response = await axiosInstance.post(
-    '/api/dashboard/restaurant/profile', 
-    formData,
-    {
-      headers: {
-        ...authHeader().headers,
-        // Let axios set the Content-Type automatically for FormData
-      }
-    }
-  );
-  return response.data;
-};
-
-export const updateRestaurantStatus = async (statusData) => {
-  try {
-    const response = await axiosInstance.put(
-      `${API_URL}/restaurant/status`,
-      statusData,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error updating restaurant status:', error);
-    throw error;
-  }
-};
-
-export const getMenuItems = async () => {
-  try {
-    const response = await axiosInstance.get(`${API_URL}/menu-items`, authHeader());
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching menu items:', error);
-    throw error;
-  }
-};
-
-export const addMenuItem = async (menuItem) => {
-  const response = await axiosInstance.post(
-    `${API_URL}/menu-items`,
-    menuItem,
-    authHeader()
-  );
-  return response.data;
-};
-
-export const updateMenuItem = async (id, menuItem) => {
-  const response = await axiosInstance.put(
-    `${API_URL}/menu-items/${id}`,
-    menuItem,
-    authHeader()
-  );
-  return response.data;
-};
-
-export const deleteMenuItem = async (id) => {
-  const response = await axiosInstance.delete(
-    `${API_URL}/menu-items/${id}`,
-    authHeader()
-  );
-  return response.data;
-};
-
-export const API_URLS = {
-  RESTAURANT_SIGNUP: `${API_BASE_URL}/api/auth/restaurant/signup`,
-  RESTAURANT_LOGIN: `${API_BASE_URL}/api/auth/restaurant/login`,
-  GOOGLE_AUTH: `${API_BASE_URL}/api/auth/google`,
-};
-
-// Combo menu related functions
-export const getComboMenuItems = async () => {
-  const response = await axiosInstance.get(`${API_URL}/combo-menu`, authHeader());
-  return response.data;
-};
-
-export const addCombo = async (comboData) => {
-  try {
-    const response = await axiosInstance.post(
-      `${API_URL}/combo-menu/combo`,
-      comboData,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error adding combo:', error);
-    throw error;
-  }
-};
-
-export const updateCombo = async (id, comboData) => {
-  try {
-    const response = await axiosInstance.put(
-      `${API_URL}/combo-menu/combo/${id}`,
-      comboData,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error updating combo:', error);
-    throw error;
-  }
-};
-
-export const deleteCombo = async (id) => {
-  try {
-    const response = await axiosInstance.delete(
-      `${API_URL}/combo-menu/combo/${id}`,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error deleting combo:', error);
-    throw error;
-  }
-};
-
-export const addProteinOption = async (proteinData) => {
-  try {
-    const response = await axiosInstance.post(
-      `${API_URL}/combo-menu/protein`,
-      proteinData,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error adding protein option:', error);
-    throw error;
-  }
-};
-
-export const deleteProteinOption = async (id) => {
-  try {
-    const response = await axiosInstance.delete(
-      `${API_URL}/combo-menu/protein/${id}`,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error deleting protein option:', error);
-    throw error;
-  }
-};
-
-export const addSideOption = async (sideData) => {
-  try {
-    const response = await axiosInstance.post(
-      `${API_URL}/combo-menu/side`,
-      sideData,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error adding side option:', error);
-    throw error;
-  }
-};
-
-export const deleteSideOption = async (id) => {
-  try {
-    const response = await axiosInstance.delete(
-      `${API_URL}/combo-menu/side/${id}`,
-      authHeader()
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error deleting side option:', error);
-    throw error;
-  }
+  await setDoc(docRef, updates, { merge: true });
+  return updates;
 };
 
 export const getRestaurantProfile = async () => {
-  try {
-    const response = await axiosInstance.get(`${API_URL}/restaurant/profile`, authHeader());
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching restaurant profile:', error);
-    throw error;
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const docRef = doc(db, 'restaurants', user.uid);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() : null;
+};
+
+// RESTAURANT STATUS
+export const updateRestaurantStatus = async (statusData) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const docRef = doc(db, 'restaurants', user.uid);
+  await updateDoc(docRef, statusData);
+  return statusData;
+};
+
+// MENU ITEMS
+export const getMenuItems = async () => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const menuRef = collection(db, 'restaurants', user.uid, 'menuItems');
+  const querySnapshot = await getDocs(menuRef);
+  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export const addMenuItem = async (menuItem) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  let item = { ...menuItem };
+  if (menuItem.image instanceof File) {
+    const imgRef = ref(storage, `restaurants/${user.uid}/menu_${Date.now()}.${menuItem.image.name.split('.').pop()}`);
+    await uploadBytes(imgRef, menuItem.image);
+    item.image = await getDownloadURL(imgRef);
   }
+  const menuRef = collection(db, 'restaurants', user.uid, 'menuItems');
+  const docRef = await addDoc(menuRef, item);
+  return { id: docRef.id, ...item };
+};
+
+export const updateMenuItem = async (id, menuItem) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  let updates = { ...menuItem };
+  if (menuItem.image instanceof File) {
+    const imgRef = ref(storage, `restaurants/${user.uid}/menu_${Date.now()}.${menuItem.image.name.split('.').pop()}`);
+    await uploadBytes(imgRef, menuItem.image);
+    updates.image = await getDownloadURL(imgRef);
+  }
+  const itemRef = doc(db, 'restaurants', user.uid, 'menuItems', id);
+  await updateDoc(itemRef, updates);
+  return updates;
+};
+
+export const deleteMenuItem = async (id) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const itemRef = doc(db, 'restaurants', user.uid, 'menuItems', id);
+  await deleteDoc(itemRef);
+  return id;
+};
+
+// COMBO MENU
+export const getComboMenuItems = async () => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const comboRef = collection(db, 'restaurants', user.uid, 'combos');
+  const querySnapshot = await getDocs(comboRef);
+  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export const addCombo = async (comboData) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  let combo = { ...comboData };
+  if (comboData.image instanceof File) {
+    const imgRef = ref(storage, `restaurants/${user.uid}/combo_${Date.now()}.${comboData.image.name.split('.').pop()}`);
+    await uploadBytes(imgRef, comboData.image);
+    combo.image = await getDownloadURL(imgRef);
+  }
+  const comboRef = collection(db, 'restaurants', user.uid, 'combos');
+  const docRef = await addDoc(comboRef, combo);
+  return { id: docRef.id, ...combo };
+};
+
+export const updateCombo = async (id, comboData) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  let updates = { ...comboData };
+  if (comboData.image instanceof File) {
+    const imgRef = ref(storage, `restaurants/${user.uid}/combo_${Date.now()}.${comboData.image.name.split('.').pop()}`);
+    await uploadBytes(imgRef, comboData.image);
+    updates.image = await getDownloadURL(imgRef);
+  }
+  const comboRef = doc(db, 'restaurants', user.uid, 'combos', id);
+  await updateDoc(comboRef, updates);
+  return updates;
+};
+
+export const deleteCombo = async (id) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const comboRef = doc(db, 'restaurants', user.uid, 'combos', id);
+  await deleteDoc(comboRef);
+  return id;
+};
+
+// PROTEIN/SIDE OPTIONS (example for protein)
+export const addProteinOption = async (proteinData) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const proteinRef = collection(db, 'restaurants', user.uid, 'proteinOptions');
+  const docRef = await addDoc(proteinRef, proteinData);
+  return { id: docRef.id, ...proteinData };
+};
+
+export const deleteProteinOption = async (id) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const proteinRef = doc(db, 'restaurants', user.uid, 'proteinOptions', id);
+  await deleteDoc(proteinRef);
+  return id;
+};
+
+export const addSideOption = async (sideData) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const sideRef = collection(db, 'restaurants', user.uid, 'sideOptions');
+  const docRef = await addDoc(sideRef, sideData);
+  return { id: docRef.id, ...sideData };
+};
+
+export const deleteSideOption = async (id) => {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Not authenticated');
+  const sideRef = doc(db, 'restaurants', user.uid, 'sideOptions', id);
+  await deleteDoc(sideRef);
+  return id;
 };

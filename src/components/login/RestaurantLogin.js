@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
+import { signIn } from '../../services/dashboardService';
 import { useAuth } from '../../context/AuthContext';
 import './Login.css';
 
@@ -8,49 +9,26 @@ const RestaurantLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = `${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/login`;
-      
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password }),
+      await signIn(email, password);
+      toast.success('Login successful! Redirecting to dashboard...', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce
       });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        // Use the auth context's login function
-        login(data.jwtToken, data.name, 'restaurant');
-        localStorage.setItem('restaurantId', data._id);
-        
-        toast.success('Login successful! Redirecting to dashboard...', {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce
-        });
-        
-        // Add a small delay before navigation
-        setTimeout(() => {
-          navigate('/restaurant-dashboard');
-        }, 2000);
-      } else {
-        throw new Error(data.message || 'Login failed');
-      }
+      setTimeout(() => {
+        navigate('/restaurant-dashboard');
+      }, 2000);
     } catch (error) {
       toast.error(error.message || 'Login failed. Please check your credentials.', {
         position: "top-center",
@@ -63,7 +41,6 @@ const RestaurantLogin = () => {
         theme: "dark",
         transition: Bounce
       });
-      console.error('Login error:', error);
     }
   };
 

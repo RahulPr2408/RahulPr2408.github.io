@@ -1,32 +1,28 @@
 import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { signInWithGoogle } from '../../services/dashboardService';
 
 const OAuthCallback = () => {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { isLoggedIn, userType } = useAuth();
 
   useEffect(() => {
-    const token = searchParams.get('token');
-    const name = searchParams.get('name');
-    const isRestaurant = searchParams.get('isRestaurant');
-    const id = searchParams.get('id');
-    
-    if (token && name) {
-      if (isRestaurant === 'true') {
-        localStorage.setItem('restaurantToken', token);
-        localStorage.setItem('restaurantName', name);
-        localStorage.setItem('restaurantId', id);
-        navigate('/restaurant-dashboard');
-      } else {
-        login(token, name);
-        navigate('/');
+    const doGoogleLogin = async () => {
+      try {
+        await signInWithGoogle();
+        // After Google sign-in, userType will be set by AuthContext
+        if (userType === 'restaurant') {
+          navigate('/restaurant-dashboard');
+        } else {
+          navigate('/');
+        }
+      } catch (error) {
+        navigate('/login');
       }
-    } else {
-      navigate('/login');
-    }
-  }, [searchParams, login, navigate]);
+    };
+    doGoogleLogin();
+  }, [navigate, userType]);
 
   return <div>Processing login...</div>;
 };

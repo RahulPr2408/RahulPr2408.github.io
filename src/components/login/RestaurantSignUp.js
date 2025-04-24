@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
+import { signUp, updateRestaurantProfile } from '../../services/dashboardService';
 import './Login.css';
 
 const RestaurantSignUp = () => {
@@ -49,7 +50,6 @@ const RestaurantSignUp = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match!', {
         position: "top-center",
@@ -64,39 +64,17 @@ const RestaurantSignUp = () => {
       });
       return;
     }
-
     try {
-      const data = new FormData();
-      // Don't send confirmPassword to the server
-      const { confirmPassword, ...formDataWithoutConfirm } = formData;
-      for (const key in formDataWithoutConfirm) {
-        data.append(key, formDataWithoutConfirm[key]);
-      }
-      
-      if (logoImage) {
-        data.append('logoImage', logoImage);
-      }
-      
-      if (mapImage) {
-        data.append('mapImage', mapImage);
-      }
-
-      console.log('Sending restaurant signup data:', Object.fromEntries(data.entries()));
-
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/restaurant/signup`, {
-        method: 'POST',
-        credentials: 'include',
-        body: data,
+      // Create user in Firebase Auth
+      await signUp(formData.email, formData.password, formData.name);
+      // Save restaurant profile in Firestore
+      await updateRestaurantProfile({
+        name: formData.name,
+        address: formData.address,
+        phone: formData.phone,
+        logoImage,
+        mapImage
       });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Server error response:', errorData);
-        throw new Error(errorData.message || `Error: ${response.status} ${response.statusText}`);
-      }
-      
-      const responseData = await response.json();
-      
       toast.success('Registration successful! Redirecting to login...', {
         position: "top-center",
         autoClose: 2000,
@@ -121,7 +99,6 @@ const RestaurantSignUp = () => {
         theme: "dark",
         transition: Bounce
       });
-      console.error('Signup error:', error);
     }
   };
 
