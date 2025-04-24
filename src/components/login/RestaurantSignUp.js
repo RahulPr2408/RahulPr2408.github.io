@@ -149,7 +149,7 @@ const RestaurantSignUp = () => {
               <input 
                 type="password"
                 name="password"
-                placeholder="********"
+                placeholder="Password"
                 className="form-input"
                 value={formData.password}
                 onChange={handleChange}
@@ -162,7 +162,7 @@ const RestaurantSignUp = () => {
               <input 
                 type="password"
                 name="confirmPassword"
-                placeholder="********"
+                placeholder="Confirm Password"
                 className="form-input"
                 value={formData.confirmPassword}
                 onChange={handleChange}

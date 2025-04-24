@@ -61,9 +61,8 @@ const RestaurantDashboard = () => {
 
   const fetchRestaurantInfo = async () => {
     try {
-      const response = await dashboardService.getRestaurantProfile();
-      if (response.success && response.data) {
-        const restaurant = response.data;
+      const restaurant = await dashboardService.getRestaurantProfile();
+      if (restaurant) {
         setRestaurantInfo({
           name: restaurant.name,
           address: restaurant.address,
@@ -75,7 +74,6 @@ const RestaurantDashboard = () => {
           mapImage: restaurant.mapImage?.url || restaurant.mapImage,
           menuType: restaurant.menuType || 'standard'
         });
-
         // Set image previews using Cloudinary URLs
         if (restaurant.logoImage) {
           setLogoPreview(getImageUrl(restaurant.logoImage, 'logo'));
@@ -83,11 +81,9 @@ const RestaurantDashboard = () => {
         if (restaurant.mapImage) {
           setMapPreview(getImageUrl(restaurant.mapImage, 'map'));
         }
-
         // Also update localStorage
         localStorage.setItem('restaurantName', restaurant.name);
         localStorage.setItem('menuType', restaurant.menuType);
-
         // If it's a combo menu restaurant, fetch combo data
         if (restaurant.menuType === 'combo') {
           fetchComboMenuData();
@@ -109,10 +105,8 @@ const RestaurantDashboard = () => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await dashboardService.getMenuItems();
-      if (response.success && response.data) {
-        setFoodItems(response.data);
-      }
+      const items = await dashboardService.getMenuItems();
+      setFoodItems(items);
     } catch (error) {
       console.error('Error fetching menu items:', error);
       toast.error('Failed to fetch menu items. Please try again.', {
@@ -129,16 +123,21 @@ const RestaurantDashboard = () => {
 
   const fetchComboMenuData = async () => {
     try {
-      const response = await dashboardService.getComboMenuItems();
-      if (response.data) {
-        const { combos, proteins, sides } = response.data;
-        if (combos) setComboOptions(combos);
-        if (proteins) setProteinOptions(proteins);
-        if (sides) setSideOptions(sides);
-      }
+      const { combos, proteins, sides } = await dashboardService.getComboMenuItems();
+      setComboOptions(combos || []);
+      setProteinOptions(proteins || []);
+      setSideOptions(sides || []);
     } catch (error) {
       console.error('Error fetching combo menu data:', error);
-      // In case of error, the default state values will be used
+      toast.error('Failed to fetch combo menu data. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
@@ -158,9 +157,9 @@ const RestaurantDashboard = () => {
         quantity: parseInt(newItem.quantity) || 0
       };
 
-      const response = await dashboardService.addMenuItem(itemToAdd);
-      if (response.data) {
-        setFoodItems([...foodItems, response.data]);
+      const newMenuItem = await dashboardService.addMenuItem(itemToAdd);
+      if (newMenuItem) {
+        setFoodItems([...foodItems, newMenuItem]);
         // Reset form
         setNewItem({
           name: '',
@@ -180,24 +179,51 @@ const RestaurantDashboard = () => {
   const handleRemoveItem = async (id) => {
     try {
       await dashboardService.deleteMenuItem(id);
-      setFoodItems(foodItems.filter(item => item._id !== id));
+      setFoodItems(foodItems.filter(item => item.id !== id));
+      toast.success('Menu item removed successfully', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error removing item:', error);
+      toast.error('Failed to remove menu item. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
   const toggleItemAvailability = async (id) => {
     try {
-      const item = foodItems.find(item => item._id === id);
-      const response = await dashboardService.updateMenuItem(id, {
+      const item = foodItems.find(item => item.id === id);
+      const updatedItem = await dashboardService.updateMenuItem(id, {
         ...item,
         isAvailable: !item.isAvailable
       });
       setFoodItems(foodItems.map(item => 
-        item._id === id ? response.data : item
+        item.id === id ? updatedItem : item
       ));
     } catch (error) {
       console.error('Error updating item:', error);
+      toast.error('Failed to update item availability. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
@@ -305,139 +331,306 @@ const RestaurantDashboard = () => {
   // Add handlers for combo menu
   const handleAddCombo = async () => {
     if (!newCombo.name || !newCombo.description || !newCombo.originalPrice || !newCombo.salePrice) {
-      alert('Please fill in all combo details');
+      toast.error('Please fill in all combo details', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
       return;
     }
-
+  
     try {
       const comboToAdd = {
         ...newCombo,
         originalPrice: parseFloat(newCombo.originalPrice),
         salePrice: parseFloat(newCombo.salePrice)
       };
-
-      const response = await dashboardService.addCombo(comboToAdd);
-      if (response.data) {
-        setComboOptions([...comboOptions, response.data]);
-        setNewCombo({ name: '', description: '', originalPrice: '', salePrice: '' });
-        setIsAddingCombo(false);
-      }
+  
+      const addedCombo = await dashboardService.addCombo(comboToAdd);
+      setComboOptions([...comboOptions, addedCombo]);
+      setNewCombo({ name: '', description: '', originalPrice: '', salePrice: '' });
+      setIsAddingCombo(false);
+      toast.success('Combo added successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error adding combo:', error);
-      alert('Failed to add combo: ' + (error.message || 'Unknown error'));
+      toast.error('Failed to add combo: ' + (error.message || 'Unknown error'), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
-
+  
   const handleUpdateCombo = async () => {
     if (!editingCombo || !editingCombo.name || !editingCombo.description || 
         !editingCombo.originalPrice || !editingCombo.salePrice) {
-      alert('Please fill in all combo details');
+      toast.error('Please fill in all combo details', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
       return;
     }
-
+  
     try {
       const comboToUpdate = {
         ...editingCombo,
         originalPrice: parseFloat(editingCombo.originalPrice),
         salePrice: parseFloat(editingCombo.salePrice)
       };
-
-      const response = await dashboardService.updateCombo(editingCombo._id, comboToUpdate);
-      if (response.data) {
-        setComboOptions(comboOptions.map(combo => 
-          combo._id === editingCombo._id ? response.data : combo
-        ));
-        setEditingCombo(null);
-      }
+  
+      const updatedCombo = await dashboardService.updateCombo(editingCombo.id, comboToUpdate);
+      setComboOptions(comboOptions.map(combo => 
+        combo.id === editingCombo.id ? updatedCombo : combo
+      ));
+      setEditingCombo(null);
+      toast.success('Combo updated successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error updating combo:', error);
-      alert('Failed to update combo: ' + (error.message || 'Unknown error'));
+      toast.error('Failed to update combo: ' + (error.message || 'Unknown error'), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
-
+  
   const handleRemoveCombo = async (id) => {
     if (!id) {
       console.error('Cannot remove combo: Invalid ID');
-      alert('Cannot remove this combo: Invalid ID');
+      toast.error('Cannot remove this combo: Invalid ID', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
       return;
     }
     
     try {
       await dashboardService.deleteCombo(id);
-      setComboOptions(comboOptions.filter(combo => combo._id !== id));
+      setComboOptions(comboOptions.filter(combo => combo.id !== id));
+      toast.success('Combo removed successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error removing combo:', error);
-      alert('Failed to remove combo: ' + (error.message || 'Unknown error'));
+      toast.error('Failed to remove combo: ' + (error.message || 'Unknown error'), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
   const handleAddProtein = async () => {
     if (!newProtein.name) {
-      alert('Please enter a protein name');
+      toast.error('Please enter a protein name', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
       return;
     }
-
+  
     try {
-      const response = await dashboardService.addProteinOption(newProtein);
-      if (response.data) {
-        setProteinOptions([...proteinOptions, response.data]);
-        setNewProtein({ name: '' });
-        setIsAddingProtein(false);
-      }
+      const addedProtein = await dashboardService.addProteinOption(newProtein);
+      setProteinOptions([...proteinOptions, addedProtein]);
+      setNewProtein({ name: '' });
+      setIsAddingProtein(false);
+      toast.success('Protein option added successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error adding protein option:', error);
-      alert('Failed to add protein: ' + (error.message || 'Unknown error'));
+      toast.error('Failed to add protein: ' + (error.message || 'Unknown error'), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
-
+  
   const handleRemoveProtein = async (id) => {
     if (!id) {
       console.error('Cannot remove protein: Invalid ID');
-      alert('Cannot remove this protein: Invalid ID');
+      toast.error('Cannot remove this protein: Invalid ID', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
       return;
     }
     
     try {
       await dashboardService.deleteProteinOption(id);
-      setProteinOptions(proteinOptions.filter(protein => protein._id !== id));
+      setProteinOptions(proteinOptions.filter(protein => protein.id !== id));
+      toast.success('Protein option removed successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error removing protein option:', error);
-      alert('Failed to remove protein: ' + (error.message || 'Unknown error'));
+      toast.error('Failed to remove protein: ' + (error.message || 'Unknown error'), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
-
+  
   const handleAddSide = async () => {
     if (!newSide.name) {
-      alert('Please enter a side name');
+      toast.error('Please enter a side name', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
       return;
     }
-
+  
     try {
-      const response = await dashboardService.addSideOption(newSide);
-      if (response.data) {
-        setSideOptions([...sideOptions, response.data]);
-        setNewSide({ name: '' });
-        setIsAddingSide(false);
-      }
+      const addedSide = await dashboardService.addSideOption(newSide);
+      setSideOptions([...sideOptions, addedSide]);
+      setNewSide({ name: '' });
+      setIsAddingSide(false);
+      toast.success('Side option added successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error adding side option:', error);
-      alert('Failed to add side: ' + (error.message || 'Unknown error'));
+      toast.error('Failed to add side: ' + (error.message || 'Unknown error'), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
-
+  
   const handleRemoveSide = async (id) => {
     if (!id) {
       console.error('Cannot remove side: Invalid ID');
-      alert('Cannot remove this side: Invalid ID');
+      toast.error('Cannot remove this side: Invalid ID', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
       return;
     }
     
     try {
       await dashboardService.deleteSideOption(id);
-      setSideOptions(sideOptions.filter(side => side._id !== id));
+      setSideOptions(sideOptions.filter(side => side.id !== id));
+      toast.success('Side option removed successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     } catch (error) {
       console.error('Error removing side option:', error);
-      alert('Failed to remove side: ' + (error.message || 'Unknown error'));
+      toast.error('Failed to remove side: ' + (error.message || 'Unknown error'), {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
@@ -661,12 +854,12 @@ const RestaurantDashboard = () => {
               <h2>Menu Items</h2>
               <div className="items-grid">
                 {foodItems.map(item => (
-                  <div key={item._id} className="food-item-card">
+                  <div key={item.id} className="food-item-card">
                     <div className="food-item-header">
                       <h3>{item.name}</h3>
                       <button 
                         className="remove-item-btn"
-                        onClick={() => handleRemoveItem(item._id)}
+                        onClick={() => handleRemoveItem(item.id)}
                       >
                         ×
                       </button>
@@ -682,7 +875,7 @@ const RestaurantDashboard = () => {
                           <input 
                             type="checkbox" 
                             checked={item.isAvailable}
-                            onChange={() => toggleItemAvailability(item._id)}
+                            onChange={() => toggleItemAvailability(item.id)}
                           />
                           <span className="slider round"></span>
                         </label>
@@ -703,7 +896,7 @@ const RestaurantDashboard = () => {
               <div className="combo-options">
                 
                 {comboOptions.map(combo => (
-                  <div key={combo._id} className="combo-card">
+                  <div key={combo.id} className="combo-card">
                     <h4>{combo.name} ({combo.description})</h4>
                     <div className="price-display">
                       <div className="original-price">${combo.originalPrice.toFixed(2)}</div>
@@ -718,7 +911,7 @@ const RestaurantDashboard = () => {
                       </button>
                       <button 
                         className="remove-combo-btn"
-                        onClick={() => handleRemoveCombo(combo._id)}
+                        onClick={() => handleRemoveCombo(combo.id)}
                       >
                         Remove
                       </button>
@@ -849,11 +1042,11 @@ const RestaurantDashboard = () => {
                   <h3>Proteins</h3>
                   <div className="combo-items-list">
                     {proteinOptions.map(protein => (
-                      <div key={protein._id} className="combo-item">
+                      <div key={protein.id} className="combo-item">
                         <span>{protein.name}</span>
                         <button 
                           className="remove-item-small"
-                          onClick={() => handleRemoveProtein(protein._id)}
+                          onClick={() => handleRemoveProtein(protein.id)}
                         >
                           ×
                         </button>
@@ -891,11 +1084,11 @@ const RestaurantDashboard = () => {
                   <h3>Sides</h3>
                   <div className="combo-items-list">
                     {sideOptions.map(side => (
-                      <div key={side._id} className="combo-item">
+                      <div key={side.id} className="combo-item">
                         <span>{side.name}</span>
                         <button 
                           className="remove-item-small"
-                          onClick={() => handleRemoveSide(side._id)}
+                          onClick={() => handleRemoveSide(side.id)}
                         >
                           ×
                         </button>

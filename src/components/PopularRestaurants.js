@@ -6,6 +6,8 @@ import './PopularRestaurants.css';
 import CouponImage from '../assets/coupon_code.jpg'; // Import the coupon image
 import DefaultLogoImage from '../assets/restaurant-default.jpg';
 import DefaultMapImage from '../assets/map-default.png';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 const PopularRestaurants = () => {
   const navigate = useNavigate();
@@ -22,17 +24,8 @@ const PopularRestaurants = () => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants`, {
-          credentials: 'include',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const querySnapshot = await getDocs(collection(db, 'restaurants'));
+        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setRestaurants(data);
       } catch (error) {
         console.error('Could not fetch restaurants:', error);
@@ -46,7 +39,7 @@ const PopularRestaurants = () => {
   useEffect(() => {
     if (selectedRestaurant) {
       const interval = setInterval(() => {
-        fetchMenuItems(selectedRestaurant._id);
+        fetchMenuItems(selectedRestaurant.id);
       }, 5000); // Refresh every 5 seconds
 
       return () => clearInterval(interval);
@@ -56,7 +49,12 @@ const PopularRestaurants = () => {
   const openPopup = (restaurant) => {
     setSelectedRestaurant(restaurant);
     setIsPopupOpen(true);
-    fetchMenuItems(restaurant._id); // Fetch menu items when popup opens
+    // Check menu type and fetch appropriate data
+    if (restaurant.menuType === 'combo') {
+      fetchComboMenuData(restaurant.id);
+    } else {
+      fetchMenuItems(restaurant.id);
+    }
   };
 
   const closePopup = () => {
@@ -102,28 +100,55 @@ const PopularRestaurants = () => {
 
   const fetchMenuItems = async (restaurantId) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants/${restaurantId}/menu`, {
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      
-      // Check if response is for a combo menu or standard menu
-      if (data.menuType === 'combo') {
-        setComboMenu(data);
-        setMenuItems([]);
-      } else {
-        setMenuItems(data);
-        setComboMenu(null);
-      }
+      const menuRef = collection(db, 'restaurants', restaurantId, 'menuItems');
+      const querySnapshot = await getDocs(menuRef);
+      const items = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setMenuItems(items);
     } catch (error) {
       console.error('Could not fetch menu items:', error);
+      toast.error('Failed to load menu items. Please try again later.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
+    }
+  };
+
+  const fetchComboMenuData = async (restaurantId) => {
+    try {
+      // Fetch combos
+      const combosRef = collection(db, 'restaurants', restaurantId, 'combos');
+      const combosSnapshot = await getDocs(combosRef);
+      const combos = combosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      // Fetch proteins using correct collection name
+      const proteinsRef = collection(db, 'restaurants', restaurantId, 'proteinOptions');
+      const proteinsSnapshot = await getDocs(proteinsRef);
+      const proteins = proteinsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      // Fetch sides using correct collection name
+      const sidesRef = collection(db, 'restaurants', restaurantId, 'sideOptions');
+      const sidesSnapshot = await getDocs(sidesRef);
+      const sides = sidesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      setComboMenu({ combos, proteins, sides });
+      
+      console.log('Fetched combo menu:', { combos, proteins, sides }); // Debug log
+    } catch (error) {
+      console.error('Could not fetch combo menu data:', error);
+      toast.error('Failed to load combo menu. Please try again later.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark"
+      });
     }
   };
 
@@ -149,10 +174,10 @@ const PopularRestaurants = () => {
       {menuItems.length > 0 ? (
         <ul className="menu-list">
           {menuItems.map((item) => (
-            <li key={item._id} className={`menu-item ${!item.isAvailable ? 'out-of-stock' : ''}`}>
+            <li key={item.id} className={`menu-item ${!item.isAvailable ? 'out-of-stock' : ''}`}>
               <div className="menu-item-content">
                 <span className="item-name">{item.name}</span>
-                <span className="item-price">${item.price}</span>
+                <span className="item-price">${parseFloat(item.price).toFixed(2)}</span>
               </div>
               {!item.isAvailable && (
                 <span className="out-of-stock-badge">Out of Stock</span>
@@ -167,66 +192,66 @@ const PopularRestaurants = () => {
   );
 
   // Function to render combo menu
-  const renderComboMenu = () => (
-    <div className="combo-menu">
-      <h4>Second Plate Exclusive Combo Pricing</h4>
-      {comboMenu && comboMenu.combos && comboMenu.combos.length > 0 ? (
-        <div className="combo-menu-container">
-          {/* Combo Options */}
-          <div className="combo-options-list">
-            {comboMenu.combos.map((combo) => (
-              <div key={combo._id} className="combo-option">
-                <div className="combo-header">
-                  <h5>{combo.name}</h5>
-                  <div className="combo-description">{combo.description}</div>
+  const renderComboMenu = () => {
+    if (!selectedRestaurant) return null;
+
+    return (
+      <div className="combo-menu">
+        <h4>Second Plate Exclusive Combo Pricing</h4>
+        {comboMenu && comboMenu.combos && comboMenu.combos.length > 0 ? (
+          <div className="combo-menu-container">
+            {/* Combo Options */}
+            <div className="combo-options-list">
+              {comboMenu.combos.map((combo) => (
+                <div key={combo.id} className="combo-option">
+                  <div className="combo-header">
+                    <h5>{combo.name}</h5>
+                    <div className="combo-description">{combo.description}</div>
+                  </div>
+                  <div className="combo-prices">
+                    <span className="combo-original-price">${parseFloat(combo.originalPrice).toFixed(2)}</span>
+                    <span className="combo-sale-price">${parseFloat(combo.salePrice).toFixed(2)}</span>
+                  </div>
                 </div>
-                <div className="combo-prices">
-                  <span className="combo-original-price">${combo.originalPrice.toFixed(2)}</span>
-                  <span className="combo-sale-price">${combo.salePrice.toFixed(2)}</span>
-                </div>
+              ))}
+            </div>
+            
+            {/* Protein Options */}
+            {comboMenu.proteins && comboMenu.proteins.length > 0 && (
+              <div className="combo-section">
+                <h5>Proteins: (Choose 1 for Combo 1)</h5>
+                <ul className="combo-items-list">
+                  {comboMenu.proteins.map((protein) => (
+                    <li key={protein.id} className="">
+                      {protein.name}
+                      
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
+            )}
+            
+            {/* Side Options */}
+            {comboMenu.sides && comboMenu.sides.length > 0 && (
+              <div className="combo-section">
+                <h5>Sides: Choose 2 for Combo 1 OR Choose 3 for Combo 3</h5>
+                <ul className="combo-items-list">
+                  {comboMenu.sides.map((side) => (
+                    <li key={side.id} className="">
+                      {side.name}
+                      
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-          
-          {/* Protein Options */}
-          {comboMenu.proteins && comboMenu.proteins.length > 0 && (
-            <div className="combo-section">
-              <h5>Proteins: (Choose 1 for Combo 1)</h5>
-              <ul className="combo-items-list">
-                {comboMenu.proteins.map((protein) => (
-                  <li key={protein._id} className={!protein.isAvailable ? 'out-of-stock' : ''}>
-                    {protein.name}
-                    {!protein.isAvailable && (
-                      <span className="out-of-stock-badge">Out of Stock</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          
-          {/* Side Options */}
-          {comboMenu.sides && comboMenu.sides.length > 0 && (
-            <div className="combo-section">
-              <h5>Sides: Choose 2 for Combo 1 OR Choose 3 for Combo 3</h5>
-              <ul className="combo-items-list">
-                {comboMenu.sides.map((side) => (
-                  <li key={side._id} className={!side.isAvailable ? 'out-of-stock' : ''}>
-                    {side.name}
-                    {!side.isAvailable && (
-                      <span className="out-of-stock-badge">Out of Stock</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      ) : (
-        <p>No combo menu items available.</p>
-      )}
-    </div>
-  );
+        ) : (
+          <p>No combo menu items available.</p>
+        )}
+      </div>
+    );
+  };
 
   return (
     <section className="popular-restaurants-section py-5">
@@ -234,7 +259,7 @@ const PopularRestaurants = () => {
         <h2 className="section-title text-center mb-5">Our Partner Restaurants</h2>
         <div className="row justify-content-center">
           {restaurants.map((restaurant) => (
-            <div className="col-md-3 mb-4" key={restaurant._id}>
+            <div className="col-md-3 mb-4" key={restaurant.id}>
               <div className="restaurant-card" onClick={() => openPopup(restaurant)}>
                 <img
                   src={restaurant.logoImage || getDefaultImage('logo')}
@@ -296,8 +321,7 @@ const PopularRestaurants = () => {
 
                   {/* Right Side */}
                   <div className="popup-right">
-                    {/* Display Menu Items based on menu type */}
-                    {comboMenu ? renderComboMenu() : renderStandardMenu()}
+                    {selectedRestaurant.menuType === 'combo' ? renderComboMenu() : renderStandardMenu()}
                     <button className="btn-coupon" onClick={openCouponContent}>
                       Get Coupons
                     </button>

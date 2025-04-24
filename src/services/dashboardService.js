@@ -137,9 +137,23 @@ export const deleteMenuItem = async (id) => {
 export const getComboMenuItems = async () => {
   const user = auth.currentUser;
   if (!user) throw new Error('Not authenticated');
+  
+  // Fetch combos
   const comboRef = collection(db, 'restaurants', user.uid, 'combos');
-  const querySnapshot = await getDocs(comboRef);
-  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const comboSnapshot = await getDocs(comboRef);
+  const combos = comboSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  // Fetch proteins
+  const proteinRef = collection(db, 'restaurants', user.uid, 'proteinOptions');
+  const proteinSnapshot = await getDocs(proteinRef);
+  const proteins = proteinSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  // Fetch sides
+  const sideRef = collection(db, 'restaurants', user.uid, 'sideOptions');
+  const sideSnapshot = await getDocs(sideRef);
+  const sides = sideSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+  return { combos, proteins, sides };
 };
 
 export const addCombo = async (comboData) => {

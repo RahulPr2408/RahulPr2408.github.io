@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { getRestaurantProfile } from '../services/dashboardService';
 
 const AuthContext = createContext();
 
@@ -7,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
   const [userType, setUserType] = useState('user');
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     // Check for existing tokens on mount
@@ -25,17 +27,28 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = useCallback((token, name, type = 'user') => {
+  const login = useCallback(async (token, name, type = 'user') => {
     if (type === 'restaurant') {
       localStorage.setItem('restaurantToken', token);
       localStorage.setItem('restaurantName', name);
+      setIsLoggedIn(true);
+      setUserName(name);
+      setUserType(type);
+      // Fetch and set restaurant profile
+      try {
+        const profile = await getRestaurantProfile();
+        setCurrentUser(profile);
+      } catch (e) {
+        setCurrentUser(null);
+      }
     } else {
       localStorage.setItem('userToken', token);
       localStorage.setItem('userName', name);
+      setIsLoggedIn(true);
+      setUserName(name);
+      setUserType(type);
+      setCurrentUser(null);
     }
-    setIsLoggedIn(true);
-    setUserName(name);
-    setUserType(type);
   }, []);
 
   const logout = useCallback(() => {
@@ -47,6 +60,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     setUserName('');
     setUserType('user');
+    setCurrentUser(null);
   }, []);
 
   const checkAuthStatus = useCallback(async () => {
@@ -90,6 +104,7 @@ export const AuthProvider = ({ children }) => {
       isLoggedIn, 
       userName, 
       userType,
+      currentUser,
       login,
       logout,
       checkAuthStatus 

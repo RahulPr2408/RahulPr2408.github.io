@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
-import { signIn } from '../../services/dashboardService';
 import { useAuth } from '../../context/AuthContext';
+import { signIn } from '../../services/dashboardService';
 import './Login.css';
 
 const RestaurantLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, userType, login } = useAuth();
+
+  useEffect(() => {
+    if (isLoggedIn && userType === 'restaurant') {
+      navigate('/restaurant-dashboard');
+    }
+  }, [isLoggedIn, userType, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signIn(email, password);
+      const user = await signIn(email, password);
+      // tell your AuthContext we’re now logged in as a restaurant
+      login(user.uid, user.displayName, 'restaurant');
       toast.success('Login successful! Redirecting to dashboard...', {
         position: "top-center",
         autoClose: 2000,
@@ -26,9 +34,7 @@ const RestaurantLogin = () => {
         theme: "dark",
         transition: Bounce
       });
-      setTimeout(() => {
-        navigate('/restaurant-dashboard');
-      }, 2000);
+      // Navigation is now handled by useEffect
     } catch (error) {
       toast.error(error.message || 'Login failed. Please check your credentials.', {
         position: "top-center",
