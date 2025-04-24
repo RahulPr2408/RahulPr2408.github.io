@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
-import { signUp, updateRestaurantProfile } from '../../services/dashboardService';
+import { signUp, updateRestaurantProfile, uploadToCloudinary } from '../../services/dashboardService';
 import './Login.css';
 
 const RestaurantSignUp = () => {
@@ -67,13 +67,18 @@ const RestaurantSignUp = () => {
     try {
       // Create user in Firebase Auth
       await signUp(formData.email, formData.password, formData.name);
+      // Upload images to Cloudinary if present
+      let logoUrl = '';
+      let mapUrl = '';
+      if (logoImage) logoUrl = await uploadToCloudinary(logoImage);
+      if (mapImage) mapUrl = await uploadToCloudinary(mapImage);
       // Save restaurant profile in Firestore
       await updateRestaurantProfile({
         name: formData.name,
         address: formData.address,
         phone: formData.phone,
-        logoImage,
-        mapImage
+        logoImage: logoUrl,
+        mapImage: mapUrl
       });
       toast.success('Registration successful! Redirecting to login...', {
         position: "top-center",

@@ -20,6 +20,22 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
+// Cloudinary unsigned upload helper
+export const uploadToCloudinary = async (file) => {
+  const url = 'https://api.cloudinary.com/v1_1/dll4ianbx/upload'; // <-- replace with your cloud name
+  const preset = 'restaurant_images'; // <-- replace with your unsigned preset
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', preset);
+  const res = await fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+  const data = await res.json();
+  if (!data.secure_url) throw new Error('Cloudinary upload failed');
+  return data.secure_url;
+};
+
 // AUTH
 export const signUp = async (email, password, name) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -49,15 +65,11 @@ export const updateRestaurantProfile = async (profileData) => {
 
   // Handle logo image
   if (profileData.logoImage instanceof File) {
-    const logoRef = ref(storage, `restaurants/${user.uid}/logo_${Date.now()}.${profileData.logoImage.name.split('.').pop()}`);
-    await uploadBytes(logoRef, profileData.logoImage);
-    updates.logoImage = await getDownloadURL(logoRef);
+    updates.logoImage = await uploadToCloudinary(profileData.logoImage);
   }
   // Handle map image
   if (profileData.mapImage instanceof File) {
-    const mapRef = ref(storage, `restaurants/${user.uid}/map_${Date.now()}.${profileData.mapImage.name.split('.').pop()}`);
-    await uploadBytes(mapRef, profileData.mapImage);
-    updates.mapImage = await getDownloadURL(mapRef);
+    updates.mapImage = await uploadToCloudinary(profileData.mapImage);
   }
   await setDoc(docRef, updates, { merge: true });
   return updates;
@@ -94,9 +106,7 @@ export const addMenuItem = async (menuItem) => {
   if (!user) throw new Error('Not authenticated');
   let item = { ...menuItem };
   if (menuItem.image instanceof File) {
-    const imgRef = ref(storage, `restaurants/${user.uid}/menu_${Date.now()}.${menuItem.image.name.split('.').pop()}`);
-    await uploadBytes(imgRef, menuItem.image);
-    item.image = await getDownloadURL(imgRef);
+    item.image = await uploadToCloudinary(menuItem.image);
   }
   const menuRef = collection(db, 'restaurants', user.uid, 'menuItems');
   const docRef = await addDoc(menuRef, item);
@@ -108,9 +118,7 @@ export const updateMenuItem = async (id, menuItem) => {
   if (!user) throw new Error('Not authenticated');
   let updates = { ...menuItem };
   if (menuItem.image instanceof File) {
-    const imgRef = ref(storage, `restaurants/${user.uid}/menu_${Date.now()}.${menuItem.image.name.split('.').pop()}`);
-    await uploadBytes(imgRef, menuItem.image);
-    updates.image = await getDownloadURL(imgRef);
+    updates.image = await uploadToCloudinary(menuItem.image);
   }
   const itemRef = doc(db, 'restaurants', user.uid, 'menuItems', id);
   await updateDoc(itemRef, updates);
@@ -139,9 +147,7 @@ export const addCombo = async (comboData) => {
   if (!user) throw new Error('Not authenticated');
   let combo = { ...comboData };
   if (comboData.image instanceof File) {
-    const imgRef = ref(storage, `restaurants/${user.uid}/combo_${Date.now()}.${comboData.image.name.split('.').pop()}`);
-    await uploadBytes(imgRef, comboData.image);
-    combo.image = await getDownloadURL(imgRef);
+    combo.image = await uploadToCloudinary(comboData.image);
   }
   const comboRef = collection(db, 'restaurants', user.uid, 'combos');
   const docRef = await addDoc(comboRef, combo);
@@ -153,9 +159,7 @@ export const updateCombo = async (id, comboData) => {
   if (!user) throw new Error('Not authenticated');
   let updates = { ...comboData };
   if (comboData.image instanceof File) {
-    const imgRef = ref(storage, `restaurants/${user.uid}/combo_${Date.now()}.${comboData.image.name.split('.').pop()}`);
-    await uploadBytes(imgRef, comboData.image);
-    updates.image = await getDownloadURL(imgRef);
+    updates.image = await uploadToCloudinary(comboData.image);
   }
   const comboRef = doc(db, 'restaurants', user.uid, 'combos', id);
   await updateDoc(comboRef, updates);
