@@ -8,21 +8,22 @@ const OAuthCallback = () => {
   const { isLoggedIn, userType } = useAuth();
 
   useEffect(() => {
-    const doGoogleLogin = async () => {
-      try {
-        await signInWithGoogle();
-        // After Google sign-in, userType will be set by AuthContext
-        if (userType === 'restaurant') {
-          navigate('/restaurant-dashboard');
-        } else {
-          navigate('/');
+    if (!isLoggedIn) {
+      const doGoogleLogin = async () => {
+        try {
+          await signInWithGoogle();
+        } catch (error) {
+          console.error('Google login failed:', error);
+          navigate('/login');
         }
-      } catch (error) {
-        navigate('/login');
-      }
-    };
-    doGoogleLogin();
-  }, [navigate, userType]);
+      };
+      doGoogleLogin();
+    } else if (userType === 'restaurant') {
+      navigate('/restaurant-dashboard');
+    } else {
+      navigate('/');
+    }
+  }, [navigate, isLoggedIn, userType]);
 
   return <div>Processing login...</div>;
 };

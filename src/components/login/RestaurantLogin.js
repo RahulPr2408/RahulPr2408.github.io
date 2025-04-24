@@ -12,17 +12,20 @@ const RestaurantLogin = () => {
   const { isLoggedIn, userType, login } = useAuth();
 
   useEffect(() => {
-    if (isLoggedIn && userType === 'restaurant') {
+    // If already logged in as restaurant, redirect to dashboard
+    if (localStorage.getItem('restaurantToken')) {
       navigate('/restaurant-dashboard');
     }
-  }, [isLoggedIn, userType, navigate]);
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const user = await signIn(email, password);
-      // tell your AuthContext we’re now logged in as a restaurant
+      // Set restaurant token and login state
+      localStorage.setItem('restaurantToken', user.token);
       login(user.uid, user.displayName, 'restaurant');
+      
       toast.success('Login successful! Redirecting to dashboard...', {
         position: "top-center",
         autoClose: 2000,
@@ -34,7 +37,9 @@ const RestaurantLogin = () => {
         theme: "dark",
         transition: Bounce
       });
-      // Navigation is now handled by useEffect
+
+      // Navigate immediately after successful login
+      navigate('/restaurant-dashboard');
     } catch (error) {
       toast.error(error.message || 'Login failed. Please check your credentials.', {
         position: "top-center",
