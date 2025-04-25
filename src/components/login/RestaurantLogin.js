@@ -98,14 +98,14 @@ const RestaurantLogin = () => {
                   <input type="checkbox" id="remember" />
                   <label htmlFor="remember">Remember me</label>
                 </div>
-                <a href="#" className="forgot-link">Forgot password</a>
+                {/* <a href="#" className="forgot-link">Forgot password</a> */}
               </div>
               <button type="submit" className="sign-in-btn">Sign In</button>
 
-              <div className="signup-option">
+              {/* <div className="signup-option">
                 <span>Don't have an account? </span>
                 <Link to="/restaurant-signup" className="signup-link">Partner up with us for free!</Link>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>
@@ -115,7 +115,7 @@ const RestaurantLogin = () => {
         <div className="contact-container">
           <div className="contact-item">
             <h3>Call Us:</h3>
-            <p className="phone">+1-416-500-8900</p>
+            <p className="phone">+1-437-428-2577</p>
           </div>
           <div className="contact-item">
             <h3>Hours:</h3>
