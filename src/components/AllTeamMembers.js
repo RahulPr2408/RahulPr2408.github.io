@@ -6,7 +6,7 @@ import Vaishal from "../assets/Vaishal.jpg";
 import Aarushi from "../assets/Aarushi.jpg";
 import Yash from "../assets/Yash.jpg";
 import Vaibhav from "../assets/Vaibhav.jpg"
-import Rahul from "../assets/Rahul.png"
+import Rahul from "../assets/Rahul_3.jpg"
 import Soumya from "../assets/Soumya.jpg"
 import Vanessa from "../assets/Vanessa.jpg"
 import Rishil from "../assets/Rishil_2.JPG"
