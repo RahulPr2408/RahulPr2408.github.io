@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/static/css/main.1ffbc8e8.css",
-    "main.js": "/static/js/main.f7ab9beb.js",
-    "static/media/Rahul.png": "/static/media/Rahul.525c70b97c0d6e526204.png",
+    "main.js": "/static/js/main.698b4798.js",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
     "static/media/Vanessa.jpg": "/static/media/Vanessa.bb400bb1567b3a67c161.jpg",
-    "static/media/Ekanshi.jpg": "/static/media/Ekanshi.9ddd1069c782533abdf4.jpg",
     "static/media/Yash.jpg": "/static/media/Yash.ca0f75a0a9e82ec9255a.jpg",
-    "static/media/Ayush.jpg": "/static/media/Ayush.cb6d4eb5c990f110a9ee.jpg",
-    "static/media/Vaibhav.jpg": "/static/media/Vaibhav.0566ae54d7d5859fdd26.jpg",
     "static/media/Team_Photo.JPG": "/static/media/Team_Photo.e8b907c2026c3aed0c2d.JPG",
     "static/media/Rishil_2.JPG": "/static/media/Rishil_2.046abacc33246bd40839.JPG",
     "static/media/home_background_image.png": "/static/media/home_background_image.f14de8d0b92154920a03.png",
     "static/media/Home3.jpeg": "/static/media/Home3.a20c257f06275752251e.jpeg",
+    "static/media/Ayush.jpg": "/static/media/Ayush.882e81ff6557e03163be.jpg",
     "static/media/Soumya.jpg": "/static/media/Soumya.00a86bc19b9d14d90636.jpg",
     "static/media/Payal.png": "/static/media/Payal.884c5eb334eeb2382eb3.png",
+    "static/media/Ekanshi.jpg": "/static/media/Ekanshi.5f672f0d20887d3c7b3c.jpg",
+    "static/media/Vaibhav.jpg": "/static/media/Vaibhav.009f3c1c9fc1d5f823cd.jpg",
     "static/media/Nilima.png": "/static/media/Nilima.604647df201e9f94d1b8.png",
     "static/media/Vaishal.jpg": "/static/media/Vaishal.9ba8088ae6a82a7297f7.jpg",
     "static/media/coupon_code.jpg": "/static/media/coupon_code.eeb2065343a2d85358d2.jpg",
     "static/media/Aarushi.jpg": "/static/media/Aarushi.f3df903c120c86fe7fda.jpg",
     "static/media/Areeb.jpg": "/static/media/Areeb.a9fb1338ad6a62f1b746.jpg",
+    "static/media/Rahul_3.jpg": "/static/media/Rahul_3.75549bfe8507c29c1793.jpg",
     "static/media/Jeeni.jpg": "/static/media/Jeeni.e168e48f8ba396093c06.jpg",
     "static/media/Leo.jpg": "/static/media/Leo.b76f736ac427c89c3b9a.jpg",
     "static/media/Rahul_Sharma.jpg": "/static/media/Rahul_Sharma.c85ceb802bcac1036693.jpg",
@@ -30,10 +30,10 @@
     "static/media/Default_Photo.webp": "/static/media/Default_Photo.b7d63b1ff7350a871695.webp",
     "index.html": "/index.html",
     "main.1ffbc8e8.css.map": "/static/css/main.1ffbc8e8.css.map",
-    "main.f7ab9beb.js.map": "/static/js/main.f7ab9beb.js.map"
+    "main.698b4798.js.map": "/static/js/main.698b4798.js.map"
   },
   "entrypoints": [
     "static/css/main.1ffbc8e8.css",
-    "static/js/main.f7ab9beb.js"
+    "static/js/main.698b4798.js"
   ]
 }
