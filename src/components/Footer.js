@@ -44,7 +44,7 @@ const Footer = () => {
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">Our Story</a></li>
                 <li><a href="#team">Our Team</a></li>
-                <li><a href="#contact" style={{ color: "#2F4F4F"}}>Contact Us</a></li>
+                {/* <li><a href="#contact" style={{ color: "#2F4F4F"}}>Contact Us</a></li> */}
                 {/* {!isRestaurantLoggedIn && (
                   <li>
                     <Link
