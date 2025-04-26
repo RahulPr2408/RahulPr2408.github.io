@@ -113,10 +113,10 @@ const RestaurantLogin = () => {
 
       <section className="contact-section">
         <div className="contact-container">
-          <div className="contact-item">
+          {/* <div className="contact-item">
             <h3>Call Us:</h3>
             <p className="phone">+1-437-428-2577</p>
-          </div>
+          </div> */}
           <div className="contact-item">
             <h3>Hours:</h3>
             <p>Mon-Fri: 9am - 6pm</p>
