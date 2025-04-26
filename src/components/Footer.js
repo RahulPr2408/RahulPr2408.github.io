@@ -45,7 +45,7 @@ const Footer = () => {
                 <li><a href="#about">Our Story</a></li>
                 <li><a href="#team">Our Team</a></li>
                 <li><a href="#contact">Contact Us</a></li>
-                {!isRestaurantLoggedIn && (
+                {/* {!isRestaurantLoggedIn && (
                   <li>
                     <Link
                       to="/restaurant-login"
@@ -54,7 +54,7 @@ const Footer = () => {
                       Restaurant Login
                     </Link>
                   </li>
-                )}
+                )} */}
               </ul>
             </div>
           </div>
