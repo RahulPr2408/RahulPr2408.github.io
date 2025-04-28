@@ -37,7 +37,9 @@
   width: 100%;
   height: 10vw;
   object-fit: contain;
-
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
 }
 
 /* Restaurant Info */
@@ -257,7 +259,9 @@
   width: 100%;
   height: 10vw;
   object-fit: contain;
-
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
 }
 }
 
@@ -295,7 +299,9 @@
   width: 100%;
   height: 10vw;
   object-fit: contain;
-
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
 }
 }
 
@@ -335,7 +341,9 @@
   width: 100%;
   height: 10vw;
   object-fit: contain;
-
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
 }
 }
 
