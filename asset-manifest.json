@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.a07f3ec8.css",
+    "main.css": "/static/css/main.7407d6c6.css",
     "main.js": "/static/js/main.7db12c2c.js",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
@@ -30,11 +30,11 @@
     "static/media/restaurant-default.jpg": "/static/media/restaurant-default.7b60afe83d420fcb5332.jpg",
     "static/media/Default_Photo.webp": "/static/media/Default_Photo.b7d63b1ff7350a871695.webp",
     "index.html": "/index.html",
-    "main.a07f3ec8.css.map": "/static/css/main.a07f3ec8.css.map",
+    "main.7407d6c6.css.map": "/static/css/main.7407d6c6.css.map",
     "main.7db12c2c.js.map": "/static/js/main.7db12c2c.js.map"
   },
   "entrypoints": [
-    "static/css/main.a07f3ec8.css",
+    "static/css/main.7407d6c6.css",
     "static/js/main.7db12c2c.js"
   ]
 }
