@@ -51,6 +51,7 @@
   color: var(--Neutral-01, #FFF);
   transition: background-color 0.3s ease, border 0.3s ease;
   border: 1px solid #FFE4C4;  /* ✅ White Border */
+  text-decoration: none;
 }
  
 /* Optional: Hover Effect */

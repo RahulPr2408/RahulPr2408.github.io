@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './AllTeam.css'; // Import AllTeam.css
 import Areeb from "../assets/Areeb.jpg";
-import Vaishal from "../assets/Vaishal.jpg";
+import Vaishal from "../assets/Vaishal_2.jpg";
 import Aarushi from "../assets/Aarushi.jpg";
 import Yash from "../assets/Yash.jpg";
 import Vaibhav from "../assets/Vaibhav.jpg"
@@ -17,6 +17,7 @@ import TeamPhoto from "../assets/Team_Photo.JPG";
 import Rahul_Sharma from "../assets/Rahul_Sharma.jpg"
 import Jeeni from "../assets/Jeeni.jpg"
 import Default from "../assets/Default_Photo.webp"
+import Parneet from "../assets/Parneet.heic"
 
 const AllTeamMembers = () => {
   const teamMembers = [

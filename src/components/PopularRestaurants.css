@@ -36,7 +36,8 @@
 .restaurant-image {
   width: 100%;
   height: 10vw;
-  object-fit: cover;
+  object-fit: contain;
+
 }
 
 /* Restaurant Info */
@@ -250,6 +251,14 @@
   .btn-coupon {
     padding: 1.2vw 2.5vw;
   }
+
+  /* Restaurant Image */
+.restaurant-image {
+  width: 100%;
+  height: 10vw;
+  object-fit: contain;
+
+}
 }
 
 @media (max-width: 768px) {
@@ -280,6 +289,14 @@
   .btn-coupon {
     padding: 1.5vw 3vw;
   }
+
+  /* Restaurant Image */
+.restaurant-image {
+  width: 100%;
+  height: 10vw;
+  object-fit: contain;
+
+}
 }
 
 @media (max-width: 480px) {
@@ -312,6 +329,14 @@
   .btn-coupon {
     padding: 2vw 3.5vw;
   }
+
+  /* Restaurant Image */
+.restaurant-image {
+  width: 100%;
+  height: 10vw;
+  object-fit: contain;
+
+}
 }
 
 /* Responsive Design */

@@ -69,9 +69,9 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="/#team" onClick={handleNavLinkClick}>Our Team</Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link" to="/team" onClick={handleNavLinkClick}>All Team</Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link className="nav-link" to="/#testimonial" onClick={handleNavLinkClick}>Testimonial</Link>
               </li>
