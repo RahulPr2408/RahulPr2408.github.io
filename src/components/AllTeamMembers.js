@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './AllTeam.css'; // Import AllTeam.css
 import Areeb from "../assets/Areeb.jpg";
-import Vaishal from "../assets/Vaishal_2.jpg";
+import Vaishal from "../assets/Vaishal.jpg";
 import Aarushi from "../assets/Aarushi.jpg";
 import Yash from "../assets/Yash.jpg";
 import Vaibhav from "../assets/Vaibhav.jpg"
