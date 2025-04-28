@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.1ffbc8e8.css",
-    "main.js": "/static/js/main.232dac97.js",
+    "main.css": "/static/css/main.a0770f69.css",
+    "main.js": "/static/js/main.7db12c2c.js",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
     "static/media/Vanessa.jpg": "/static/media/Vanessa.bb400bb1567b3a67c161.jpg",
@@ -12,6 +12,7 @@
     "static/media/Home3.jpeg": "/static/media/Home3.a20c257f06275752251e.jpeg",
     "static/media/Ayush.jpg": "/static/media/Ayush.882e81ff6557e03163be.jpg",
     "static/media/Soumya.jpg": "/static/media/Soumya.00a86bc19b9d14d90636.jpg",
+    "static/media/Parneet.heic": "/static/media/Parneet.9d8a0c3a2a681fbb68ac.heic",
     "static/media/Payal.png": "/static/media/Payal.884c5eb334eeb2382eb3.png",
     "static/media/Ekanshi.jpg": "/static/media/Ekanshi.5f672f0d20887d3c7b3c.jpg",
     "static/media/Vaibhav.jpg": "/static/media/Vaibhav.009f3c1c9fc1d5f823cd.jpg",
@@ -21,7 +22,7 @@
     "static/media/Aarushi.jpg": "/static/media/Aarushi.f3df903c120c86fe7fda.jpg",
     "static/media/Areeb.jpg": "/static/media/Areeb.a9fb1338ad6a62f1b746.jpg",
     "static/media/Rahul_3.jpg": "/static/media/Rahul_3.75549bfe8507c29c1793.jpg",
-    "static/media/Jeeni.jpg": "/static/media/Jeeni.de6b474e17ace4d1f484.jpg",
+    "static/media/Jeeni.jpg": "/static/media/Jeeni.05a39964abefc9ee92ca.jpg",
     "static/media/Leo.jpg": "/static/media/Leo.b76f736ac427c89c3b9a.jpg",
     "static/media/Rahul_Sharma.jpg": "/static/media/Rahul_Sharma.c85ceb802bcac1036693.jpg",
     "static/media/second-plate-logo-title.png": "/static/media/second-plate-logo-title.a7abbc318b6ac85c87f7.png",
@@ -29,11 +30,11 @@
     "static/media/restaurant-default.jpg": "/static/media/restaurant-default.7b60afe83d420fcb5332.jpg",
     "static/media/Default_Photo.webp": "/static/media/Default_Photo.b7d63b1ff7350a871695.webp",
     "index.html": "/index.html",
-    "main.1ffbc8e8.css.map": "/static/css/main.1ffbc8e8.css.map",
-    "main.232dac97.js.map": "/static/js/main.232dac97.js.map"
+    "main.a0770f69.css.map": "/static/css/main.a0770f69.css.map",
+    "main.7db12c2c.js.map": "/static/js/main.7db12c2c.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ffbc8e8.css",
-    "static/js/main.232dac97.js"
+    "static/css/main.a0770f69.css",
+    "static/js/main.7db12c2c.js"
   ]
 }
