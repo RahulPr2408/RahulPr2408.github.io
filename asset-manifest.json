@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7407d6c6.css",
-    "main.js": "/static/js/main.9e16e3a7.js",
+    "main.js": "/static/js/main.6b3df593.js",
     "static/media/AboutUs-Background.jpeg": "/static/media/AboutUs-Background.296b33e40ef7c50cbbbe.jpeg",
     "static/media/Muskan.jpg": "/static/media/Muskan.24ed7eb893531242ce23.jpg",
     "static/media/Vanessa.jpg": "/static/media/Vanessa.bb400bb1567b3a67c161.jpg",
@@ -17,6 +17,7 @@
     "static/media/Vaibhav.jpg": "/static/media/Vaibhav.009f3c1c9fc1d5f823cd.jpg",
     "static/media/Nilima.png": "/static/media/Nilima.604647df201e9f94d1b8.png",
     "static/media/Vaishal.jpg": "/static/media/Vaishal.9ba8088ae6a82a7297f7.jpg",
+    "static/media/Yash_Shah.jpg": "/static/media/Yash_Shah.0275898f190a369b2d47.jpg",
     "static/media/coupon_code.jpg": "/static/media/coupon_code.eeb2065343a2d85358d2.jpg",
     "static/media/Aarushi.jpg": "/static/media/Aarushi.f3df903c120c86fe7fda.jpg",
     "static/media/Areeb.jpg": "/static/media/Areeb.a9fb1338ad6a62f1b746.jpg",
@@ -31,10 +32,10 @@
     "static/media/Default_Photo.webp": "/static/media/Default_Photo.b7d63b1ff7350a871695.webp",
     "index.html": "/index.html",
     "main.7407d6c6.css.map": "/static/css/main.7407d6c6.css.map",
-    "main.9e16e3a7.js.map": "/static/js/main.9e16e3a7.js.map"
+    "main.6b3df593.js.map": "/static/js/main.6b3df593.js.map"
   },
   "entrypoints": [
     "static/css/main.7407d6c6.css",
-    "static/js/main.9e16e3a7.js"
+    "static/js/main.6b3df593.js"
   ]
 }
