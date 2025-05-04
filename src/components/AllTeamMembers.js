@@ -17,7 +17,7 @@ import TeamPhoto from "../assets/Team_Photo.JPG";
 import Rahul_Sharma from "../assets/Rahul_Sharma.jpg"
 import Jeeni from "../assets/Jeeni.jpg"
 import Default from "../assets/Default_Photo.webp"
-import Parneet from "../assets/Parneet.heic"
+import Parneet from "../assets/Parneet.JPG"
 
 const AllTeamMembers = () => {
   const teamMembers = [
@@ -30,13 +30,13 @@ const AllTeamMembers = () => {
     { id: 6, name: 'Rahul Prajapati', position: 'Technical Head', email: 'prajapati.rah@northeastern.edu', image: Rahul },
     { id: 7, name: 'Soumya Singh', position: 'UI/UX Designer', email: 'singh.soumy@northeastern.edu', image: Soumya },
     { id: 8, name: 'Muskan Purkar', position: 'Outreach Partner', email: 'purkar.m@northeastern.edu', image: Muskan },
-    { id: 9, name: 'Ayush', position: 'Social Media Manager', email: 'sharma.aarush@northeastern.edu', image: Ayush },
-    { id: 10, name: 'Ekanshi Sharma', position: 'Social Media Manager', email: 'sharma.aarush@northeastern.edu', image: Ekanshi },
-    { id: 11, name: 'Rishil', position: 'Social Media Manager', email: 'sharma.aarush@northeastern.edu', image: Rishil },  
+    { id: 9, name: 'Ayush', position: 'Social Media Manager', email: 'patel.ayushh@northeastern.edu', image: Ayush },
+    { id: 10, name: 'Ekanshi Sharma', position: 'Social Media Team', email: 'sharma.ek@northeastern.edu', image: Ekanshi },
+    { id: 11, name: 'Rishil', position: 'Social Media Team', email: 'patel.rishilv@northeastern.edu', image: Rishil },  
     { id: 12, name: 'Rahul Sharma', position: 'Web Developer', email: 'sharma.rahul3@northeastern.edu', image: Rahul_Sharma },   
     { id: 13, name: 'Jialei Xu', position: 'Team Member', email: 'xu.jiale@northeastern.edu', image: Jeeni },   
     { id: 14, name: 'Yash Shah', position: 'Team Member', email: 'shah.yashma@northeastern.edu', image: Default },   
-    { id: 15, name: 'Parneet Kaur', position: 'Team Member', email: 'lnu.parne@northeastern.edu', image: Default },   
+    { id: 15, name: 'Parneet Kaur', position: 'Team Member', email: 'lnu.parne@northeastern.edu', image: Parneet },   
     
   ];
 
