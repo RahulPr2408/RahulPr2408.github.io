@@ -34,11 +34,11 @@ const Team = () => {
               </div>
             ))}
           </div>
-          <div className="text-center mt-4">
+          {/* <div className="text-center mt-4">
             <Link to="/team" className="see-all-btn">
               See All <span>&rarr;</span>
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
