@@ -8,7 +8,7 @@ import Aarushi from "../assets/Aarushi.jpg";
 const Team = () => {
   const teamMembers = [
     { id: 1, name: 'Areeb Salsabil', position: 'President', email: 'salsabil.a@northeastern.edu', image: Areeb },
-    { id: 2, name: 'Vaishal Jariwala', position: 'Vice President', email: 'jariwala.va@northeastern.edu', image: Vaishal },
+    { id: 2, name: 'Vaishal Jariwala', position: 'Vice President & Business Development Rep', email: 'jariwala.va@northeastern.edu', image: Vaishal },
     { id: 3, name: 'Aarushi Sharma', position: 'Vice President', email: 'sharma.aarush@northeastern.edu', image: Aarushi },
   ];
 

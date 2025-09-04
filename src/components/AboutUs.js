@@ -14,10 +14,10 @@ const AboutUs = () => {
             <div className="about-us-content">
               <h2 className="about-us-title">Our Story</h2>
               <p className="about-us-text">
-                We’re on a mission to fight food waste and hunger by rescuing surplus, perfectly edible food from restaurants and grocery stores. This food is transformed into nutritious, affordable meals for low- and middle-income families, students, and busy professionals.
+                We’re on a mission to fight food waste and hunger by rescuing surplus, perfectly edible food from restaurants and grocery stores. In just 60 days, <strong>126 kgs</strong> of food waste were transformed into <strong>419 nutritious meals</strong> — saving <strong>$2,500</strong> for our partner restaurants.
               </p>
               <p className="about-us-text">
-                A commitment to building a <strong>zero-waste future</strong> while supporting our community. By merging <strong>food waste reduction</strong> with <strong>social impact</strong>, we tackle food insecurity and promote environmental sustainability. Together, we can create a stronger, more sustainable world where no food goes to waste, and no one goes hungry.
+                By merging food waste reduction with social impact, we tackle food insecurity, support our community, and promote sustainability. Together, we can build a future where no food goes to waste and no one goes hungry.
               </p>
             </div>
           </div>
